@@ -1,0 +1,223 @@
+/* Importación de fuentes: Montserrat para títulos y Inter para cuerpo */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap");
+
+/* Documento para la configuración de todos los elementos predeterminados */
+
+:root {
+  --gris-principal: #313131;
+  --color-blanco: #f0f2f5;
+  --detalles-azul: #4169e1;
+  --hover-azul: #2956dd;
+  --sombra: 0 0 7px 0 rgba(0, 0, 0);
+
+  /* Tipografía */
+  --font-principal: "Montserrat", sans-serif;
+  --font-secundaria: "Inter", sans-serif;
+  --font-peso-bold: 600;
+
+  --size-titulo: 1.8rem;
+  --size-cuerpo: 1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-secundaria);
+}
+
+body {
+  background-color: var(--color-blanco);
+  overflow-x: hidden;
+}
+
+header {
+  width: 100%;
+  height: 70px;
+  background-color: var(--gris-principal);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.logo {
+  width: 80px;
+  height: auto;
+}
+
+header > h1 {
+  color: var(--color-blanco);
+  font-family: var(--font-principal);
+  font-size: var(--size-titulo);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.menu {
+  display: none;
+  color: var(--color-blanco);
+  margin: 1.5rem;
+  font-size: 1.5rem;
+}
+
+main {
+  width: 100%;
+  min-height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+form > h2 {
+  font-family: var(--font-principal);
+  font-size: var(--size-titulo);
+  color: var(--detalles-azul);
+  margin-bottom: 1rem;
+}
+
+form > p {
+  color: var(--color-blanco);
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+form > .lock {
+  color: var(--detalles-azul);
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.reset-titulo {
+  color: var(--color-blanco);
+  margin-bottom: 1rem;
+  font-family: var(--font-principal);
+  text-align: center;
+}
+
+.form-login {
+  width: 30vw;
+  height: auto;
+  padding: 2rem;
+  display: flex;
+  background-color: var(--gris-principal);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px 16px 0 0;
+  box-shadow: var(--sombra);
+}
+
+.out-login {
+  padding: 1.5rem 2rem;
+  width: 30vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--gris-principal);
+  border-radius: 0 0 16px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--sombra);
+}
+
+.out-login > a {
+  color: var(--color-blanco);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: var(--font-peso-bold);
+  transition: color 0.3s;
+}
+
+.out-login > a:hover {
+  color: var(--detalles-azul);
+}
+
+.input-login {
+  width: 100%;
+  max-width: 100%;
+  height: 46px;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin: 0.7rem 0;
+  outline: none;
+  border: none;
+  font-family: var(--font-secundaria);
+  font-size: 0.95rem;
+}
+
+.input-login:hover {
+  box-shadow: var(--sombra);
+}
+
+.btn-ingresar {
+  width: 60%;
+  height: 46px;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--detalles-azul);
+  color: var(--color-blanco);
+  font-family: var(--font-principal);
+  font-weight: var(--font-peso-bold);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.btn-ingresar:hover {
+  background-color: var(--hover-azul);
+  transform: translateY(-1px);
+  box-shadow: var(--sombra);
+}
+
+footer {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gris-principal);
+  color: var(--color-blanco);
+  font-size: 0.9rem;
+}
+
+small {
+  font-family: var(--font-secundaria);
+  font-weight: var(--font-peso-bold);
+  opacity: 0.8;
+}
+
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.7rem 0;
+}
+
+.password-field .input-login {
+  padding-right: 3rem;
+  margin: 0;
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  cursor: pointer;
+  color: var(--detalles-azul);
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  pointer-events: all;
+  user-select: none;
+}
+
+.toggle-password:hover {
+  color: var(--hover-azul);
+  transform: scale(1.1);
+}

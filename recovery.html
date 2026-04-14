@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/default.css" type="text/css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>Recuperar Contraseña | SportDeal</title>
+  </head>
+  <body>
+    <header>
+      <img class="logo" src="img/logo.png" alt="Logo" />
+      <h1>MoveLease</h1>
+    </header>
+
+    <main>
+      <form class="form-login" action="" method="POST">
+        <i class="lock fa-solid fa-lock"></i>
+        <h2 class="reset-titulo">¿Olvidaste tu contraseña?</h2>
+        <p>
+          Introduce tu correo y te enviaremos instrucciones para restablecerla.
+        </p>
+
+        <input
+          type="email"
+          name="email-reset"
+          class="input-login"
+          placeholder="Correo Electrónico"
+          title="Introduce su correo electrónico"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$"
+          minlength="8"
+          maxlength="100"
+          autocomplete="email"
+          required
+        />
+
+        <input type="submit" class="btn-ingresar" value="Enviar" />
+      </form>
+
+      <div class="out-login">
+        <a href="login.html">Volver al Login</a>
+      </div>
+    </main>
+
+    <footer>
+      <small>Cristian Casanova &copy; 2026 FET</small>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+/* =====================================================
+   IMPLEMENTOS.CSS - SportDeal FET
+   Autor: Cristian Casanova - 2026
+   Estilos propios de la página de Implementos.
+   Estilos base y layout compartido en: base.css
+   Responsive en: implementosMediaQuery.css
+   ===================================================== */
+
+/* Tarjetas resumen de implementos */
+.impl-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.tarjeta-impl {
+  background-color: var(--blanco-puro);
+  border-radius: 12px;
+  padding: 1.1rem 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--sombra-card);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarjeta-impl:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.ti-icono {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.ti-icono.azul    { background-color: rgba(65,105,225,0.12); color: var(--detalles-azul); }
+.ti-icono.verde   { background-color: rgba(34,197,94,0.12);  color: #16a34a; }
+.ti-icono.naranja { background-color: rgba(249,115,22,0.12); color: #ea580c; }
+.ti-icono.rojo    { background-color: rgba(239,68,68,0.12);  color: #dc2626; }
+
+.ti-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.ti-valor {
+  font-family: var(--font-principal);
+  font-size: 1.7rem;
+  color: var(--gris-principal);
+  line-height: 1;
+}
+
+.ti-label {
+  font-size: 0.75rem;
+  color: var(--texto-gris);
+  font-weight: 500;
+}

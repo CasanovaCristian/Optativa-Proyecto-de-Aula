@@ -1,0 +1,51 @@
+/* =====================================================
+   USUARIOS.CSS - SportDeal FET
+   Autor: Cristian Casanova - 2026
+   Estilos propios de la página de Usuarios.
+   Base en: base.css | Responsive en: usuariosMediaQuery.css
+   ===================================================== */
+
+.user-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+/* Avatar dentro de la tabla de usuarios */
+.avatar-tabla {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.avatar-tabla.azul    { background-color: var(--detalles-azul); }
+.avatar-tabla.verde   { background-color: #22c55e; }
+.avatar-tabla.naranja { background-color: #f97316; }
+.avatar-tabla.rojo    { background-color: #ef4444; }
+
+.usuario-celda {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.u-nombre {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gris-principal);
+  line-height: 1.2;
+}
+
+.u-sub {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--texto-gris);
+}

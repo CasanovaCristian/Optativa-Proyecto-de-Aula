@@ -1,0 +1,514 @@
+/* =====================================================
+   BASE.CSS - SportDeal FET
+   Autor: Cristian Casanova - 2026
+   Estilos compartidos: sidebar, topbar, layout general.
+   Se importa en TODAS las páginas del sistema.
+   ===================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap");
+
+/* --- Variables globales --- */
+:root {
+  --gris-principal: #313131;
+  --color-blanco:   #f0f2f5;
+  --detalles-azul:  #4169e1;
+  --hover-azul:     #2956dd;
+  --fondo-dash:     #e8eaed;
+  --blanco-puro:    #ffffff;
+  --texto-gris:     #6b7280;
+  --borde:          #e5e7eb;
+  --sombra-card:    0 2px 8px rgba(0, 0, 0, 0.07);
+
+  --font-principal:  "Montserrat", sans-serif;
+  --font-secundaria: "Inter", sans-serif;
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-secundaria);
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--fondo-dash);
+}
+
+/* =====================================================
+   SIDEBAR (compartido en todas las páginas)
+   ===================================================== */
+.sidebar {
+  width: 230px;
+  min-width: 230px;
+  height: 100vh;
+  background-color: var(--gris-principal);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  width: 36px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.sidebar-titulo {
+  color: var(--color-blanco);
+  font-family: var(--font-principal);
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.sidebar-cerrar {
+  display: none;
+  background: none;
+  border: none;
+  color: rgba(240, 242, 245, 0.6);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  transition: color 0.2s;
+}
+
+.sidebar-cerrar:hover { color: var(--color-blanco); }
+
+.sidebar-nav {
+  flex: 1;
+  padding: 0.8rem 0;
+  overflow-y: auto;
+}
+
+.sidebar-nav ul { list-style: none; }
+
+.nav-item { margin: 0.1rem 0; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.8rem 1.2rem;
+  color: rgba(240, 242, 245, 0.6);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-link i {
+  font-size: 0.95rem;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: var(--color-blanco);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--detalles-azul);
+}
+
+.nav-item.activo .nav-link {
+  color: var(--color-blanco);
+  background-color: rgba(65, 105, 225, 0.15);
+  border-left-color: var(--detalles-azul);
+}
+
+.sidebar-footer {
+  padding: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.btn-salir {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  color: rgba(240, 242, 245, 0.6);
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.btn-salir:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+}
+
+.sidebar-overlay.visible { display: block; }
+
+/* =====================================================
+   CONTENIDO PRINCIPAL (compartido)
+   ===================================================== */
+.contenido-principal {
+  margin-left: 230px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* =====================================================
+   TOPBAR (compartido)
+   ===================================================== */
+.topbar {
+  width: 100%;
+  height: 60px;
+  min-height: 60px;
+  background-color: var(--blanco-puro);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid var(--borde);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+.btn-menu-hamburguesa {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--gris-principal);
+  padding: 0.4rem;
+  line-height: 1;
+}
+
+.topbar-titulo h2 {
+  font-family: var(--font-principal);
+  font-size: 1.1rem;
+  color: var(--gris-principal);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.topbar-usuario {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.topbar-nombre {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--gris-principal);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  background-color: var(--detalles-azul);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   PÁGINA PRINCIPAL (área scrolleable)
+   ===================================================== */
+.page-main {
+  flex: 1;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* =====================================================
+   CARD GENÉRICA (compartida)
+   ===================================================== */
+.card {
+  background-color: var(--blanco-puro);
+  border-radius: 12px;
+  padding: 1.3rem;
+  box-shadow: var(--sombra-card);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.card-header h3 {
+  font-family: var(--font-principal);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  color: var(--gris-principal);
+}
+
+/* =====================================================
+   TABLA GENÉRICA (compartida)
+   ===================================================== */
+.tabla-wrapper {
+  overflow-x: auto;
+  margin: 0 -1.3rem;
+  padding: 0 1.3rem;
+}
+
+.tabla-datos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  min-width: 580px;
+}
+
+.tabla-datos thead tr {
+  background-color: #f8f9fb;
+  border-bottom: 2px solid var(--borde);
+}
+
+.tabla-datos th {
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--texto-gris);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.tabla-datos td {
+  padding: 0.8rem 0.9rem;
+  color: var(--gris-principal);
+  border-bottom: 1px solid #f0f2f5;
+  vertical-align: middle;
+}
+
+.tabla-datos tbody tr:hover { background-color: #f8f9fb; }
+.tabla-datos tbody tr:last-child td { border-bottom: none; }
+
+/* =====================================================
+   BADGES DE ESTADO (compartidos)
+   ===================================================== */
+.estado {
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.73rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.estado.disponible    { background-color: rgba(34,197,94,0.1);  color: #16a34a; }
+.estado.prestado      { background-color: rgba(249,115,22,0.1); color: #ea580c; }
+.estado.mantenimiento { background-color: rgba(239,68,68,0.1);  color: #dc2626; }
+.estado.activo-badge  { background-color: rgba(65,105,225,0.1); color: var(--detalles-azul); }
+.estado.devuelto      { background-color: rgba(34,197,94,0.1);  color: #16a34a; }
+.estado.vencido       { background-color: rgba(239,68,68,0.1);  color: #dc2626; }
+.estado.admin         { background-color: rgba(65,105,225,0.1); color: var(--detalles-azul); }
+.estado.empleado      { background-color: rgba(249,115,22,0.1); color: #ea580c; }
+
+/* =====================================================
+   BOTONES (compartidos)
+   ===================================================== */
+.btn-accion {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  background-color: var(--detalles-azul);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  font-family: var(--font-secundaria);
+}
+
+.btn-accion:hover {
+  background-color: var(--hover-azul);
+  transform: translateY(-1px);
+}
+
+.acciones-celda { display: flex; gap: 0.4rem; }
+
+.btn-tabla {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.btn-tabla.editar         { background-color: rgba(65,105,225,0.1); color: var(--detalles-azul); }
+.btn-tabla.editar:hover   { background-color: var(--detalles-azul); color: white; }
+.btn-tabla.eliminar       { background-color: rgba(239,68,68,0.1);  color: #ef4444; }
+.btn-tabla.eliminar:hover { background-color: #ef4444; color: white; }
+.btn-tabla.ver            { background-color: rgba(34,197,94,0.1);  color: #16a34a; }
+.btn-tabla.ver:hover      { background-color: #16a34a; color: white; }
+
+/* =====================================================
+   PAGINACIÓN (compartida)
+   ===================================================== */
+.tabla-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f2f5;
+}
+
+.tabla-info { font-size: 0.78rem; color: var(--texto-gris); }
+
+.paginacion { display: flex; gap: 0.3rem; }
+
+.btn-pag {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--borde);
+  background-color: white;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--texto-gris);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-secundaria);
+}
+
+.btn-pag:hover  { border-color: var(--detalles-azul); color: var(--detalles-azul); }
+.btn-pag.activo { background-color: var(--detalles-azul); border-color: var(--detalles-azul); color: white; }
+
+/* =====================================================
+   ICONO EN TABLA (compartido)
+   ===================================================== */
+.icono-tabla {
+  margin-right: 0.45rem;
+  color: var(--detalles-azul);
+  font-size: 0.88rem;
+}
+
+/* =====================================================
+   FOOTER (compartido)
+   ===================================================== */
+.dash-footer {
+  padding: 0.9rem 1.5rem;
+  text-align: center;
+  border-top: 1px solid var(--borde);
+  background-color: white;
+  flex-shrink: 0;
+}
+
+.dash-footer small {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  font-family: var(--font-secundaria);
+  opacity: 0.8;
+}
+
+/* =====================================================
+   BUSCADOR / FILTROS (compartido)
+   ===================================================== */
+.barra-herramientas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.buscador {
+  position: relative;
+  flex: 1;
+  max-width: 320px;
+}
+
+.buscador i {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--texto-gris);
+  font-size: 0.85rem;
+}
+
+.buscador input {
+  width: 100%;
+  height: 38px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 0 1rem 0 2.4rem;
+  font-size: 0.85rem;
+  color: var(--gris-principal);
+  outline: none;
+  transition: border-color 0.2s;
+  background-color: #f8f9fb;
+}
+
+.buscador input:focus {
+  border-color: var(--detalles-azul);
+  background-color: white;
+}
+
+.filtros {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.select-filtro {
+  height: 38px;
+  padding: 0 0.85rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  font-size: 0.83rem;
+  color: var(--gris-principal);
+  background-color: #f8f9fb;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.select-filtro:focus { border-color: var(--detalles-azul); }

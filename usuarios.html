@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Cristian Casanova - 2026" />
+    <link rel="icon" href="img/logo.png" type="image/png" sizes="any" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/usuarios.css" />
+    <link rel="stylesheet" href="css/usuariosMediaQuery.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>Usuarios | SportDeal FET</title>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img class="sidebar-logo" src="img/logo.png" alt="Logo" />
+        <span class="sidebar-titulo">SportDeal</span>
+        <button class="sidebar-cerrar" id="btnCerrarSidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link"
+              ><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="implementos.html" class="nav-link"
+              ><i class="fa-solid fa-basketball"></i><span>Implementos</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="prestamos.html" class="nav-link"
+              ><i class="fa-solid fa-clipboard-list"></i
+              ><span>Préstamos</span></a
+            >
+          </li>
+          <li class="nav-item activo">
+            <a href="usuarios.html" class="nav-link"
+              ><i class="fa-solid fa-users"></i><span>Usuarios</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="reportes.html" class="nav-link"
+              ><i class="fa-solid fa-file-chart-column"></i
+              ><span>Reportes</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-salir">
+          <i class="fa-solid fa-right-from-bracket"></i
+          ><span>Cerrar Sesión</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="overlay"></div>
+
+    <div class="contenido-principal">
+      <div class="topbar">
+        <button class="btn-menu-hamburguesa" id="btnAbrirSidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="topbar-titulo"><h2>Usuarios</h2></div>
+        <div class="topbar-usuario">
+          <span class="topbar-nombre">Admin</span>
+          <div class="avatar"><i class="fa-solid fa-user"></i></div>
+        </div>
+      </div>
+
+      <div class="page-main">
+        <!-- TARJETAS -->
+        <div class="user-tarjetas">
+          <div class="tarjeta-impl">
+            <div class="ti-icono azul"><i class="fa-solid fa-users"></i></div>
+            <div class="ti-info">
+              <span class="ti-valor">24</span>
+              <span class="ti-label">Total Usuarios</span>
+            </div>
+          </div>
+          <div class="tarjeta-impl">
+            <div class="ti-icono verde">
+              <i class="fa-solid fa-user-check"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">21</span>
+              <span class="ti-label">Activos</span>
+            </div>
+          </div>
+          <div class="tarjeta-impl">
+            <div class="ti-icono naranja">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">3</span>
+              <span class="ti-label">Administradores</span>
+            </div>
+          </div>
+          <div class="tarjeta-impl">
+            <div class="ti-icono rojo">
+              <i class="fa-solid fa-user-xmark"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">3</span>
+              <span class="ti-label">Inactivos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLA -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Lista de Usuarios</h3>
+            <button class="btn-accion">
+              <i class="fa-solid fa-user-plus"></i> Agregar Usuario
+            </button>
+          </div>
+
+          <div class="barra-herramientas" style="margin-bottom: 1rem">
+            <div class="buscador">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" placeholder="Buscar por nombre o correo..." />
+            </div>
+            <div class="filtros">
+              <select class="select-filtro">
+                <option value="">Todos los roles</option>
+                <option>Administrador</option>
+                <option>Empleado</option>
+              </select>
+              <select class="select-filtro">
+                <option value="">Todos los estados</option>
+                <option>Activo</option>
+                <option>Inactivo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tabla-wrapper">
+            <table class="tabla-datos">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Usuario</th>
+                  <th>Correo Electrónico</th>
+                  <th>Rol</th>
+                  <th>Préstamos</th>
+                  <th>Registro</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>001</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="avatar-tabla azul">CA</div>
+                      <div>
+                        <span class="u-nombre">Cristian Casanova</span>
+                        <span class="u-sub">Administrador del sistema</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>cristian@fet.edu.co</td>
+                  <td><span class="estado admin">Admin</span></td>
+                  <td>—</td>
+                  <td>Ene 2026</td>
+                  <td><span class="estado disponible">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>002</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="avatar-tabla verde">LC</div>
+                      <div>
+                        <span class="u-nombre">Luis Castillo</span>
+                        <span class="u-sub">Encargado de deportes</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>luis.castillo@fet.edu.co</td>
+                  <td><span class="estado empleado">Empleado</span></td>
+                  <td>7</td>
+                  <td>Feb 2026</td>
+                  <td><span class="estado disponible">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>003</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="avatar-tabla naranja">AM</div>
+                      <div>
+                        <span class="u-nombre">Ana Martínez</span>
+                        <span class="u-sub">Encargada de equipos</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>ana.martinez@fet.edu.co</td>
+                  <td><span class="estado empleado">Empleado</span></td>
+                  <td>5</td>
+                  <td>Feb 2026</td>
+                  <td><span class="estado disponible">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>004</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="avatar-tabla azul">JR</div>
+                      <div>
+                        <span class="u-nombre">Juan Rodríguez</span>
+                        <span class="u-sub">Monitor deportivo</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>juan.rodriguez@fet.edu.co</td>
+                  <td><span class="estado empleado">Empleado</span></td>
+                  <td>12</td>
+                  <td>Mar 2026</td>
+                  <td><span class="estado disponible">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>005</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="avatar-tabla verde">SP</div>
+                      <div>
+                        <span class="u-nombre">Sara Peña</span>
+                        <span class="u-sub">Encargada de piscina</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>sara.pena@fet.edu.co</td>
+                  <td><span class="estado empleado">Empleado</span></td>
+                  <td>4</td>
+                  <td>Mar 2026</td>
+                  <td><span class="estado disponible">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>006</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="avatar-tabla naranja">DG</div>
+                      <div>
+                        <span class="u-nombre">Diego García</span>
+                        <span class="u-sub">Monitor de fútbol</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>diego.garcia@fet.edu.co</td>
+                  <td><span class="estado empleado">Empleado</span></td>
+                  <td>9</td>
+                  <td>Abr 2026</td>
+                  <td><span class="estado disponible">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>007</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="avatar-tabla rojo">FT</div>
+                      <div>
+                        <span class="u-nombre">Felipe Torres</span>
+                        <span class="u-sub">—</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>felipe.torres@fet.edu.co</td>
+                  <td><span class="estado empleado">Empleado</span></td>
+                  <td>3</td>
+                  <td>Mar 2026</td>
+                  <td><span class="estado mantenimiento">Inactivo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tabla-footer">
+            <span class="tabla-info">Mostrando 7 de 24 usuarios</span>
+            <div class="paginacion">
+              <button class="btn-pag activo">1</button>
+              <button class="btn-pag">2</button>
+              <button class="btn-pag">3</button>
+              <button class="btn-pag">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="dash-footer">
+        <small>Cristian Casanova &copy; 2026 - FET</small>
+      </footer>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

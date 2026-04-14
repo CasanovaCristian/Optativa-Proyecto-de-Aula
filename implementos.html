@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Cristian Casanova - 2026" />
+    <link rel="icon" href="img/logo.png" type="image/png" sizes="any" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/implementos.css" />
+    <link rel="stylesheet" href="css/implementosMediaQuery.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>Implementos | SportDeal FET</title>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img class="sidebar-logo" src="img/logo.png" alt="Logo" />
+        <span class="sidebar-titulo">SportDeal</span>
+        <button class="sidebar-cerrar" id="btnCerrarSidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link"
+              ><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a
+            >
+          </li>
+          <li class="nav-item activo">
+            <a href="implementos.html" class="nav-link"
+              ><i class="fa-solid fa-basketball"></i><span>Implementos</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="prestamos.html" class="nav-link"
+              ><i class="fa-solid fa-clipboard-list"></i
+              ><span>Préstamos</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="usuarios.html" class="nav-link"
+              ><i class="fa-solid fa-users"></i><span>Usuarios</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="reportes.html" class="nav-link"
+              ><i class="fa-solid fa-file-chart-column"></i
+              ><span>Reportes</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-salir">
+          <i class="fa-solid fa-right-from-bracket"></i
+          ><span>Cerrar Sesión</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="overlay"></div>
+
+    <!-- CONTENIDO -->
+    <div class="contenido-principal">
+      <div class="topbar">
+        <button class="btn-menu-hamburguesa" id="btnAbrirSidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="topbar-titulo"><h2>Implementos</h2></div>
+        <div class="topbar-usuario">
+          <span class="topbar-nombre">Admin</span>
+          <div class="avatar"><i class="fa-solid fa-user"></i></div>
+        </div>
+      </div>
+
+      <div class="page-main">
+        <!-- TARJETAS RESUMEN -->
+        <div class="impl-tarjetas">
+          <div class="tarjeta-impl">
+            <div class="ti-icono azul">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">48</span>
+              <span class="ti-label">Total Implementos</span>
+            </div>
+          </div>
+          <div class="tarjeta-impl">
+            <div class="ti-icono verde">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">35</span>
+              <span class="ti-label">Disponibles</span>
+            </div>
+          </div>
+          <div class="tarjeta-impl">
+            <div class="ti-icono naranja">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">11</span>
+              <span class="ti-label">En Préstamo</span>
+            </div>
+          </div>
+          <div class="tarjeta-impl">
+            <div class="ti-icono rojo">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">2</span>
+              <span class="ti-label">En Mantenimiento</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLA PRINCIPAL -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Inventario Completo</h3>
+            <button class="btn-accion">
+              <i class="fa-solid fa-plus"></i> Agregar Implemento
+            </button>
+          </div>
+
+          <!-- Barra de búsqueda y filtros -->
+          <div class="barra-herramientas" style="margin-bottom: 1rem">
+            <div class="buscador">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" placeholder="Buscar implemento..." />
+            </div>
+            <div class="filtros">
+              <select class="select-filtro">
+                <option value="">Todas las categorías</option>
+                <option>Fútbol</option>
+                <option>Baloncesto</option>
+                <option>Voleibol</option>
+                <option>Tenis</option>
+                <option>Atletismo</option>
+                <option>Gimnasio</option>
+                <option>Natación</option>
+              </select>
+              <select class="select-filtro">
+                <option value="">Todos los estados</option>
+                <option>Disponible</option>
+                <option>En Préstamo</option>
+                <option>Mantenimiento</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tabla-wrapper">
+            <table class="tabla-datos">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Implemento</th>
+                  <th>Categoría</th>
+                  <th>Cant. Total</th>
+                  <th>Disponibles</th>
+                  <th>En Préstamo</th>
+                  <th>Condición</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>001</td>
+                  <td>
+                    <i class="fa-solid fa-futbol icono-tabla"></i>Balón de
+                    fútbol
+                  </td>
+                  <td>Fútbol</td>
+                  <td>8</td>
+                  <td>5</td>
+                  <td>3</td>
+                  <td>Buena</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar" title="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar" title="Eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>002</td>
+                  <td>
+                    <i class="fa-solid fa-basketball icono-tabla"></i>Balón de
+                    baloncesto
+                  </td>
+                  <td>Baloncesto</td>
+                  <td>6</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>Buena</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>003</td>
+                  <td>
+                    <i class="fa-solid fa-volleyball icono-tabla"></i>Balón de
+                    voleibol
+                  </td>
+                  <td>Voleibol</td>
+                  <td>4</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>Excelente</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>004</td>
+                  <td>
+                    <i class="fa-solid fa-baseball icono-tabla"></i>Raqueta de
+                    tenis
+                  </td>
+                  <td>Tenis</td>
+                  <td>5</td>
+                  <td>3</td>
+                  <td>2</td>
+                  <td>Buena</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>005</td>
+                  <td>
+                    <i class="fa-solid fa-person-running icono-tabla"></i
+                    >Cronómetro digital
+                  </td>
+                  <td>Atletismo</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>Buena</td>
+                  <td><span class="estado prestado">En Préstamo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>006</td>
+                  <td>
+                    <i class="fa-solid fa-dumbbell icono-tabla"></i>Mancuernas
+                    5kg (par)
+                  </td>
+                  <td>Gimnasio</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>Regular</td>
+                  <td>
+                    <span class="estado mantenimiento">Mantenimiento</span>
+                  </td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>007</td>
+                  <td>
+                    <i
+                      class="fa-solid fa-table-tennis-paddle-ball icono-tabla"
+                    ></i
+                    >Red de voleibol
+                  </td>
+                  <td>Voleibol</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>Buena</td>
+                  <td><span class="estado prestado">En Préstamo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>008</td>
+                  <td>
+                    <i class="fa-solid fa-person-swimming icono-tabla"></i>Gafas
+                    de natación
+                  </td>
+                  <td>Natación</td>
+                  <td>10</td>
+                  <td>10</td>
+                  <td>0</td>
+                  <td>Excelente</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>009</td>
+                  <td>
+                    <i class="fa-solid fa-shield icono-tabla"></i>Casco de
+                    ciclismo
+                  </td>
+                  <td>Ciclismo</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>Excelente</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>010</td>
+                  <td>
+                    <i class="fa-solid fa-vest icono-tabla"></i>Peto de piscina
+                  </td>
+                  <td>Natación</td>
+                  <td>6</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>Buena</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tabla-footer">
+            <span class="tabla-info">Mostrando 10 de 48 implementos</span>
+            <div class="paginacion">
+              <button class="btn-pag activo">1</button>
+              <button class="btn-pag">2</button>
+              <button class="btn-pag">3</button>
+              <button class="btn-pag">4</button>
+              <button class="btn-pag">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- fin page-main -->
+
+      <footer class="dash-footer">
+        <small>Cristian Casanova &copy; 2026 - FET</small>
+      </footer>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

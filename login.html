@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, 
+    initial-scale=1.0 maximum-scalable=1.0, minimum-scalable=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Sistema de tickes para inventario de implementos deportivos."
+    />
+    <meta
+      name="keywords"
+      content="sistema, tickes, inventario, implementos deportivos, sistema de tickes"
+    />
+    <meta name="author" content="Cristian Casanova - 2026" />
+    <link rel="icon" href="img/logo.png" type="image/png" sizes="any" />
+    <link rel="stylesheet" href="css/default.css" type="text/css" />
+    <link rel="stylesheet" href="css/mediaquerys.css" type="text/css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>Tickes | FET</title>
+  </head>
+  <body>
+    <!------------------Comienzo de HEADER------------------>
+    <header>
+      <img class="logo" src="img/logo.png" alt="Logo" />
+      <h1>MoveLease</h1>
+      <i class="menu fa-solid fa-bars"></i>
+    </header>
+    <!------------------Fin de header------------------>
+
+    <!------------------Comienzo del MAIN------------------>
+    <main>
+      <form class="form-login" action="dashboard.html" method="">
+        <input
+          type="email"
+          class="input-login"
+          name="email"
+          id="email"
+          placeholder="Correo Electrónico"
+          title="Introduce su correo electrónico"
+          maxlength="100"
+          minlength="8"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$"
+          autocomplete="email"
+          required
+        />
+        <div class="password-field">
+          <input
+            type="password"
+            class="input-login"
+            name="password"
+            id="password"
+            placeholder="Contraseña"
+            title="Introduce su contraseña"
+            maxlength="25"
+            minlength="8"
+            pattern="(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,25}"
+            autocomplete="current-password"
+            required
+          />
+          <i class="fa-solid fa-eye toggle-password" data-target="password"></i>
+        </div>
+        <input type="submit" class="btn-ingresar" value="Ingresar" />
+      </form>
+
+      <div class="out-login">
+        <a href="register.html">Crear Cuenta</a>
+        <a href="recovery.html">¿Olvidaste tu contraseña?</a>
+      </div>
+    </main>
+    <!------------------Fin del MAIN------------------>
+
+    <!------------------Inicio del FOOTER ------------------>
+    <footer>
+      <small>Cristian Casanova &copy; 2026 - FET</small>
+    </footer>
+    <!------------------Fin del FOOTER------------------>
+
+    <script src="js/toggle.js"></script>
+  </body>
+</html>

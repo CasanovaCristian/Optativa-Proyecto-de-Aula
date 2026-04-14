@@ -1,0 +1,636 @@
+/* =====================================================
+   DASHBOARD.CSS - SportDeal FET
+   Autor: Cristian Casanova - 2026
+   Solo estilos base. Responsive en: dashMediaQuery.css
+   ===================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap");
+
+/* --- Variables --- */
+:root {
+  --gris-principal: #313131;
+  --color-blanco:   #f0f2f5;
+  --detalles-azul:  #4169e1;
+  --hover-azul:     #2956dd;
+  --fondo-dash:     #e8eaed;
+  --blanco-puro:    #ffffff;
+  --texto-gris:     #6b7280;
+  --borde:          #e5e7eb;
+  --sombra-card:    0 2px 8px rgba(0, 0, 0, 0.07);
+
+  --font-principal:  "Montserrat", sans-serif;
+  --font-secundaria: "Inter", sans-serif;
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-secundaria);
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--fondo-dash);
+}
+
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+.sidebar {
+  width: 230px;
+  min-width: 230px;
+  height: 100vh;
+  background-color: var(--gris-principal);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  width: 36px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.sidebar-titulo {
+  color: var(--color-blanco);
+  font-family: var(--font-principal);
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.sidebar-cerrar {
+  display: none;
+  background: none;
+  border: none;
+  color: rgba(240, 242, 245, 0.6);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  transition: color 0.2s;
+}
+
+.sidebar-cerrar:hover { color: var(--color-blanco); }
+
+.sidebar-nav {
+  flex: 1;
+  padding: 0.8rem 0;
+  overflow-y: auto;
+}
+
+.sidebar-nav ul { list-style: none; }
+
+.nav-item { margin: 0.1rem 0; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.8rem 1.2rem;
+  color: rgba(240, 242, 245, 0.6);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-link i {
+  font-size: 0.95rem;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: var(--color-blanco);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--detalles-azul);
+}
+
+.nav-item.activo .nav-link {
+  color: var(--color-blanco);
+  background-color: rgba(65, 105, 225, 0.15);
+  border-left-color: var(--detalles-azul);
+}
+
+.sidebar-footer {
+  padding: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.btn-salir {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  color: rgba(240, 242, 245, 0.6);
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.btn-salir:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+}
+
+.sidebar-overlay.visible { display: block; }
+
+/* =====================================================
+   CONTENIDO PRINCIPAL
+   ===================================================== */
+.contenido-principal {
+  margin-left: 230px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* =====================================================
+   TOPBAR
+   ===================================================== */
+.topbar {
+  width: 100%;
+  height: 60px;
+  min-height: 60px;
+  background-color: var(--blanco-puro);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid var(--borde);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+.btn-menu-hamburguesa {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--gris-principal);
+  padding: 0.4rem;
+  line-height: 1;
+}
+
+.topbar-titulo h2 {
+  font-family: var(--font-principal);
+  font-size: 1.1rem;
+  color: var(--gris-principal);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.topbar-usuario {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.topbar-nombre {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--gris-principal);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  background-color: var(--detalles-azul);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   MAIN
+   ===================================================== */
+.dash-main {
+  flex: 1;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* =====================================================
+   TARJETAS RESUMEN
+   ===================================================== */
+.seccion-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.tarjeta {
+  background-color: var(--blanco-puro);
+  border-radius: 12px;
+  padding: 1.1rem 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--sombra-card);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta-icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.tarjeta-icono.azul    { background-color: rgba(65,105,225,0.12); color: var(--detalles-azul); }
+.tarjeta-icono.verde   { background-color: rgba(34,197,94,0.12);  color: #16a34a; }
+.tarjeta-icono.naranja { background-color: rgba(249,115,22,0.12); color: #ea580c; }
+.tarjeta-icono.rojo    { background-color: rgba(239,68,68,0.12);  color: #dc2626; }
+
+.tarjeta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.tarjeta-valor {
+  font-family: var(--font-principal);
+  font-size: 1.75rem;
+  color: var(--gris-principal);
+  line-height: 1;
+}
+
+.tarjeta-label {
+  font-size: 0.76rem;
+  color: var(--texto-gris);
+  font-weight: 500;
+}
+
+/* =====================================================
+   GRÁFICA + PRÉSTAMOS RÁPIDOS
+   ===================================================== */
+.seccion-media {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1rem;
+}
+
+.card {
+  background-color: var(--blanco-puro);
+  border-radius: 12px;
+  padding: 1.3rem;
+  box-shadow: var(--sombra-card);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.card-header h3 {
+  font-family: var(--font-principal);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  color: var(--gris-principal);
+}
+
+.badge-año {
+  background-color: rgba(65,105,225,0.1);
+  color: var(--detalles-azul);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+}
+
+.badge-total {
+  background-color: var(--detalles-azul);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+}
+
+.grafica-card {
+  background-color: var(--gris-principal);
+}
+
+.grafica-card .card-header h3 {
+  color: var(--color-blanco);
+}
+
+.grafica-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.grafica-barras {
+  width: 100%;
+  height: auto;
+  display: block;
+  min-width: 300px;
+}
+
+.grafica-nota {
+  font-size: 0.7rem;
+  color: rgba(240,242,245,0.35);
+  margin-top: 0.4rem;
+  text-align: right;
+}
+
+/* Préstamos rápidos */
+.lista-prestamos-rapidos {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.lista-prestamos-rapidos li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+.lista-prestamos-rapidos li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.prestamo-usuario {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.mini-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.mini-avatar.azul    { background-color: var(--detalles-azul); }
+.mini-avatar.verde   { background-color: #22c55e; }
+.mini-avatar.naranja { background-color: #f97316; }
+
+.p-nombre {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gris-principal);
+  line-height: 1.2;
+}
+
+.p-item {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--texto-gris);
+}
+
+.p-fecha {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--texto-gris);
+  white-space: nowrap;
+}
+
+.p-fecha.vence-pronto {
+  color: #dc2626;
+  background-color: rgba(239,68,68,0.08);
+  padding: 0.18rem 0.5rem;
+  border-radius: 6px;
+}
+
+.btn-ver-todos {
+  display: block;
+  text-align: center;
+  padding: 0.55rem;
+  border-radius: 8px;
+  background-color: rgba(65,105,225,0.07);
+  color: var(--detalles-azul);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-ver-todos:hover { background-color: rgba(65,105,225,0.15); }
+
+/* =====================================================
+   TABLA IMPLEMENTOS
+   ===================================================== */
+.tabla-card { overflow: hidden; }
+
+.btn-accion {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  background-color: var(--detalles-azul);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  font-family: var(--font-secundaria);
+}
+
+.btn-accion:hover {
+  background-color: var(--hover-azul);
+  transform: translateY(-1px);
+}
+
+.tabla-wrapper {
+  overflow-x: auto;
+  margin: 0 -1.3rem;
+  padding: 0 1.3rem;
+}
+
+.tabla-datos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  min-width: 580px;
+}
+
+.tabla-datos thead tr {
+  background-color: #f8f9fb;
+  border-bottom: 2px solid var(--borde);
+}
+
+.tabla-datos th {
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--texto-gris);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.tabla-datos td {
+  padding: 0.8rem 0.9rem;
+  color: var(--gris-principal);
+  border-bottom: 1px solid #f0f2f5;
+  vertical-align: middle;
+}
+
+.tabla-datos tbody tr:hover { background-color: #f8f9fb; }
+.tabla-datos tbody tr:last-child td { border-bottom: none; }
+
+.icono-tabla {
+  margin-right: 0.45rem;
+  color: var(--detalles-azul);
+  font-size: 0.88rem;
+}
+
+.estado {
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.73rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.estado.disponible    { background-color: rgba(34,197,94,0.1);  color: #16a34a; }
+.estado.prestado      { background-color: rgba(249,115,22,0.1); color: #ea580c; }
+.estado.mantenimiento { background-color: rgba(239,68,68,0.1);  color: #dc2626; }
+
+.acciones-celda {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.btn-tabla {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.btn-tabla.editar          { background-color: rgba(65,105,225,0.1); color: var(--detalles-azul); }
+.btn-tabla.editar:hover    { background-color: var(--detalles-azul); color: white; }
+.btn-tabla.eliminar        { background-color: rgba(239,68,68,0.1);  color: #ef4444; }
+.btn-tabla.eliminar:hover  { background-color: #ef4444; color: white; }
+
+.tabla-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f2f5;
+}
+
+.tabla-info {
+  font-size: 0.78rem;
+  color: var(--texto-gris);
+}
+
+.paginacion { display: flex; gap: 0.3rem; }
+
+.btn-pag {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--borde);
+  background-color: white;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--texto-gris);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-secundaria);
+}
+
+.btn-pag:hover  { border-color: var(--detalles-azul); color: var(--detalles-azul); }
+.btn-pag.activo { background-color: var(--detalles-azul); border-color: var(--detalles-azul); color: white; }
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+.dash-footer {
+  padding: 0.9rem 1.5rem;
+  text-align: center;
+  border-top: 1px solid var(--borde);
+  background-color: white;
+  flex-shrink: 0;
+}
+
+.dash-footer small {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  font-family: var(--font-secundaria);
+  opacity: 0.8;
+}

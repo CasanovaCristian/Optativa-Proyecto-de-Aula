@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Cristian Casanova - 2026" />
+    <link rel="icon" href="img/logo.png" type="image/png" sizes="any" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/prestamos.css" />
+    <link rel="stylesheet" href="css/prestamosMediaQuery.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>Préstamos | SportDeal FET</title>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img class="sidebar-logo" src="img/logo.png" alt="Logo" />
+        <span class="sidebar-titulo">SportDeal</span>
+        <button class="sidebar-cerrar" id="btnCerrarSidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link"
+              ><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="implementos.html" class="nav-link"
+              ><i class="fa-solid fa-basketball"></i><span>Implementos</span></a
+            >
+          </li>
+          <li class="nav-item activo">
+            <a href="prestamos.html" class="nav-link"
+              ><i class="fa-solid fa-clipboard-list"></i
+              ><span>Préstamos</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="usuarios.html" class="nav-link"
+              ><i class="fa-solid fa-users"></i><span>Usuarios</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="reportes.html" class="nav-link"
+              ><i class="fa-solid fa-file-chart-column"></i
+              ><span>Reportes</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-salir">
+          <i class="fa-solid fa-right-from-bracket"></i
+          ><span>Cerrar Sesión</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="overlay"></div>
+
+    <div class="contenido-principal">
+      <div class="topbar">
+        <button class="btn-menu-hamburguesa" id="btnAbrirSidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="topbar-titulo"><h2>Préstamos</h2></div>
+        <div class="topbar-usuario">
+          <span class="topbar-nombre">Admin</span>
+          <div class="avatar"><i class="fa-solid fa-user"></i></div>
+        </div>
+      </div>
+
+      <div class="page-main">
+        <!-- TARJETAS -->
+        <div class="prest-tarjetas">
+          <div class="tarjeta-impl">
+            <div class="ti-icono azul">
+              <i class="fa-solid fa-clipboard-list"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">124</span>
+              <span class="ti-label">Total Préstamos</span>
+            </div>
+          </div>
+          <div class="tarjeta-impl">
+            <div class="ti-icono naranja">
+              <i class="fa-solid fa-hourglass-half"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">11</span>
+              <span class="ti-label">Activos</span>
+            </div>
+          </div>
+          <div class="tarjeta-impl">
+            <div class="ti-icono verde">
+              <i class="fa-solid fa-rotate-left"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">110</span>
+              <span class="ti-label">Devueltos</span>
+            </div>
+          </div>
+          <div class="tarjeta-impl">
+            <div class="ti-icono rojo">
+              <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="ti-info">
+              <span class="ti-valor">3</span>
+              <span class="ti-label">Vencidos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLA -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Registro de Préstamos</h3>
+            <button class="btn-accion">
+              <i class="fa-solid fa-plus"></i> Nuevo Préstamo
+            </button>
+          </div>
+
+          <div class="barra-herramientas" style="margin-bottom: 1rem">
+            <div class="buscador">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="text"
+                placeholder="Buscar por usuario o implemento..."
+              />
+            </div>
+            <div class="filtros">
+              <select class="select-filtro">
+                <option value="">Todos los estados</option>
+                <option>Activo</option>
+                <option>Devuelto</option>
+                <option>Vencido</option>
+              </select>
+              <select class="select-filtro">
+                <option value="">Todo el período</option>
+                <option>Hoy</option>
+                <option>Esta semana</option>
+                <option>Este mes</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tabla-wrapper">
+            <table class="tabla-datos">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Usuario</th>
+                  <th>Implemento</th>
+                  <th>Fecha Préstamo</th>
+                  <th>Fecha Devolución</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#P001</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="mini-av azul">LC</div>
+                      <span>Luis Castillo</span>
+                    </div>
+                  </td>
+                  <td>
+                    <i class="fa-solid fa-futbol icono-tabla"></i>Balón de
+                    fútbol #3
+                  </td>
+                  <td>13 Abr 2026</td>
+                  <td class="fecha-vence">14 Abr 2026</td>
+                  <td><span class="estado activo-badge">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla ver" title="Ver detalle">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button
+                      class="btn-tabla editar"
+                      title="Registrar devolución"
+                    >
+                      <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P002</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="mini-av verde">AM</div>
+                      <span>Ana Martínez</span>
+                    </div>
+                  </td>
+                  <td>
+                    <i class="fa-solid fa-baseball icono-tabla"></i>Raqueta de
+                    tenis #1
+                  </td>
+                  <td>12 Abr 2026</td>
+                  <td>15 Abr 2026</td>
+                  <td><span class="estado activo-badge">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla ver">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P003</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="mini-av naranja">JR</div>
+                      <span>Juan Rodríguez</span>
+                    </div>
+                  </td>
+                  <td>
+                    <i class="fa-solid fa-basketball icono-tabla"></i>Baloncesto
+                    #7
+                  </td>
+                  <td>11 Abr 2026</td>
+                  <td>16 Abr 2026</td>
+                  <td><span class="estado activo-badge">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla ver">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P004</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="mini-av azul">SP</div>
+                      <span>Sara Peña</span>
+                    </div>
+                  </td>
+                  <td>
+                    <i
+                      class="fa-solid fa-table-tennis-paddle-ball icono-tabla"
+                    ></i
+                    >Red de voleibol
+                  </td>
+                  <td>10 Abr 2026</td>
+                  <td>17 Abr 2026</td>
+                  <td><span class="estado activo-badge">Activo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla ver">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P005</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="mini-av verde">CM</div>
+                      <span>Carlos Mora</span>
+                    </div>
+                  </td>
+                  <td>
+                    <i class="fa-solid fa-futbol icono-tabla"></i>Balón de
+                    fútbol #1
+                  </td>
+                  <td>5 Abr 2026</td>
+                  <td>8 Abr 2026</td>
+                  <td><span class="estado devuelto">Devuelto</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla ver">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P006</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="mini-av naranja">RV</div>
+                      <span>Rosa Vargas</span>
+                    </div>
+                  </td>
+                  <td>
+                    <i class="fa-solid fa-volleyball icono-tabla"></i>Balón de
+                    voleibol #2
+                  </td>
+                  <td>1 Abr 2026</td>
+                  <td>4 Abr 2026</td>
+                  <td><span class="estado devuelto">Devuelto</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla ver">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P007</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="mini-av rojo">FT</div>
+                      <span>Felipe Torres</span>
+                    </div>
+                  </td>
+                  <td>
+                    <i class="fa-solid fa-dumbbell icono-tabla"></i>Mancuernas
+                    5kg
+                  </td>
+                  <td>28 Mar 2026</td>
+                  <td>31 Mar 2026</td>
+                  <td><span class="estado vencido">Vencido</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla ver">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#P008</td>
+                  <td>
+                    <div class="usuario-celda">
+                      <div class="mini-av verde">LG</div>
+                      <span>Laura Gómez</span>
+                    </div>
+                  </td>
+                  <td>
+                    <i class="fa-solid fa-person-swimming icono-tabla"></i>Gafas
+                    de natación
+                  </td>
+                  <td>20 Mar 2026</td>
+                  <td>23 Mar 2026</td>
+                  <td><span class="estado devuelto">Devuelto</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla ver">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tabla-footer">
+            <span class="tabla-info">Mostrando 8 de 124 préstamos</span>
+            <div class="paginacion">
+              <button class="btn-pag activo">1</button>
+              <button class="btn-pag">2</button>
+              <button class="btn-pag">3</button>
+              <button class="btn-pag">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="dash-footer">
+        <small>Cristian Casanova &copy; 2026 - FET</small>
+      </footer>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

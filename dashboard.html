@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Dashboard administrativo - SportDeal FET"
+    />
+    <meta name="author" content="Cristian Casanova - 2026" />
+    <link rel="icon" href="img/logo.png" type="image/png" sizes="any" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/dashMediaQuery.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>Dashboard | SportDeal FET</title>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img class="sidebar-logo" src="img/logo.png" alt="Logo SportDeal" />
+        <span class="sidebar-titulo">SportDeal</span>
+        <button class="sidebar-cerrar" id="btnCerrarSidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="nav-item activo">
+            <a href="dashboard.html" class="nav-link" data-seccion="dashboard">
+              <i class="fa-solid fa-chart-line"></i><span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              href="implementos.html"
+              class="nav-link"
+              data-seccion="implementos"
+            >
+              <i class="fa-solid fa-basketball"></i><span>Implementos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="prestamos.html" class="nav-link" data-seccion="prestamos">
+              <i class="fa-solid fa-clipboard-list"></i><span>Préstamos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="usuarios.html" class="nav-link" data-seccion="usuarios">
+              <i class="fa-solid fa-users"></i><span>Usuarios</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="reportes.html" class="nav-link" data-seccion="reportes">
+              <i class="fa-solid fa-file-chart-column"></i><span>Reportes</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="login.html" class="btn-salir">
+          <i class="fa-solid fa-right-from-bracket"></i
+          ><span>Cerrar Sesión</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="overlay"></div>
+
+    <!-- CONTENIDO -->
+    <div class="contenido-principal">
+      <div class="topbar">
+        <button class="btn-menu-hamburguesa" id="btnAbrirSidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="topbar-titulo">
+          <h2>Dashboard</h2>
+        </div>
+        <div class="topbar-usuario">
+          <span class="topbar-nombre">Admin</span>
+          <div class="avatar"><i class="fa-solid fa-user"></i></div>
+        </div>
+      </div>
+
+      <div class="dash-main">
+        <!-- TARJETAS -->
+        <div class="seccion-tarjetas">
+          <div class="tarjeta">
+            <div class="tarjeta-icono azul">
+              <i class="fa-solid fa-basketball"></i>
+            </div>
+            <div class="tarjeta-info">
+              <span class="tarjeta-valor">48</span>
+              <span class="tarjeta-label">Implementos Totales</span>
+            </div>
+          </div>
+          <div class="tarjeta">
+            <div class="tarjeta-icono verde">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="tarjeta-info">
+              <span class="tarjeta-valor">35</span>
+              <span class="tarjeta-label">Disponibles</span>
+            </div>
+          </div>
+          <div class="tarjeta">
+            <div class="tarjeta-icono naranja">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="tarjeta-info">
+              <span class="tarjeta-valor">11</span>
+              <span class="tarjeta-label">En Préstamo</span>
+            </div>
+          </div>
+          <div class="tarjeta">
+            <div class="tarjeta-icono rojo">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="tarjeta-info">
+              <span class="tarjeta-valor">2</span>
+              <span class="tarjeta-label">En Mantenimiento</span>
+            </div>
+          </div>
+          <div class="tarjeta">
+            <div class="tarjeta-icono azul">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="tarjeta-info">
+              <span class="tarjeta-valor">24</span>
+              <span class="tarjeta-label">Usuarios Registrados</span>
+            </div>
+          </div>
+          <div class="tarjeta">
+            <div class="tarjeta-icono verde">
+              <i class="fa-solid fa-rotate-left"></i>
+            </div>
+            <div class="tarjeta-info">
+              <span class="tarjeta-valor">3</span>
+              <span class="tarjeta-label">Devoluciones Hoy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- GRÁFICA + PRÉSTAMOS -->
+        <div class="seccion-media">
+          <div class="card grafica-card">
+            <div class="card-header">
+              <h3>Actividad Mensual</h3>
+              <span class="badge-año">2026</span>
+            </div>
+            <div class="grafica-wrapper">
+              <svg
+                class="grafica-barras"
+                viewBox="0 0 560 230"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="40"
+                  y1="20"
+                  x2="550"
+                  y2="20"
+                  stroke="rgba(255,255,255,0.07)"
+                  stroke-width="1"
+                />
+                <line
+                  x1="40"
+                  y1="65"
+                  x2="550"
+                  y2="65"
+                  stroke="rgba(255,255,255,0.07)"
+                  stroke-width="1"
+                />
+                <line
+                  x1="40"
+                  y1="110"
+                  x2="550"
+                  y2="110"
+                  stroke="rgba(255,255,255,0.07)"
+                  stroke-width="1"
+                />
+                <line
+                  x1="40"
+                  y1="155"
+                  x2="550"
+                  y2="155"
+                  stroke="rgba(255,255,255,0.07)"
+                  stroke-width="1"
+                />
+                <line
+                  x1="40"
+                  y1="190"
+                  x2="550"
+                  y2="190"
+                  stroke="rgba(255,255,255,0.15)"
+                  stroke-width="1"
+                />
+                <text
+                  x="32"
+                  y="24"
+                  text-anchor="end"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.45)"
+                  font-family="Inter,sans-serif"
+                >
+                  20
+                </text>
+                <text
+                  x="32"
+                  y="69"
+                  text-anchor="end"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.45)"
+                  font-family="Inter,sans-serif"
+                >
+                  15
+                </text>
+                <text
+                  x="32"
+                  y="114"
+                  text-anchor="end"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.45)"
+                  font-family="Inter,sans-serif"
+                >
+                  10
+                </text>
+                <text
+                  x="32"
+                  y="159"
+                  text-anchor="end"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.45)"
+                  font-family="Inter,sans-serif"
+                >
+                  5
+                </text>
+                <text
+                  x="32"
+                  y="194"
+                  text-anchor="end"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.45)"
+                  font-family="Inter,sans-serif"
+                >
+                  0
+                </text>
+                <rect
+                  x="55"
+                  y="122"
+                  width="28"
+                  height="68"
+                  rx="4"
+                  fill="#4169e1"
+                  opacity="0.85"
+                />
+                <text
+                  x="69"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  Ene
+                </text>
+                <rect
+                  x="105"
+                  y="88"
+                  width="28"
+                  height="102"
+                  rx="4"
+                  fill="#4169e1"
+                  opacity="0.85"
+                />
+                <text
+                  x="119"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  Feb
+                </text>
+                <rect
+                  x="155"
+                  y="45"
+                  width="28"
+                  height="145"
+                  rx="4"
+                  fill="#4169e1"
+                  opacity="0.9"
+                />
+                <text
+                  x="169"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  Mar
+                </text>
+                <rect
+                  x="205"
+                  y="97"
+                  width="28"
+                  height="93"
+                  rx="4"
+                  fill="#4169e1"
+                  opacity="0.85"
+                />
+                <text
+                  x="219"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  Abr
+                </text>
+                <rect
+                  x="255"
+                  y="28"
+                  width="28"
+                  height="162"
+                  rx="4"
+                  fill="#2956dd"
+                  opacity="0.95"
+                />
+                <text
+                  x="269"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  May
+                </text>
+                <rect
+                  x="305"
+                  y="71"
+                  width="28"
+                  height="119"
+                  rx="4"
+                  fill="#4169e1"
+                  opacity="0.85"
+                />
+                <text
+                  x="319"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  Jun
+                </text>
+                <rect
+                  x="355"
+                  y="114"
+                  width="28"
+                  height="76"
+                  rx="4"
+                  fill="#4169e1"
+                  opacity="0.85"
+                />
+                <text
+                  x="369"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  Jul
+                </text>
+                <rect
+                  x="405"
+                  y="54"
+                  width="28"
+                  height="136"
+                  rx="4"
+                  fill="#4169e1"
+                  opacity="0.85"
+                />
+                <text
+                  x="419"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  Ago
+                </text>
+                <rect
+                  x="455"
+                  y="80"
+                  width="28"
+                  height="110"
+                  rx="4"
+                  fill="#4169e1"
+                  opacity="0.85"
+                />
+                <text
+                  x="469"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  Sep
+                </text>
+                <rect
+                  x="505"
+                  y="131"
+                  width="28"
+                  height="59"
+                  rx="4"
+                  fill="#4169e1"
+                  opacity="0.25"
+                />
+                <rect
+                  x="505"
+                  y="131"
+                  width="28"
+                  height="59"
+                  rx="4"
+                  fill="none"
+                  stroke="#4169e1"
+                  stroke-width="1.5"
+                  stroke-dasharray="4,3"
+                  opacity="0.7"
+                />
+                <text
+                  x="519"
+                  y="213"
+                  text-anchor="middle"
+                  font-size="10"
+                  fill="rgba(240,242,245,0.55)"
+                  font-family="Inter,sans-serif"
+                >
+                  Oct
+                </text>
+              </svg>
+            </div>
+            <p class="grafica-nota">* Octubre en curso</p>
+          </div>
+
+          <div class="card prestamos-rapidos-card">
+            <div class="card-header">
+              <h3>Préstamos Activos</h3>
+              <span class="badge-total">11</span>
+            </div>
+            <ul class="lista-prestamos-rapidos">
+              <li>
+                <div class="prestamo-usuario">
+                  <div class="mini-avatar azul">LC</div>
+                  <div>
+                    <span class="p-nombre">Luis Castillo</span
+                    ><span class="p-item">Balón de fútbol #3</span>
+                  </div>
+                </div>
+                <span class="p-fecha vence-pronto">Vence hoy</span>
+              </li>
+              <li>
+                <div class="prestamo-usuario">
+                  <div class="mini-avatar verde">AM</div>
+                  <div>
+                    <span class="p-nombre">Ana Martínez</span
+                    ><span class="p-item">Raqueta de tenis #1</span>
+                  </div>
+                </div>
+                <span class="p-fecha">15 Abr</span>
+              </li>
+              <li>
+                <div class="prestamo-usuario">
+                  <div class="mini-avatar naranja">JR</div>
+                  <div>
+                    <span class="p-nombre">Juan Rodríguez</span
+                    ><span class="p-item">Baloncesto #7</span>
+                  </div>
+                </div>
+                <span class="p-fecha">16 Abr</span>
+              </li>
+              <li>
+                <div class="prestamo-usuario">
+                  <div class="mini-avatar azul">SP</div>
+                  <div>
+                    <span class="p-nombre">Sara Peña</span
+                    ><span class="p-item">Red de voleibol</span>
+                  </div>
+                </div>
+                <span class="p-fecha">17 Abr</span>
+              </li>
+              <li>
+                <div class="prestamo-usuario">
+                  <div class="mini-avatar verde">DG</div>
+                  <div>
+                    <span class="p-nombre">Diego García</span
+                    ><span class="p-item">Balón de fútbol #5</span>
+                  </div>
+                </div>
+                <span class="p-fecha">18 Abr</span>
+              </li>
+              <li>
+                <div class="prestamo-usuario">
+                  <div class="mini-avatar naranja">MP</div>
+                  <div>
+                    <span class="p-nombre">Manuela Pinto</span
+                    ><span class="p-item">Cronómetro digital</span>
+                  </div>
+                </div>
+                <span class="p-fecha">20 Abr</span>
+              </li>
+            </ul>
+            <a href="prestamos.html" class="btn-ver-todos"
+              >Ver todos los préstamos</a
+            >
+          </div>
+        </div>
+
+        <!-- TABLA -->
+        <div class="card tabla-card">
+          <div class="card-header">
+            <h3>Inventario de Implementos</h3>
+            <button class="btn-accion">
+              <i class="fa-solid fa-plus"></i> Agregar
+            </button>
+          </div>
+          <div class="tabla-wrapper">
+            <table class="tabla-datos">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Implemento</th>
+                  <th>Categoría</th>
+                  <th>Cantidad Total</th>
+                  <th>Disponibles</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>001</td>
+                  <td>
+                    <i class="fa-solid fa-futbol icono-tabla"></i> Balón de
+                    fútbol
+                  </td>
+                  <td>Fútbol</td>
+                  <td>8</td>
+                  <td>5</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>002</td>
+                  <td>
+                    <i class="fa-solid fa-basketball icono-tabla"></i> Balón de
+                    baloncesto
+                  </td>
+                  <td>Baloncesto</td>
+                  <td>6</td>
+                  <td>3</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>003</td>
+                  <td>
+                    <i class="fa-solid fa-volleyball icono-tabla"></i> Balón de
+                    voleibol
+                  </td>
+                  <td>Voleibol</td>
+                  <td>4</td>
+                  <td>4</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>004</td>
+                  <td>
+                    <i class="fa-solid fa-baseball icono-tabla"></i> Raqueta de
+                    tenis
+                  </td>
+                  <td>Tenis</td>
+                  <td>5</td>
+                  <td>3</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>005</td>
+                  <td>
+                    <i class="fa-solid fa-person-running icono-tabla"></i>
+                    Cronómetro digital
+                  </td>
+                  <td>Atletismo</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td><span class="estado prestado">En Préstamo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>006</td>
+                  <td>
+                    <i class="fa-solid fa-dumbbell icono-tabla"></i> Mancuernas
+                    5kg (par)
+                  </td>
+                  <td>Gimnasio</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>
+                    <span class="estado mantenimiento">Mantenimiento</span>
+                  </td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>007</td>
+                  <td>
+                    <i
+                      class="fa-solid fa-table-tennis-paddle-ball icono-tabla"
+                    ></i>
+                    Red de voleibol
+                  </td>
+                  <td>Voleibol</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td><span class="estado prestado">En Préstamo</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>008</td>
+                  <td>
+                    <i class="fa-solid fa-person-swimming icono-tabla"></i>
+                    Gafas de natación
+                  </td>
+                  <td>Natación</td>
+                  <td>10</td>
+                  <td>10</td>
+                  <td><span class="estado disponible">Disponible</span></td>
+                  <td class="acciones-celda">
+                    <button class="btn-tabla editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-tabla eliminar">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tabla-footer">
+            <span class="tabla-info">Mostrando 8 de 48 implementos</span>
+            <div class="paginacion">
+              <button class="btn-pag activo">1</button>
+              <button class="btn-pag">2</button>
+              <button class="btn-pag">3</button>
+              <button class="btn-pag">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- fin dash-main -->
+
+      <footer class="dash-footer">
+        <small>Cristian Casanova &copy; 2026 - FET</small>
+      </footer>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>
