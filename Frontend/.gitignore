@@ -1,0 +1,47 @@
+# ===== Ignorar archivos HTML no permitidos =====
+carrito.html
+cliente-dashboard.html
+implementos.html
+index.html
+perfil.html
+prestamos.html
+producto.html
+reportes.html
+usuarios.html
+
+# ===== Ignorar CSS no permitidos =====
+css/carrito.css
+css/carritoMediaQuery.css
+css/cliente.css
+css/clienteMediaQuery.css
+css/default.css
+css/implementos.css
+css/implementosMediaQuery.css
+css/index.css
+css/indexMediaQuery.css
+css/mediaquerys.css
+css/prestamos.css
+css/prestamosMediaQuery.css
+css/producto.css
+css/productoMediaQuery.css
+css/reportes.css
+css/reportesMediaQuery.css
+css/usuarios.css
+css/usuariosMediaQuery.css
+
+# ===== Ignorar archivos JS no permitidos =====
+js/cliente.js
+js/index.js
+js/producto.js
+
+# ===== Ignorar carpetas =====
+img/
+
+# ===== Permitidos (comentario de referencia) =====
+# login.html + login.css + loginMediaQuery.css
+# register.html + register.css + registerMediaQuery.css
+# recovery.html + recovery.css + recoveryMediaQuery.css
+# dashboard.html + dashboard.css + dashMediaQuery.css
+# js/toggle.js
+# js/dashboard.js
+# css/base.css
