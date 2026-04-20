@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Renta de implementos deportivos - SportDeal FET"
+    />
+    <meta name="author" content="Cristian Casanova - 2026" />
+    <link rel="icon" href="img/logo.png" type="image/png" sizes="any" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/indexMediaQuery.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>SportDeal FET — Renta de Implementos Deportivos</title>
+  </head>
+  <body>
+    <!-- ===== NAVBAR PÚBLICA ===== -->
+    <nav class="navbar">
+      <div class="navbar-marca">
+        <img src="img/logo.png" alt="Logo SportDeal" class="navbar-logo" />
+        <span class="navbar-nombre">SportDeal</span>
+      </div>
+
+      <div class="navbar-links" id="navLinks">
+        <a href="index.html" class="nav-pub activo">Catálogo</a>
+        <a href="#categorias" class="nav-pub">Categorías</a>
+        <a href="#como-funciona" class="nav-pub">¿Cómo funciona?</a>
+      </div>
+
+      <div class="navbar-acciones">
+        <a href="carrito.html" class="btn-carrito" title="Carrito">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="carrito-badge">2</span>
+        </a>
+        <a href="login.html" class="btn-nav-login">Iniciar Sesión</a>
+        <a href="register.html" class="btn-nav-registro">Crear Cuenta</a>
+        <button class="btn-hamburguesa" id="btnHamburguesa">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero-contenido">
+        <span class="hero-badge">🏆 Plataforma de renta deportiva #1</span>
+        <h1 class="hero-titulo">
+          Renta el implemento<br />que necesitas,
+          <span>cuando lo necesitas</span>
+        </h1>
+        <p class="hero-subtitulo">
+          Accede a más de 48 implementos deportivos de alta calidad. Paga solo
+          por el tiempo que los uses.
+        </p>
+        <div class="hero-ctas">
+          <a href="#catalogo" class="btn-hero-primario">Ver Catálogo</a>
+          <a href="#como-funciona" class="btn-hero-secundario"
+            >¿Cómo funciona?</a
+          >
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">48+</span
+            ><span class="stat-lab">Implementos</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat">
+            <span class="stat-num">124</span
+            ><span class="stat-lab">Rentas realizadas</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat">
+            <span class="stat-num">24</span
+            ><span class="stat-lab">Clientes activos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CÓMO FUNCIONA ===== -->
+    <section class="como-funciona" id="como-funciona">
+      <div class="seccion-contenido">
+        <h2 class="seccion-titulo">¿Cómo funciona?</h2>
+        <p class="seccion-sub">Renta en 3 simples pasos</p>
+        <div class="pasos">
+          <div class="paso">
+            <div class="paso-icono">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h3>1. Elige</h3>
+            <p>
+              Explora el catálogo, filtra por categoría y encuentra el
+              implemento que necesitas.
+            </p>
+          </div>
+          <div class="paso-flecha"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="paso">
+            <div class="paso-icono">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <h3>2. Reserva</h3>
+            <p>
+              Selecciona las fechas, verifica disponibilidad y agrega al
+              carrito.
+            </p>
+          </div>
+          <div class="paso-flecha"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="paso">
+            <div class="paso-icono"><i class="fa-solid fa-basketball"></i></div>
+            <h3>3. Disfruta</h3>
+            <p>
+              Recoge el implemento, úsalo en tus actividades y devuélvelo en la
+              fecha acordada.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CATÁLOGO ===== -->
+    <section class="catalogo-seccion" id="catalogo">
+      <div class="seccion-contenido">
+        <div class="catalogo-encabezado">
+          <div>
+            <h2 class="seccion-titulo">Catálogo de Implementos</h2>
+            <p class="seccion-sub">Filtra y encuentra lo que necesitas</p>
+          </div>
+          <span class="total-productos">48 implementos disponibles</span>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filtros-bar" id="categorias">
+          <div class="filtros-cats">
+            <button class="btn-cat activo" data-cat="todos">Todos</button>
+            <button class="btn-cat" data-cat="futbol">
+              <i class="fa-solid fa-futbol"></i> Fútbol
+            </button>
+            <button class="btn-cat" data-cat="baloncesto">
+              <i class="fa-solid fa-basketball"></i> Baloncesto
+            </button>
+            <button class="btn-cat" data-cat="voleibol">
+              <i class="fa-solid fa-volleyball"></i> Voleibol
+            </button>
+            <button class="btn-cat" data-cat="tenis">
+              <i class="fa-solid fa-baseball"></i> Tenis
+            </button>
+            <button class="btn-cat" data-cat="atletismo">
+              <i class="fa-solid fa-person-running"></i> Atletismo
+            </button>
+            <button class="btn-cat" data-cat="gimnasio">
+              <i class="fa-solid fa-dumbbell"></i> Gimnasio
+            </button>
+            <button class="btn-cat" data-cat="natacion">
+              <i class="fa-solid fa-person-swimming"></i> Natación
+            </button>
+          </div>
+          <div class="filtros-opciones">
+            <select class="select-pub" id="filtroDisponibilidad">
+              <option value="">Disponibilidad</option>
+              <option value="disponible">Disponible</option>
+              <option value="prestado">En Renta</option>
+              <option value="mantenimiento">Mantenimiento</option>
+            </select>
+            <select class="select-pub" id="filtroPrecio">
+              <option value="">Precio</option>
+              <option value="asc">Menor precio</option>
+              <option value="desc">Mayor precio</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- GRID DE PRODUCTOS -->
+        <div class="productos-grid" id="productosGrid">
+          <!-- Tarjeta 1 -->
+          <article
+            class="tarjeta-producto"
+            data-cat="futbol"
+            data-estado="disponible"
+          >
+            <div class="tp-imagen">
+              <div class="tp-img-placeholder azul">
+                <i class="fa-solid fa-futbol"></i>
+              </div>
+              <span class="tp-badge disponible">Disponible</span>
+              <span class="tp-cat">Fútbol</span>
+            </div>
+            <div class="tp-info">
+              <h3 class="tp-titulo">Balón de Fútbol Pro</h3>
+              <p class="tp-desc">
+                Balón profesional FIFA Quality. Cuero sintético, talla 5.
+              </p>
+              <div class="tp-precios">
+                <span class="tp-precio-principal"
+                  ><strong>$8.000</strong>/día</span
+                >
+                <span class="tp-precio-secundario">$1.500/hora</span>
+              </div>
+              <div class="tp-acciones">
+                <a href="producto.html" class="btn-ver-detalle">Ver detalle</a>
+                <a href="login.html" class="btn-rentar"
+                  >Rentar <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 2 -->
+          <article
+            class="tarjeta-producto"
+            data-cat="baloncesto"
+            data-estado="disponible"
+          >
+            <div class="tp-imagen">
+              <div class="tp-img-placeholder naranja">
+                <i class="fa-solid fa-basketball"></i>
+              </div>
+              <span class="tp-badge disponible">Disponible</span>
+              <span class="tp-cat">Baloncesto</span>
+            </div>
+            <div class="tp-info">
+              <h3 class="tp-titulo">Balón de Baloncesto NBA</h3>
+              <p class="tp-desc">
+                Balón oficial talla 7. Cuero compuesto de alta durabilidad.
+              </p>
+              <div class="tp-precios">
+                <span class="tp-precio-principal"
+                  ><strong>$7.000</strong>/día</span
+                >
+                <span class="tp-precio-secundario">$1.200/hora</span>
+              </div>
+              <div class="tp-acciones">
+                <a href="producto.html" class="btn-ver-detalle">Ver detalle</a>
+                <a href="login.html" class="btn-rentar"
+                  >Rentar <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 3 -->
+          <article
+            class="tarjeta-producto"
+            data-cat="tenis"
+            data-estado="disponible"
+          >
+            <div class="tp-imagen">
+              <div class="tp-img-placeholder verde">
+                <i class="fa-solid fa-baseball"></i>
+              </div>
+              <span class="tp-badge disponible">Disponible</span>
+              <span class="tp-cat">Tenis</span>
+            </div>
+            <div class="tp-info">
+              <h3 class="tp-titulo">Raqueta de Tenis Wilson</h3>
+              <p class="tp-desc">
+                Raqueta profesional grafito. Peso 300g, cabeza 100 sq in.
+              </p>
+              <div class="tp-precios">
+                <span class="tp-precio-principal"
+                  ><strong>$12.000</strong>/día</span
+                >
+                <span class="tp-precio-secundario">$2.000/hora</span>
+              </div>
+              <div class="tp-acciones">
+                <a href="producto.html" class="btn-ver-detalle">Ver detalle</a>
+                <a href="login.html" class="btn-rentar"
+                  >Rentar <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 4 - En renta -->
+          <article
+            class="tarjeta-producto"
+            data-cat="voleibol"
+            data-estado="prestado"
+          >
+            <div class="tp-imagen">
+              <div class="tp-img-placeholder gris">
+                <i class="fa-solid fa-volleyball"></i>
+              </div>
+              <span class="tp-badge prestado">En Renta</span>
+              <span class="tp-cat">Voleibol</span>
+            </div>
+            <div class="tp-info">
+              <h3 class="tp-titulo">Balón de Voleibol Mikasa</h3>
+              <p class="tp-desc">
+                Balón oficial V300W. Panel de 18 piezas. Talla 5.
+              </p>
+              <div class="tp-precios">
+                <span class="tp-precio-principal"
+                  ><strong>$6.000</strong>/día</span
+                >
+                <span class="tp-precio-secundario">$1.000/hora</span>
+              </div>
+              <div class="tp-acciones">
+                <a href="producto.html" class="btn-ver-detalle">Ver detalle</a>
+                <button class="btn-rentar deshabilitado" disabled>
+                  No disponible
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 5 -->
+          <article
+            class="tarjeta-producto"
+            data-cat="atletismo"
+            data-estado="disponible"
+          >
+            <div class="tp-imagen">
+              <div class="tp-img-placeholder azul">
+                <i class="fa-solid fa-stopwatch"></i>
+              </div>
+              <span class="tp-badge disponible">Disponible</span>
+              <span class="tp-cat">Atletismo</span>
+            </div>
+            <div class="tp-info">
+              <h3 class="tp-titulo">Cronómetro Digital Casio</h3>
+              <p class="tp-desc">
+                Cronómetro profesional. Memoria de 100 laps. Resistente al agua.
+              </p>
+              <div class="tp-precios">
+                <span class="tp-precio-principal"
+                  ><strong>$5.000</strong>/día</span
+                >
+                <span class="tp-precio-secundario">$800/hora</span>
+              </div>
+              <div class="tp-acciones">
+                <a href="producto.html" class="btn-ver-detalle">Ver detalle</a>
+                <a href="login.html" class="btn-rentar"
+                  >Rentar <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 6 - Mantenimiento -->
+          <article
+            class="tarjeta-producto"
+            data-cat="gimnasio"
+            data-estado="mantenimiento"
+          >
+            <div class="tp-imagen">
+              <div class="tp-img-placeholder rojo">
+                <i class="fa-solid fa-dumbbell"></i>
+              </div>
+              <span class="tp-badge mantenimiento">Mantenimiento</span>
+              <span class="tp-cat">Gimnasio</span>
+            </div>
+            <div class="tp-info">
+              <h3 class="tp-titulo">Mancuernas 5kg (par)</h3>
+              <p class="tp-desc">
+                Par de mancuernas de hierro fundido. Agarre antideslizante.
+              </p>
+              <div class="tp-precios">
+                <span class="tp-precio-principal"
+                  ><strong>$4.000</strong>/día</span
+                >
+                <span class="tp-precio-secundario">$700/hora</span>
+              </div>
+              <div class="tp-acciones">
+                <a href="producto.html" class="btn-ver-detalle">Ver detalle</a>
+                <button class="btn-rentar deshabilitado" disabled>
+                  No disponible
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 7 -->
+          <article
+            class="tarjeta-producto"
+            data-cat="natacion"
+            data-estado="disponible"
+          >
+            <div class="tp-imagen">
+              <div class="tp-img-placeholder azul">
+                <i class="fa-solid fa-person-swimming"></i>
+              </div>
+              <span class="tp-badge disponible">Disponible</span>
+              <span class="tp-cat">Natación</span>
+            </div>
+            <div class="tp-info">
+              <h3 class="tp-titulo">Gafas de Natación Speedo</h3>
+              <p class="tp-desc">
+                Lentes antivaho, protección UV. Ajuste universal adulto.
+              </p>
+              <div class="tp-precios">
+                <span class="tp-precio-principal"
+                  ><strong>$3.000</strong>/día</span
+                >
+                <span class="tp-precio-secundario">$500/hora</span>
+              </div>
+              <div class="tp-acciones">
+                <a href="producto.html" class="btn-ver-detalle">Ver detalle</a>
+                <a href="login.html" class="btn-rentar"
+                  >Rentar <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 8 -->
+          <article
+            class="tarjeta-producto"
+            data-cat="futbol"
+            data-estado="disponible"
+          >
+            <div class="tp-imagen">
+              <div class="tp-img-placeholder verde">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <span class="tp-badge disponible">Disponible</span>
+              <span class="tp-cat">Fútbol</span>
+            </div>
+            <div class="tp-info">
+              <h3 class="tp-titulo">Espinilleras de Fútbol</h3>
+              <p class="tp-desc">
+                Espinilleras con tobillera integrada. Talla M. EVA y fibra de
+                carbono.
+              </p>
+              <div class="tp-precios">
+                <span class="tp-precio-principal"
+                  ><strong>$4.500</strong>/día</span
+                >
+                <span class="tp-precio-secundario">$800/hora</span>
+              </div>
+              <div class="tp-acciones">
+                <a href="producto.html" class="btn-ver-detalle">Ver detalle</a>
+                <a href="login.html" class="btn-rentar"
+                  >Rentar <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tarjeta 9 -->
+          <article
+            class="tarjeta-producto"
+            data-cat="voleibol"
+            data-estado="disponible"
+          >
+            <div class="tp-imagen">
+              <div class="tp-img-placeholder naranja">
+                <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+              </div>
+              <span class="tp-badge disponible">Disponible</span>
+              <span class="tp-cat">Voleibol</span>
+            </div>
+            <div class="tp-info">
+              <h3 class="tp-titulo">Red de Voleibol Oficial</h3>
+              <p class="tp-desc">
+                Red reglamentaria 9.5m x 1m. Malla nylon, postes incluidos.
+              </p>
+              <div class="tp-precios">
+                <span class="tp-precio-principal"
+                  ><strong>$15.000</strong>/día</span
+                >
+                <span class="tp-precio-secundario">$3.000/hora</span>
+              </div>
+              <div class="tp-acciones">
+                <a href="producto.html" class="btn-ver-detalle">Ver detalle</a>
+                <a href="login.html" class="btn-rentar"
+                  >Rentar <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <!-- fin grid -->
+
+        <!-- Paginación -->
+        <div class="catalogo-paginacion">
+          <button class="btn-pag-pub activo">1</button>
+          <button class="btn-pag-pub">2</button>
+          <button class="btn-pag-pub">3</button>
+          <button class="btn-pag-pub">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER PÚBLICO ===== -->
+    <footer class="footer-pub">
+      <div class="footer-contenido">
+        <div class="footer-marca">
+          <img src="img/logo.png" alt="Logo" class="footer-logo" />
+          <span>SportDeal FET</span>
+        </div>
+        <p class="footer-copy">
+          Cristian Casanova &copy; 2026 - FET. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>

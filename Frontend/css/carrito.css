@@ -1,0 +1,359 @@
+/* =====================================================
+   CARRITO.CSS - SportDeal FET
+   Autor: Cristian Casanova - 2026
+   ===================================================== */
+
+.carrito-main {
+  min-height: calc(100vh - 108px);
+  padding: 2rem;
+  background-color: var(--fondo);
+}
+
+.carrito-contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* Header del carrito */
+.carrito-header-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.carrito-header-titulo h2 {
+  font-family: var(--font-principal);
+  font-size: 1.2rem;
+  color: var(--gris-principal);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.carrito-header-titulo h2 i { color: var(--detalles-azul); }
+
+.carrito-count {
+  font-size: 0.8rem;
+  color: var(--texto-gris);
+  background-color: var(--blanco-puro);
+  border: 1px solid var(--borde);
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* Item del carrito */
+.carrito-item {
+  background-color: var(--blanco-puro);
+  border-radius: 14px;
+  border: 1px solid var(--borde);
+  padding: 1.2rem;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--sombra);
+  transition: box-shadow 0.2s;
+}
+
+.carrito-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+
+.item-imagen {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.item-imagen.azul    { background: linear-gradient(135deg, rgba(65,105,225,0.12), rgba(65,105,225,0.05)); color: var(--detalles-azul); }
+.item-imagen.verde   { background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(34,197,94,0.05)); color: #22c55e; }
+.item-imagen.naranja { background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.05)); color: #f97316; }
+
+.item-info { flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
+
+.item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.item-cat {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--detalles-azul);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.item-titulo {
+  font-family: var(--font-principal);
+  font-size: 0.95rem;
+  color: var(--gris-principal);
+  margin: 0.1rem 0;
+}
+
+.item-ref {
+  font-size: 0.72rem;
+  color: var(--texto-gris);
+}
+
+.btn-eliminar-item {
+  width: 28px;
+  height: 28px;
+  background-color: rgba(239,68,68,0.08);
+  border: none;
+  border-radius: 6px;
+  color: #ef4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-eliminar-item:hover { background-color: #ef4444; color: white; }
+
+.item-fechas {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.item-fecha-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.item-fecha-campo label,
+.item-tipo label {
+  font-size: 0.68rem;
+  color: var(--texto-gris);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.input-fecha-item {
+  height: 34px;
+  border: 1px solid var(--borde);
+  border-radius: 7px;
+  padding: 0 0.6rem;
+  font-size: 0.78rem;
+  color: var(--gris-principal);
+  outline: none;
+  background-color: #f8f9fb;
+  font-family: var(--font-secundaria);
+  transition: border-color 0.2s;
+}
+
+.input-fecha-item:focus { border-color: var(--detalles-azul); }
+
+.fecha-arrow {
+  color: var(--texto-gris);
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-tipo { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.select-tipo-item {
+  height: 34px;
+  border: 1px solid var(--borde);
+  border-radius: 7px;
+  padding: 0 0.6rem;
+  font-size: 0.78rem;
+  color: var(--gris-principal);
+  background-color: #f8f9fb;
+  outline: none;
+  font-family: var(--font-secundaria);
+  cursor: pointer;
+}
+
+.item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.4rem;
+  border-top: 1px solid #f0f2f5;
+}
+
+.item-duracion {
+  font-size: 0.78rem;
+  color: var(--texto-gris);
+  background-color: var(--fondo);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.item-subtotal {
+  font-family: var(--font-principal);
+  font-size: 1rem;
+  color: var(--detalles-azul);
+  font-weight: 700;
+}
+
+.btn-seguir-comprando {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--detalles-azul);
+  text-decoration: none;
+  font-size: 0.83rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.btn-seguir-comprando:hover { background-color: rgba(65,105,225,0.07); }
+
+/* ---- RESUMEN ---- */
+.resumen-card {
+  background-color: var(--blanco-puro);
+  border-radius: 14px;
+  border: 1px solid var(--borde);
+  padding: 1.4rem;
+  box-shadow: var(--sombra);
+  position: sticky;
+  top: 80px;
+}
+
+.resumen-titulo {
+  font-family: var(--font-principal);
+  font-size: 1rem;
+  color: var(--gris-principal);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+.resumen-lineas { display: flex; flex-direction: column; gap: 0.65rem; }
+
+.resumen-linea {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: var(--texto-gris);
+}
+
+.resumen-linea span:last-child { font-weight: 600; color: var(--gris-principal); }
+
+.resumen-linea.subtotal span { font-weight: 600; color: var(--gris-principal); font-size: 0.88rem; }
+
+.resumen-linea.descuento { color: #16a34a; }
+.resumen-linea.descuento i { margin-right: 0.3rem; }
+.resumen-linea.descuento span:last-child { color: #16a34a; }
+
+.resumen-linea.total {
+  font-family: var(--font-principal);
+  font-size: 1.05rem;
+  color: var(--gris-principal);
+}
+
+.resumen-linea.total span:last-child { color: var(--detalles-azul); font-size: 1.1rem; }
+
+.resumen-sep {
+  height: 1px;
+  background-color: var(--borde);
+  margin: 0.2rem 0;
+}
+
+.cupon-campo {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1.2rem 0;
+}
+
+.input-cupon {
+  flex: 1;
+  height: 38px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 0 0.8rem;
+  font-size: 0.82rem;
+  outline: none;
+  font-family: var(--font-secundaria);
+  color: var(--gris-principal);
+  transition: border-color 0.2s;
+}
+
+.input-cupon:focus { border-color: var(--detalles-azul); }
+
+.btn-cupon {
+  height: 38px;
+  padding: 0 0.9rem;
+  background-color: var(--gris-principal);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-secundaria);
+  transition: background-color 0.2s;
+}
+
+.btn-cupon:hover { background-color: #1e1e1e; }
+
+.btn-checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--detalles-azul);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-principal);
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  margin-bottom: 0.9rem;
+}
+
+.btn-checkout:hover {
+  background-color: var(--hover-azul);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(65,105,225,0.3);
+}
+
+.resumen-aviso {
+  font-size: 0.73rem;
+  color: var(--texto-gris);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.resumen-aviso i { color: #16a34a; }
+
+.resumen-politicas { display: flex; flex-direction: column; gap: 0.55rem; }
+
+.politica-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.75rem;
+  color: var(--texto-gris);
+}
+
+.politica-item i { color: var(--detalles-azul); font-size: 0.8rem; }

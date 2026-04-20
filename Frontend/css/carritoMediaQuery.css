@@ -1,0 +1,26 @@
+/* =====================================================
+   CARRITOMEDIAQUERY.CSS - SportDeal FET
+   Autor: Cristian Casanova - 2026
+   ===================================================== */
+
+@media (max-width: 900px) {
+  .carrito-contenedor {
+    grid-template-columns: 1fr;
+  }
+  .resumen-card { position: static; }
+}
+
+@media (max-width: 767px) {
+  .carrito-main { padding: 1.2rem; }
+  .carrito-item { flex-direction: column; }
+  .item-imagen { width: 100%; height: 80px; border-radius: 10px; }
+  .item-fechas { flex-direction: column; }
+  .fecha-arrow { display: none; }
+}
+
+@media (max-width: 480px) {
+  .carrito-main { padding: 0.9rem; }
+  .item-bottom { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  .cupon-campo { flex-direction: column; }
+  .btn-cupon { width: 100%; }
+}
