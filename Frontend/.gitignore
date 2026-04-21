@@ -14,7 +14,6 @@ css/carrito.css
 css/carritoMediaQuery.css
 css/cliente.css
 css/clienteMediaQuery.css
-css/default.css
 css/implementos.css
 css/implementosMediaQuery.css
 css/index.css
@@ -33,9 +32,6 @@ css/usuariosMediaQuery.css
 js/cliente.js
 js/index.js
 js/producto.js
-
-# ===== Ignorar carpetas =====
-img/
 
 # ===== Permitidos (comentario de referencia) =====
 # login.html + login.css + loginMediaQuery.css
