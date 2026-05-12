@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Cristian Casanova - 2026" />
+    <link rel="icon" href="img/logo.png" type="image/png" sizes="any" />
+    <link rel="stylesheet" href="css/cliente.css" />
+    <link rel="stylesheet" href="css/clienteMediaQuery.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>Mi Cuenta | SportDeal FET</title>
+  </head>
+  <body>
+    <!-- SIDEBAR CLIENTE -->
+    <aside class="sidebar-cli" id="sidebarCli">
+      <div class="scli-header">
+        <img src="img/logo.png" alt="Logo" class="scli-logo" />
+        <span class="scli-nombre">SportDeal</span>
+        <button class="scli-cerrar" id="btnCerrarSidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Perfil rápido -->
+      <div class="scli-perfil">
+        <div class="scli-avatar">—</div>
+        <div>
+          <span class="scli-user">Usuario</span>
+          <span class="scli-email">—</span>
+        </div>
+      </div>
+
+      <nav class="scli-nav">
+        <ul>
+          <li class="scli-item activo">
+            <a href="cliente-dashboard.html" class="scli-link">
+              <i class="fa-solid fa-house"></i><span>Mis Rentas</span>
+            </a>
+          </li>
+          <li class="scli-item">
+            <a href="perfil.html" class="scli-link">
+              <i class="fa-solid fa-user-pen"></i><span>Mi Perfil</span>
+            </a>
+          </li>
+          <li class="scli-item">
+            <a href="index.html" class="scli-link">
+              <i class="fa-solid fa-basket-shopping"></i
+              ><span>Explorar Catálogo</span>
+            </a>
+          </li>
+          <li class="scli-item">
+            <a href="carrito.html" class="scli-link">
+              <i class="fa-solid fa-cart-shopping"></i><span>Mi Carrito</span>
+              <span class="scli-badge">0</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="scli-footer">
+        <a href="login.html" class="scli-salir">
+          <i class="fa-solid fa-right-from-bracket"></i
+          ><span>Cerrar Sesión</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="cli-overlay" id="overlay"></div>
+
+    <!-- CONTENIDO -->
+    <div class="cli-principal">
+      <!-- Topbar -->
+      <div class="cli-topbar">
+        <button class="cli-hamburguesa" id="btnAbrirSidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="cli-topbar-titulo">
+          <h2>Mis Rentas</h2>
+        </div>
+        <div class="cli-topbar-acciones">
+          <a href="index.html" class="btn-explorar-top">
+            <i class="fa-solid fa-plus"></i> Nueva renta
+          </a>
+          <a href="carrito.html" class="cli-carrito">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="carrito-badge-top">0</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="cli-main">
+        <!-- TARJETAS RESUMEN -->
+        <div class="cli-tarjetas">
+          <div class="cli-tarjeta">
+            <div class="cli-icono azul">
+              <i class="fa-solid fa-clipboard-list"></i>
+            </div>
+            <div class="cli-info">
+              <span class="cli-valor">0</span>
+              <span class="cli-label">Total Rentas</span>
+            </div>
+          </div>
+          <div class="cli-tarjeta">
+            <div class="cli-icono naranja">
+              <i class="fa-solid fa-hourglass-half"></i>
+            </div>
+            <div class="cli-info">
+              <span class="cli-valor">0</span>
+              <span class="cli-label">En Uso</span>
+            </div>
+          </div>
+          <div class="cli-tarjeta">
+            <div class="cli-icono rojo">
+              <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="cli-info">
+              <span class="cli-valor">0</span>
+              <span class="cli-label">Por Devolver</span>
+            </div>
+          </div>
+          <div class="cli-tarjeta">
+            <div class="cli-icono verde">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="cli-info">
+              <span class="cli-valor">0</span>
+              <span class="cli-label">Finalizadas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RENTAS ACTIVAS -->
+        <div class="cli-card">
+          <div class="cli-card-header">
+            <h3>Rentas Activas</h3>
+            <span class="cli-badge-num azul">0</span>
+          </div>
+
+        </div>
+
+        <!-- HISTORIAL -->
+        <div class="cli-card">
+          <div class="cli-card-header">
+            <h3>Historial de Rentas</h3>
+            <span class="cli-badge-num verde">0</span>
+          </div>
+
+          <div class="tabla-wrapper-cli">
+            <table class="tabla-cli">
+              <thead>
+                <tr>
+                  <th>Implemento</th>
+                  <th>Período</th>
+                  <th>Total</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- fin cli-main -->
+
+      <footer class="cli-footer">
+        <small>Cristian Casanova &copy; 2026 - FET</small>
+      </footer>
+    </div>
+
+    <script src="js/cliente.js"></script>
+  </body>
+</html>
