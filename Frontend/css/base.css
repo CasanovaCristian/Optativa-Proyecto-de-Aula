@@ -1,9 +1,5 @@
-/* =====================================================
-   BASE.CSS - SportDeal FET
-   Autor: Cristian Casanova - 2026
-   Estilos compartidos: sidebar, topbar, layout general.
-   Se importa en TODAS las páginas del sistema.
-   ===================================================== */
+/* estilos compartidos: sidebar, topbar, layout general.
+   Se importa en TODAS las páginas del sistema.*/
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap");
 
@@ -63,7 +59,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1.1rem 1rem;
+  padding: 1.1rem 1rem; 
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
 }
@@ -180,7 +176,7 @@ body {
 }
 
 /* =====================================================
-   CONTENIDO PRINCIPAL (compartido)
+   CONTENIDO PRINCIPAL 
    ===================================================== */
 .contenido-principal {
   margin-left: 230px;
@@ -193,7 +189,7 @@ body {
 }
 
 /* =====================================================
-   TOPBAR (compartido)
+   TOPBAR 
    ===================================================== */
 .topbar {
   width: 100%;
@@ -268,7 +264,7 @@ body {
 }
 
 /* =====================================================
-   CARD GENÉRICA (compartida)
+   CARD GENÉRICA 
    ===================================================== */
 .card {
   background-color: var(--blanco-puro);
@@ -292,7 +288,7 @@ body {
 }
 
 /* =====================================================
-   TABLA GENÉRICA (compartida)
+   TABLA GENÉRICA 
    ===================================================== */
 .tabla-wrapper {
   overflow-x: auto;
@@ -338,7 +334,7 @@ body {
 }
 
 /* =====================================================
-   BADGES DE ESTADO (compartidos)
+   BADGES DE ESTADO 
    ===================================================== */
 .estado {
   padding: 0.25rem 0.65rem;
@@ -382,7 +378,7 @@ body {
 }
 
 /* =====================================================
-   BOTONES (compartidos)
+   BOTONES 
    ===================================================== */
 .btn-accion {
   display: flex;
@@ -451,7 +447,7 @@ body {
 }
 
 /* =====================================================
-   PAGINACIÓN (compartida)
+   PAGINACIÓN 
    ===================================================== */
 .tabla-footer {
   display: flex;
@@ -496,7 +492,7 @@ body {
 }
 
 /* =====================================================
-   ICONO EN TABLA (compartido)
+   ICONO EN TABLA 
    ===================================================== */
 .icono-tabla {
   margin-right: 0.45rem;
@@ -505,7 +501,7 @@ body {
 }
 
 /* =====================================================
-   FOOTER (compartido)
+   FOOTER 
    ===================================================== */
 .dash-footer {
   padding: 0.9rem 1.5rem;
@@ -523,7 +519,7 @@ body {
 }
 
 /* =====================================================
-   BUSCADOR / FILTROS (compartido)
+   BUSCADOR / FILTROS 
    ===================================================== */
 .barra-herramientas {
   display: flex;
