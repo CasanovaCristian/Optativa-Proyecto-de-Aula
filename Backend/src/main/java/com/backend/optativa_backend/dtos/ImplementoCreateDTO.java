@@ -14,4 +14,9 @@ public class ImplementoCreateDTO {
     private String condicion;
     private String estado;
     private String observaciones;
+    private String imagenBase64;
+    private Double precioDia;
+    private Double precioHora;
+    private String marca;
+    private String talla;
 }

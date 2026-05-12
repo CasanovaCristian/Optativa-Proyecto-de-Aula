@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Implemento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +21,7 @@ public class Implemento {
     private String nombre;
 
     @Column(nullable = false, length = 50)
-    private String categoria; // Fútbol, Baloncesto, Voleibol, etc
+    private String categoria; // Fútbol, Baloncesto, Voleibol, etc.
 
     @Column(nullable = false)
     private Integer cantidadTotal;
@@ -35,10 +36,25 @@ public class Implemento {
     private String condicion; // Excelente, Buena, Regular
 
     @Column(nullable = false, length = 50)
-    private String estado; // DISPONIBLE, EN_PRESTAMO, MANTENIMIENTO
+    private String estado; // DISPONIBLE, EN_PRESTAMO, MANTENIMIENTO    
 
     @Column(length = 255)
     private String observaciones;
+
+    @Column(name = "imagen_base64", columnDefinition = "TEXT")
+    private String imagenBase64;
+
+    @Column(name = "precio_dia")
+    private Double precioDia;
+
+    @Column(name = "precio_hora")
+    private Double precioHora;
+
+    @Column(length = 50)
+    private String marca;
+
+    @Column(length = 20)
+    private String talla;
 
     @Column(name = "fecha_creado", nullable = false, updatable = false)
     private LocalDateTime fechaCreado = LocalDateTime.now();

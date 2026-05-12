@@ -65,6 +65,8 @@ public class PrestamoService {
 
         implemento.setCantidadDisponible(implemento.getCantidadDisponible() - 1);
         implemento.setCantidadEnPrestamo(implemento.getCantidadEnPrestamo() + 1);
+        implemento.setEstado(implemento.getCantidadDisponible() - 1 <= 0 ? "EN_PRESTAMO" : "DISPONIBLE");
+        implemento.setFechaActualizado(LocalDateTime.now());
         implementoRepository.save(implemento);
 
         Prestamo saved = prestamoRepository.save(prestamo);
@@ -89,6 +91,8 @@ public class PrestamoService {
         Implemento implemento = prestamo.getImplemento();
         implemento.setCantidadDisponible(implemento.getCantidadDisponible() + 1);
         implemento.setCantidadEnPrestamo(implemento.getCantidadEnPrestamo() - 1);
+        implemento.setEstado(implemento.getCantidadDisponible() + 1 >= implemento.getCantidadTotal() ? "DISPONIBLE" : "EN_PRESTAMO");
+        implemento.setFechaActualizado(LocalDateTime.now());
         implementoRepository.save(implemento);
 
         return convertToDTO(prestamoRepository.save(prestamo));

@@ -43,6 +43,7 @@
   .filtros-opciones { justify-content: flex-start; }
 
   .productos-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+  .tp-imagen { height: 140px; }
 
   .catalogo-seccion { padding: 2.5rem 1.2rem; }
   .como-funciona { padding: 2.5rem 1.2rem; }
@@ -51,6 +52,7 @@
 /* Mobile pequeño */
 @media (max-width: 480px) {
   .productos-grid { grid-template-columns: 1fr; }
+  .tp-imagen { height: 160px; }
   .hero-titulo { font-size: 1.5rem; }
   .hero-ctas { flex-direction: column; align-items: center; }
   .btn-hero-primario, .btn-hero-secundario { width: 100%; text-align: center; }

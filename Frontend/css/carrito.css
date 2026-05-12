@@ -73,6 +73,8 @@
   flex-shrink: 0;
 }
 
+.item-imagen img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit; }
+
 .item-imagen.azul    { background: linear-gradient(135deg, rgba(65,105,225,0.12), rgba(65,105,225,0.05)); color: var(--detalles-azul); }
 .item-imagen.verde   { background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(34,197,94,0.05)); color: #22c55e; }
 .item-imagen.naranja { background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.05)); color: #f97316; }

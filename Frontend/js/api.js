@@ -10,12 +10,32 @@ const sesion = {
   limpiar:       () => localStorage.removeItem("usuario"),
   estaLogueado:  () => !!localStorage.getItem("usuario"),
   esAdmin:       () => JSON.parse(localStorage.getItem("usuario") || "null")?.rol === "ADMIN",
-  esEmpleado:    () => JSON.parse(localStorage.getItem("usuario") || "null")?.rol === "EMPLEADO",
+  esEmpleado:    () => ["EMPLEADO", "CLIENTE"].includes(JSON.parse(localStorage.getItem("usuario") || "null")?.rol),
+  esCliente:     () => ["EMPLEADO", "CLIENTE"].includes(JSON.parse(localStorage.getItem("usuario") || "null")?.rol),
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// PROTECCIÓN DE PÁGINAS
-// ─────────────────────────────────────────────────────────────────────────────
+const carritoAPI = {
+  clave: "carrito",
+  obtener: () => JSON.parse(localStorage.getItem("carrito") || "[]"),
+  guardar: (items) => localStorage.setItem("carrito", JSON.stringify(items)),
+  limpiar: () => localStorage.removeItem("carrito"),
+  agregar: (item) => {
+    const actual = carritoAPI.obtener();
+    const existente = actual.find((x) => String(x.id) === String(item.id));
+    if (existente) {
+      Object.assign(existente, item, { cantidad: Number(existente.cantidad || 1) + Number(item.cantidad || 1) });
+    } else {
+      actual.push({ ...item, cantidad: Number(item.cantidad || 1) });
+    }
+    carritoAPI.guardar(actual);
+    return actual;
+  },
+  eliminar: (id) => {
+    const filtrado = carritoAPI.obtener().filter((x) => String(x.id) !== String(id));
+    carritoAPI.guardar(filtrado);
+    return filtrado;
+  },
+};
 
 function requerirAuth() {
   if (!sesion.estaLogueado()) window.location.href = "login.html";
@@ -39,10 +59,6 @@ function conectarLogout(selector = ".btn-salir, .scli-salir") {
     });
   });
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// FETCH SIMPLE — sin JWT
-// ─────────────────────────────────────────────────────────────────────────────
 
 async function apiRequest(path, options = {}) {
   const {
@@ -179,6 +195,7 @@ const authAPI = {
 const usuariosAPI = {
   login:          (email, password)  => authAPI.login(email, password),
   registro:       (n, e, p, r)       => authAPI.register(n, e, p, r),
+  crear:          (n, e, p, r)       => apiRequest("/usuarios/registro", { method: "POST", body: { nombre: n, email: e, password: p, rol: r } }),
   obtenerTodos:   ()                 => apiRequest("/usuarios"),
   obtenerPorId:   (id)               => apiRequest(`/usuarios/${id}`),
   actualizar:     (id, u)            => apiRequest(`/usuarios/${id}`, { method: "PUT", body: u }),
@@ -216,3 +233,13 @@ const prestamosAPI = {
   obtenerPorUsuario:   (usuarioId)  => apiRequest(`/prestamos/usuario/${usuarioId}`),
   obtenerPorImplemento:(implId)     => apiRequest(`/prestamos/implemento/${implId}`),
 };
+
+Object.assign(window, {
+  sesion,
+  carritoAPI,
+  authAPI,
+  usuariosAPI,
+  implementosAPI,
+  prestamosAPI,
+  ui,
+});

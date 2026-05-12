@@ -221,6 +221,152 @@ function initPerfil(usuario) {
   if (inputs[0]) inputs[0].value = partes[0] || "";
   if (inputs[1]) inputs[1].value = partes.slice(1).join(" ");
   if (inputs[2]) inputs[2].value = usuario?.email || "";
+  // Botón Guardar: actualizar usuario en backend y en sesión
+  const btnGuardar = document.querySelector(".btn-guardar-perfil");
+  if (btnGuardar) {
+    btnGuardar.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        btnGuardar.disabled = true;
+        const nombre = (inputs[0]?.value || "").trim();
+        const apellido = (inputs[1]?.value || "").trim();
+        const nombreCompleto = `${nombre} ${apellido}`.trim();
+
+        const actualizado = {
+          ...usuario,
+          nombre: nombreCompleto,
+        };
+
+        const resp = await usuariosAPI.actualizar(usuario.id, actualizado);
+        // Guardar y refrescar UI
+        sesion.guardar(resp);
+        actualizarSidebarCliente(resp);
+        if (avatar) avatar.textContent = obtenerIniciales(resp?.nombre || "");
+        if (titulo) titulo.textContent = resp?.nombre || "Usuario";
+        await ui.toast("Perfil actualizado correctamente", "success");
+      } catch (err) {
+        console.error(err);
+        await ui.toast("Error al actualizar perfil: " + (err.message || String(err)), "error");
+      } finally {
+        btnGuardar.disabled = false;
+      }
+    });
+  }
+
+  // Botón Eliminar cuenta: confirmación y petición al API
+  const btnEliminar = document.querySelector(".btn-eliminar-cuenta");
+  if (btnEliminar) {
+    btnEliminar.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        const confirmado = await ui.confirm(
+          "Eliminar cuenta",
+          "Esta acción eliminará permanentemente tu cuenta y no podrá deshacerse. ¿Deseas continuar?",
+          { confirmText: "Sí, eliminar cuenta", cancelText: "Cancelar", tipo: "warning" }
+        );
+        if (!confirmado) return;
+
+        btnEliminar.disabled = true;
+        await usuariosAPI.eliminar(usuario.id);
+        sesion.limpiar();
+        await ui.alert("Cuenta eliminada", "Tu cuenta ha sido eliminada correctamente.", "success");
+        window.location.href = "index.html";
+      } catch (err) {
+        console.error(err);
+        await ui.toast("Error al eliminar la cuenta: " + (err.message || String(err)), "error");
+      } finally {
+        btnEliminar.disabled = false;
+      }
+    });
+  }
+
+  // Botón Cambiar contraseña: solicita nueva contraseña y la actualiza
+  const btnCambiarPass = document.querySelector('.btn-cambiar-pass');
+  if (btnCambiarPass) {
+    btnCambiarPass.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        // Cargar SweetAlert si es necesario
+        try { await cargarSweetAlert(); } catch (loadErr) { console.error(loadErr); await ui.alert('Error','No se pudo mostrar el diálogo.','error'); return; }
+
+        const result = await Swal.fire({
+          title: 'Cambiar contraseña',
+          html:
+            '<div style="position:relative;margin-bottom:1rem">' +
+              '<input id="swal-pass1" class="swal2-input" type="password" placeholder="Nueva contraseña" style="padding-right:2.5rem">' +
+              '<button type="button" id="swal-toggle1" style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:#6b7280;cursor:pointer;padding:0.35rem"><i class="fa-solid fa-eye"></i></button>' +
+            '</div>' +
+            '<div style="position:relative">' +
+              '<input id="swal-pass2" class="swal2-input" type="password" placeholder="Confirmar contraseña" style="padding-right:2.5rem">' +
+              '<button type="button" id="swal-toggle2" style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:#6b7280;cursor:pointer;padding:0.35rem"><i class="fa-solid fa-eye"></i></button>' +
+            '</div>' +
+            '<div style="font-size:0.9rem;color:#6b7280;margin-top:0.5rem;text-align:left">La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial.</div>',
+          focusConfirm: false,
+          showCancelButton: true,
+          confirmButtonText: 'Cambiar',
+          didOpen: () => {
+            const input1 = document.getElementById('swal-pass1');
+            const input2 = document.getElementById('swal-pass2');
+            const btn1 = document.getElementById('swal-toggle1');
+            const btn2 = document.getElementById('swal-toggle2');
+            
+            [btn1, btn2].forEach((btn, idx) => {
+              if (!btn) return;
+              const inp = idx === 0 ? input1 : input2;
+              btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isPassword = inp.type === 'password';
+                inp.type = isPassword ? 'text' : 'password';
+                btn.innerHTML = isPassword ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
+              });
+            });
+          },
+          preConfirm: () => {
+            const p1 = document.getElementById('swal-pass1')?.value || '';
+            const p2 = document.getElementById('swal-pass2')?.value || '';
+            const policy = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]).{8,}$/;
+            if (!p1) {
+              Swal.showValidationMessage('Ingresa la nueva contraseña.');
+              return false;
+            }
+            if (!policy.test(p1)) {
+              Swal.showValidationMessage('La contraseña debe tener mínimo 8 caracteres, una mayúscula, un número y un carácter especial.');
+              return false;
+            }
+            if (p1 !== p2) {
+              Swal.showValidationMessage('Las contraseñas no coinciden.');
+              return false;
+            }
+            return p1;
+          }
+        });
+
+        if (!result || !result.isConfirmed) return;
+        const nueva = result.value;
+        if (!nueva) return;
+
+        btnCambiarPass.disabled = true;
+        try {
+          // Intentar cambiar contraseña enviando solo el campo password
+          const actualizado = { password: nueva };
+          const resp = await usuariosAPI.actualizar(usuario.id, actualizado);
+          // Si el backend devuelve el usuario actualizado, refrescamos la sesión
+          if (resp) sesion.guardar(resp);
+          await ui.toast('Contraseña actualizada correctamente. Inicia sesión nuevamente.', 'success');
+        } catch (err) {
+          console.error('Error al cambiar contraseña:', err);
+          throw err;
+        }
+      } catch (err) {
+        console.error(err);
+        await ui.toast('Error al cambiar la contraseña: ' + (err.message || String(err)), 'error');
+      } finally {
+        btnCambiarPass.disabled = false;
+      }
+    });
+  }
+
+  // (No hay validaciones adicionales; campos de teléfono/identificación/ciudad eliminados)
 }
 
 document.addEventListener("DOMContentLoaded", initCliente);

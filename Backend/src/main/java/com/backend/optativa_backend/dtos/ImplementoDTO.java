@@ -20,4 +20,9 @@ public class ImplementoDTO {
     private String observaciones;
     private LocalDateTime fechaCreado;
     private LocalDateTime fechaActualizado;
+    private String imagenBase64;
+    private Double precioDia;
+    private Double precioHora;
+    private String marca;
+    private String talla;
 }

@@ -149,21 +149,28 @@ async function initCatalogo() {
     articulo.dataset.estado     = data;
     articulo.dataset.disponible = impl.cantidadDisponible;
 
+    const precioDiaFmt = typeof impl.precioDia === "number" && impl.precioDia > 0
+      ? new Intl.NumberFormat('es-CO').format(impl.precioDia)
+      : null;
+
+    const imagenSrc = impl.imagenes?.[0] || impl.imagenUrl || impl.imagenBase64 || impl.imagen || "";
+
     const disponible  = impl.estado === "DISPONIBLE";
     // Si está logueado va al detalle; si no, al login
     const accionHref  = sesion.estaLogueado() ? `producto.html?id=${impl.id}` : "login.html";
 
     articulo.innerHTML = `
       <div class="tp-imagen">
-        <div class="tp-img-placeholder azul">
-          <i class="fa-solid fa-basketball"></i>
-        </div>
+        ${imagenSrc
+          ? `<img class="tp-img" src="${imagenSrc}" alt="${impl.nombre}">`
+          : `<div class="tp-img-placeholder azul"><i class="fa-solid fa-basketball"></i></div>`}
         <span class="tp-badge ${clase}">${badge}</span>
         <span class="tp-cat">${impl.categoria}</span>
       </div>
       <div class="tp-info">
         <h3 class="tp-titulo">${impl.nombre}</h3>
         <p class="tp-desc">${impl.observaciones || "Implemento deportivo disponible para renta."}</p>
+        ${precioDiaFmt ? `<div class="tp-precio-dia"><strong>$${precioDiaFmt}</strong> /día</div>` : ""}
         <div class="tp-precios">
           <span class="tp-precio-principal"><strong>${impl.cantidadDisponible}</strong> disponibles</span>
           <span class="tp-precio-secundario">Total: ${impl.cantidadTotal}</span>

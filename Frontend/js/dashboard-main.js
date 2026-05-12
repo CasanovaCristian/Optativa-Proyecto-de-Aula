@@ -1,4 +1,4 @@
-import { initSidebar } from "./ui-utils.js";
+import { initSidebar, formatearFecha, obtenerIniciales } from "./ui-utils.js";
 import { initImplementos } from "./inventario.js";
 import { initUsuarios } from "./usuarios.js";
 import { initPrestamos, renderPrestamosActivos } from "./prestamos.js";
@@ -32,6 +32,12 @@ function actualizarTopbar() {
   });
 }
 
+function mapearEstadoPrestamo(estado) {
+  if (estado === "ACTIVO") return { clase: "activo-badge", texto: "ACTIVO" };
+  if (estado === "DEVUELTO") return { clase: "devuelto", texto: "DEVUELTO" };
+  return { clase: "vencido", texto: "VENCIDO" };
+}
+
 async function initDashboard() {
   const tarjetaValores = document.querySelectorAll(".seccion-tarjetas .tarjeta-valor");
   tarjetaValores.forEach((el) => {
@@ -62,10 +68,16 @@ async function initDashboard() {
     );
   }).length;
 
+  const prestamosActivos = prestamos.filter((p) => p.estado === "ACTIVO").length;
+  const disponiblesTotal = implementos.reduce(
+    (acc, impl) => acc + Number(impl.cantidadDisponible || 0),
+    0
+  );
+
   [
     implementos.length,
-    implementos.filter((i) => i.estado === "DISPONIBLE").length,
-    implementos.filter((i) => i.estado === "EN_PRESTAMO").length,
+    disponiblesTotal,
+    prestamosActivos,
     implementos.filter((i) => i.estado === "MANTENIMIENTO").length,
     usuarios.length,
     devolucionesHoy,
@@ -75,6 +87,7 @@ async function initDashboard() {
 
   renderPrestamosActivos(prestamos);
   renderTablaImplementosDashboard(implementos);
+  renderTablaPrestamosDashboard(prestamos);
 }
 
 function renderTablaImplementosDashboard(implementos) {
@@ -102,6 +115,47 @@ function renderTablaImplementosDashboard(implementos) {
       <td>${impl.cantidadTotal}</td>
       <td>${impl.cantidadDisponible}</td>
       <td><span class="estado ${cls}">${impl.estado.replace("_", " ")}</span></td>
+    `;
+    tbody.appendChild(fila);
+  });
+}
+
+function renderTablaPrestamosDashboard(prestamos) {
+  const tbody = document.querySelector(".tabla-prestamos-dashboard tbody");
+  if (!tbody) return;
+
+  if (!prestamos.length) {
+    tbody.innerHTML =
+      "<tr><td colspan=\"6\" style=\"text-align:center;padding:2rem;color:var(--text-secondary)\">No hay préstamos para mostrar.</td></tr>";
+    return;
+  }
+
+  const lista = prestamos
+    .slice()
+    .sort((a, b) => new Date(b.fechaPrestamo || b.fechaCreado || 0) - new Date(a.fechaPrestamo || a.fechaCreado || 0))
+    .slice(0, 10);
+
+  tbody.innerHTML = "";
+  lista.forEach((p, index) => {
+    const estado = mapearEstadoPrestamo(p.estado);
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td>#P${String(p.id).padStart(3, "0")}</td>
+      <td>
+        <div class="usuario-celda">
+          <div class="mini-av azul">${obtenerIniciales(p.usuarioNombre)}</div>
+          <span>${p.usuarioNombre}</span>
+        </div>
+      </td>
+      <td>
+        <div class="usuario-celda">
+          <div class="mini-av azul"><i class="fa-solid fa-basketball"></i></div>
+          <span>${p.implementoNombre}</span>
+        </div>
+      </td>
+      <td>${formatearFecha(p.fechaPrestamo)}</td>
+      <td>${formatearFecha(p.fechaDevolucionReal || p.fechaDevolucionEsperada)}</td>
+      <td><span class="estado ${estado.clase}">${estado.texto}</span></td>
     `;
     tbody.appendChild(fila);
   });

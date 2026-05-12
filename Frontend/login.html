@@ -101,7 +101,7 @@
         try {
           const usuario = await usuariosAPI.login(email, password);
           if (usuario) {
-            window.location.href = "dashboard.html";
+            window.location.href = usuario.rol === "ADMIN" ? "dashboard.html" : "cliente-dashboard.html";
           }
         } catch (error) {
           errorDiv.textContent = error.message;

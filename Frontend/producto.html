@@ -17,7 +17,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
       crossorigin="anonymous"
     />
-    <title>Balón de Fútbol Pro | SportDeal FET</title>
+    <title>Detalle del implemento | SportDeal FET</title>
   </head>
   <body>
     <!-- NAVBAR (igual que index) -->
@@ -34,7 +34,6 @@
       <div class="navbar-acciones">
         <a href="carrito.html" class="btn-carrito" title="Carrito">
           <i class="fa-solid fa-cart-shopping"></i>
-          <span class="carrito-badge">0</span>
         </a>
         <a href="login.html" class="btn-nav-login">Iniciar Sesión</a>
         <a href="register.html" class="btn-nav-registro">Crear Cuenta</a>
@@ -44,19 +43,6 @@
       </div>
     </nav>
 
-    <!-- BREADCRUMB -->
-    <div class="breadcrumb-bar">
-      <div class="bc-contenido">
-        <a href="index.html" class="bc-link"
-          ><i class="fa-solid fa-house"></i> Inicio</a
-        >
-        <i class="fa-solid fa-chevron-right bc-sep"></i>
-        <a href="index.html" class="bc-link">Catálogo</a>
-        <i class="fa-solid fa-chevron-right bc-sep"></i>
-        <span class="bc-actual">Balón de Fútbol Pro</span>
-      </div>
-    </div>
-
     <!-- CONTENIDO PRINCIPAL -->
     <main class="producto-main">
       <div class="producto-contenedor">
@@ -65,25 +51,9 @@
           <!-- Imagen principal -->
           <div class="galeria-principal">
             <div class="galeria-img-grande azul">
-              <i class="fa-solid fa-futbol"></i>
+              <i class="fa-solid fa-basketball"></i>
             </div>
-            <span class="gal-badge disponible">Disponible</span>
-          </div>
-
-          <!-- Miniaturas -->
-          <div class="galeria-miniaturas">
-            <div class="miniatura activa azul">
-              <i class="fa-solid fa-futbol"></i>
-            </div>
-            <div class="miniatura azul-claro">
-              <i class="fa-solid fa-futbol"></i>
-            </div>
-            <div class="miniatura azul-oscuro">
-              <i class="fa-solid fa-futbol"></i>
-            </div>
-            <div class="miniatura gris-mini">
-              <i class="fa-solid fa-futbol"></i>
-            </div>
+            <span class="gal-badge disponible">Cargando...</span>
           </div>
 
           <!-- Condición -->
@@ -92,13 +62,13 @@
               <i class="fa-solid fa-shield-check"></i> Condición del implemento
             </h4>
             <div class="condicion-barra-wrap">
-              <div class="condicion-barra" style="width: 85%"></div>
+              <div class="condicion-barra" style="width: 0%"></div>
             </div>
             <div class="condicion-labels">
               <span>Regular</span><span>Buena</span><span>Excelente</span>
             </div>
             <p class="condicion-texto">
-              Estado actual: <strong>Buena</strong> — Revisado el 10 Abr 2026
+              Estado actual: <strong>Cargando...</strong>
             </p>
           </div>
         </div>
@@ -106,21 +76,24 @@
         <!-- COLUMNA DERECHA: Info y acciones -->
         <div class="info-col">
           <div class="prod-categoria-tag">
-            <i class="fa-solid fa-futbol"></i> Fútbol
+            <i class="fa-solid fa-basketball"></i> Implemento
           </div>
 
-          <h1 class="prod-titulo">Balón de Fútbol Pro</h1>
-          <p class="prod-ref">Referencia: #IMP-001 · Marca: Nike · Talla 5</p>
+          <h1 class="prod-titulo">Cargando implemento...</h1>
+          <p class="prod-ref">Referencia: --</p>
+          <p class="prod-observaciones" style="margin-top:-.25rem; color:var(--text-secondary,#666); line-height:1.5;">
+            Cargando descripción del implemento...
+          </p>
 
           <div class="prod-precios">
             <div class="precio-bloque">
               <span class="precio-label">Por día</span>
-              <span class="precio-valor">$8.000 <small>COP</small></span>
+              <span class="precio-valor">$0 <small>COP</small></span>
             </div>
             <div class="precio-sep"></div>
             <div class="precio-bloque">
               <span class="precio-label">Por hora</span>
-              <span class="precio-valor alt">$1.500 <small>COP</small></span>
+              <span class="precio-valor alt">$0 <small>COP</small></span>
             </div>
           </div>
 
@@ -159,42 +132,12 @@
             <a href="login.html" class="btn-rentar-prod">
               <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
             </a>
-            <button class="btn-favorito" title="Guardar">
-              <i class="fa-regular fa-heart"></i>
-            </button>
           </div>
 
           <p class="prod-aviso">
             <i class="fa-solid fa-circle-info"></i> Debes iniciar sesión para
             rentar este implemento.
           </p>
-
-          <!-- Descripción técnica -->
-          <div class="prod-descripcion">
-            <h4>Descripción técnica</h4>
-            <ul class="desc-lista">
-              <li>
-                <i class="fa-solid fa-check"></i> Material: Cuero sintético PU
-                premium
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i> Talla reglamentaria 5 (FIFA
-                Quality)
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i> Cámara interior butílica de
-                alta retención
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i> Resistente a superficies
-                húmedas y secas
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i> Peso: 410–450g |
-                Circunferencia: 68–70 cm
-              </li>
-            </ul>
-          </div>
 
           <!-- Condiciones de renta -->
           <div class="prod-condiciones">
@@ -214,81 +157,6 @@
                 Se requiere identificación al momento de retirar el implemento.
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- CALENDARIO DE DISPONIBILIDAD -->
-      <div class="calendario-seccion">
-        <div class="producto-contenedor">
-          <h3 class="cal-titulo">
-            <i class="fa-solid fa-calendar-days"></i> Calendario de
-            Disponibilidad
-          </h3>
-          <p class="cal-sub">
-            Verifica si el implemento está disponible en tus fechas
-          </p>
-
-          <div class="cal-leyenda">
-            <span class="ley-item"
-              ><span class="ley-dot disponible"></span>Disponible</span
-            >
-            <span class="ley-item"
-              ><span class="ley-dot ocupado"></span>Ocupado</span
-            >
-            <span class="ley-item"><span class="ley-dot hoy"></span>Hoy</span>
-          </div>
-
-          <div class="calendario-grid">
-            <!-- Header días -->
-            <div class="cal-header">
-              <button class="cal-nav">
-                <i class="fa-solid fa-chevron-left"></i>
-              </button>
-              <h4 class="cal-mes">Abril 2026</h4>
-              <button class="cal-nav">
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-            </div>
-            <div class="cal-dias-semana">
-              <span>Dom</span><span>Lun</span><span>Mar</span> <span>Mié</span
-              ><span>Jue</span><span>Vie</span><span>Sáb</span>
-            </div>
-            <div class="cal-dias" id="calDias">
-              <!-- Días generados por JS o estáticos -->
-              <div class="cal-dia vacio"></div>
-              <div class="cal-dia vacio"></div>
-              <div class="cal-dia disponible">1</div>
-              <div class="cal-dia disponible">2</div>
-              <div class="cal-dia disponible">3</div>
-              <div class="cal-dia ocupado">4</div>
-              <div class="cal-dia ocupado">5</div>
-              <div class="cal-dia ocupado">6</div>
-              <div class="cal-dia disponible">7</div>
-              <div class="cal-dia disponible">8</div>
-              <div class="cal-dia disponible">9</div>
-              <div class="cal-dia disponible">10</div>
-              <div class="cal-dia disponible">11</div>
-              <div class="cal-dia disponible">12</div>
-              <div class="cal-dia disponible">13</div>
-              <div class="cal-dia hoy">14</div>
-              <div class="cal-dia disponible">15</div>
-              <div class="cal-dia disponible">16</div>
-              <div class="cal-dia disponible">17</div>
-              <div class="cal-dia ocupado">18</div>
-              <div class="cal-dia ocupado">19</div>
-              <div class="cal-dia ocupado">20</div>
-              <div class="cal-dia disponible">21</div>
-              <div class="cal-dia disponible">22</div>
-              <div class="cal-dia disponible">23</div>
-              <div class="cal-dia disponible">24</div>
-              <div class="cal-dia disponible">25</div>
-              <div class="cal-dia disponible">26</div>
-              <div class="cal-dia disponible">27</div>
-              <div class="cal-dia disponible">28</div>
-              <div class="cal-dia disponible">29</div>
-              <div class="cal-dia disponible">30</div>
-            </div>
           </div>
         </div>
       </div>

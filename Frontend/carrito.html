@@ -33,7 +33,6 @@
       <div class="navbar-acciones">
         <a href="carrito.html" class="btn-carrito">
           <i class="fa-solid fa-cart-shopping"></i>
-          <span class="carrito-badge">0</span>
         </a>
         <a href="login.html" class="btn-nav-login">Iniciar Sesión</a>
         <a href="register.html" class="btn-nav-registro">Crear Cuenta</a>
@@ -42,16 +41,6 @@
         </button>
       </div>
     </nav>
-
-    <div class="breadcrumb-bar">
-      <div class="bc-contenido">
-        <a href="index.html" class="bc-link"
-          ><i class="fa-solid fa-house"></i> Inicio</a
-        >
-        <i class="fa-solid fa-chevron-right bc-sep"></i>
-        <span class="bc-actual">Mi Carrito</span>
-      </div>
-    </div>
 
     <main class="carrito-main">
       <div class="carrito-contenedor">
@@ -79,28 +68,15 @@
                 <span>Subtotal</span>
                 <span>$0</span>
               </div>
-              <div class="resumen-linea descuento">
-                <span><i class="fa-solid fa-tag"></i> Descuento (10%)</span>
-                <span>-$0</span>
-              </div>
               <div class="resumen-sep"></div>
               <div class="resumen-linea total">
                 <span>Total</span>
-                <span>$0 COP</span>
+                <span></span>
               </div>
             </div>
 
-            <div class="cupon-campo">
-              <input
-                type="text"
-                placeholder="Código de descuento"
-                class="input-cupon"
-              />
-              <button class="btn-cupon">Aplicar</button>
-            </div>
-
             <a href="login.html" class="btn-checkout">
-              Continuar al checkout <i class="fa-solid fa-arrow-right"></i>
+              Continuar al pago <i class="fa-solid fa-arrow-right"></i>
             </a>
 
             <p class="resumen-aviso">
@@ -133,6 +109,6 @@
       </div>
     </footer>
 
-    <script src="js/index.js"></script>
+    <script src="js/carrito.js"></script>
   </body>
 </html>

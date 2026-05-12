@@ -59,11 +59,18 @@ export async function initImplementos() {
   };
 
   const actualizarTarjetas = () => {
+    const totalUnidades = implementos.reduce((acc, i) => acc + Number(i.cantidadTotal || 0), 0);
+    const disponibles = implementos.reduce((acc, i) => acc + Number(i.cantidadDisponible || 0), 0);
+    const enPrestamo = implementos.reduce((acc, i) => acc + Number(i.cantidadEnPrestamo || 0), 0);
+    const mantenimiento = implementos
+      .filter((i) => i.estado === "MANTENIMIENTO")
+      .reduce((acc, i) => acc + Number(i.cantidadTotal || 0), 0);
+
     [
-      implementos.length,
-      implementos.filter((i) => i.estado === "DISPONIBLE").length,
-      implementos.filter((i) => i.estado === "EN_PRESTAMO").length,
-      implementos.filter((i) => i.estado === "MANTENIMIENTO").length,
+      totalUnidades,
+      disponibles,
+      enPrestamo,
+      mantenimiento,
     ].forEach((val, i) => {
       if (tarjetaValores[i]) tarjetaValores[i].textContent = val;
     });
@@ -184,6 +191,23 @@ export function abrirModalImplemento(impl, onGuardado) {
           style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
                  background:var(--bg-input,#111827); color:var(--text-primary,#fff); resize:vertical; box-sizing:border-box;">${impl?.observaciones || ""}</textarea>
       </div>
+      <div>
+        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Precio por día</label>
+        <input id="m-precio-dia" type="number" min="0" step="0.01" value="${impl?.precioDia ?? ""}" placeholder="Ej: 8000"
+          style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
+                 background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
+      </div>
+      <div>
+        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Precio por hora</label>
+        <input id="m-precio-hora" type="number" min="0" step="0.01" value="${impl?.precioHora ?? ""}" placeholder="Ej: 1500"
+          style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
+                 background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
+      </div>
+      <div>
+        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Imagen (archivo)</label>
+        <input id="m-imagen-file" type="file" accept="image/*" style="width:100%;">
+        <small style="color:var(--text-secondary,#aaa);">Si subes una imagen se enviará codificada en base64.</small>
+      </div>
       <p id="m-error" style="color:#ef4444; font-size:.85rem; margin:0; display:none;"></p>
     </div>
   `;
@@ -195,6 +219,9 @@ export function abrirModalImplemento(impl, onGuardado) {
     const condicion = document.getElementById("m-condicion")?.value;
     const estado = document.getElementById("m-estado")?.value;
     const obs = document.getElementById("m-obs")?.value.trim();
+    const precioDia = Number(document.getElementById("m-precio-dia")?.value || 0);
+    const precioHora = Number(document.getElementById("m-precio-hora")?.value || 0);
+    const file = document.getElementById("m-imagen-file")?.files?.[0] || null;
     const errorEl = document.getElementById("m-error");
 
     if (!nombre || !cantidad || cantidad < 1) {
@@ -204,25 +231,38 @@ export function abrirModalImplemento(impl, onGuardado) {
     }
 
     try {
-      if (esEdicion) {
-        await implementosAPI.actualizar(impl.id, {
-          nombre,
-          categoria,
-          cantidadTotal: cantidad,
-          condicion,
-          estado,
-          observaciones: obs,
+      const payload = {
+        nombre,
+        categoria,
+        cantidadTotal: cantidad,
+        condicion,
+        estado,
+        observaciones: obs,
+        precioDia: precioDia || undefined,
+        precioHora: precioHora || undefined,
+      };
+
+      if (file) {
+        // leer como base64
+        const toBase64 = (f) => new Promise((res, rej) => {
+          const reader = new FileReader();
+          reader.onload = () => res(reader.result);
+          reader.onerror = rej;
+          reader.readAsDataURL(f);
         });
+        try {
+          const dataUrl = await toBase64(file);
+          payload.imagenBase64 = dataUrl;
+        } catch (err) {
+          console.warn("No se pudo leer la imagen:", err);
+        }
+      }
+
+      if (esEdicion) {
+        await implementosAPI.actualizar(impl.id, payload);
         await ui.toast("Implemento actualizado", "success");
       } else {
-        await implementosAPI.crear({
-          nombre,
-          categoria,
-          cantidadTotal: cantidad,
-          condicion,
-          estado,
-          observaciones: obs,
-        });
+        await implementosAPI.crear(payload);
         await ui.toast("Implemento creado", "success");
       }
       cerrar();

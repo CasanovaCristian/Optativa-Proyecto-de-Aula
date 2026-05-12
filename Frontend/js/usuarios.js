@@ -14,11 +14,12 @@ export async function initUsuarios() {
       usuariosAPI.obtenerTodos(),
       prestamosAPI.obtenerTodos(),
     ]);
+    const estaActivo = (usuario) => usuario.activo !== false;
     [
       usuarios.length,
-      usuarios.filter((u) => u.activo).length,
+      usuarios.filter((u) => estaActivo(u)).length,
       usuarios.filter((u) => u.rol === "ADMIN").length,
-      usuarios.filter((u) => !u.activo).length,
+      usuarios.filter((u) => !estaActivo(u)).length,
     ].forEach((val, i) => {
       if (tarjetaValores[i]) tarjetaValores[i].textContent = val;
     });
@@ -55,7 +56,7 @@ export async function initUsuarios() {
         <td><span class="estado ${u.rol === "ADMIN" ? "admin" : "empleado"}">${u.rol === "ADMIN" ? "Admin" : "Empleado"}</span></td>
         <td>${conteo.get(u.id) || "—"}</td>
         <td>${formatearFecha(u.fechaRegistro)}</td>
-        <td><span class="estado ${u.activo ? "disponible" : "mantenimiento"}">${u.activo ? "Activo" : "Inactivo"}</span></td>
+        <td><span class="estado ${(u.activo !== false) ? "disponible" : "mantenimiento"}">${(u.activo !== false) ? "Activo" : "Inactivo"}</span></td>
         <td class="acciones-celda">
           <button class="btn-tabla editar"   data-action="editar"   data-id="${u.id}"><i class="fa-solid fa-pen"></i></button>
           <button class="btn-tabla eliminar" data-action="eliminar" data-id="${u.id}"><i class="fa-solid fa-trash"></i></button>
@@ -99,7 +100,7 @@ export async function initUsuarios() {
 
   filtros[1]?.addEventListener("change", (e) => {
     const activo = e.target.value === "Activo" ? true : e.target.value === "Inactivo" ? false : null;
-    render(activo === null ? usuarios : usuarios.filter((u) => u.activo === activo));
+    render(activo === null ? usuarios : usuarios.filter((u) => (u.activo !== false) === activo));
   });
 
   tbody?.addEventListener("click", async (e) => {
@@ -200,7 +201,7 @@ export function abrirModalUsuario(usuario, onGuardado) {
           errorEl.style.display = "block";
           return;
         }
-        await authAPI.register(nombre, email, password, rol);
+        await usuariosAPI.crear(nombre, email, password, rol);
         await ui.toast("Usuario creado", "success");
       }
       cerrar();

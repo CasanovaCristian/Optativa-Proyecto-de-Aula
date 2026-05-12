@@ -48,9 +48,19 @@ public class UsuarioService {
     public Optional<UsuarioDTO> actualizar(Long id, UsuarioDTO dto) {
         return usuarioRepository.findById(id)
                 .map(u -> {
-                    u.setNombre(dto.getNombre());
-                    u.setRol(dto.getRol());
-                    u.setActivo(dto.getActivo());
+                    if (dto.getNombre() != null && !dto.getNombre().isEmpty()) {
+                        u.setNombre(dto.getNombre());
+                    }
+                    if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+                        u.setPassword(dto.getPassword());
+                    }
+                    if (dto.getRol() != null && !dto.getRol().isEmpty()) {
+                        u.setRol(dto.getRol());
+                    }
+                    if (dto.getActivo() != null) {
+                        u.setActivo(dto.getActivo());
+                    }
+                    u.setFechaActualizado(java.time.LocalDateTime.now());
                     return convertToDTO(usuarioRepository.save(u));
                 });
     }

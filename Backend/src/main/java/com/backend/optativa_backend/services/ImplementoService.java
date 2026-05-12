@@ -40,9 +40,13 @@ public class ImplementoService {
         implemento.setCondicion(dto.getCondicion());
         implemento.setEstado(dto.getEstado());
         implemento.setObservaciones(dto.getObservaciones());
+        implemento.setImagenBase64(dto.getImagenBase64());
+        implemento.setPrecioDia(dto.getPrecioDia());
+        implemento.setPrecioHora(dto.getPrecioHora());
+        implemento.setMarca(dto.getMarca());
+        implemento.setTalla(dto.getTalla());
 
-        Implemento saved = implementoRepository.save(implemento);
-        return convertToDTO(saved);
+        return convertToDTO(implementoRepository.save(implemento));
     }
 
     public Optional<ImplementoDTO> actualizar(Long id, ImplementoDTO dto) {
@@ -55,16 +59,18 @@ public class ImplementoService {
                     implemento.setEstado(dto.getEstado());
                     implemento.setObservaciones(dto.getObservaciones());
                     implemento.setFechaActualizado(LocalDateTime.now());
+                    implemento.setImagenBase64(dto.getImagenBase64());
+                    implemento.setPrecioDia(dto.getPrecioDia());
+                    implemento.setPrecioHora(dto.getPrecioHora());
+                    implemento.setMarca(dto.getMarca());
+                    implemento.setTalla(dto.getTalla());
 
-                    Implemento updated = implementoRepository.save(implemento);
-                    return convertToDTO(updated);
+                    return convertToDTO(implementoRepository.save(implemento));
                 });
     }
 
     public boolean eliminar(Long id) {
-        if (!implementoRepository.existsById(id)) {
-            return false;
-        }
+        if (!implementoRepository.existsById(id)) return false;
         implementoRepository.deleteById(id);
         return true;
     }
@@ -103,6 +109,12 @@ public class ImplementoService {
         dto.setObservaciones(implemento.getObservaciones());
         dto.setFechaCreado(implemento.getFechaCreado());
         dto.setFechaActualizado(implemento.getFechaActualizado());
+        dto.setImagenBase64(implemento.getImagenBase64());
+        dto.setPrecioDia(implemento.getPrecioDia());
+        dto.setPrecioHora(implemento.getPrecioHora());
+        dto.setMarca(implemento.getMarca());
+        dto.setTalla(implemento.getTalla());
+
         return dto;
     }
 }
