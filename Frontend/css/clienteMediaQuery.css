@@ -1,0 +1,33 @@
+/* =====================================================
+   CLIENTEMEDIAQUERY.CSS - SportDeal FET
+   Autor: Cristian Casanova - 2026
+   ===================================================== */
+
+@media (max-width: 1024px) {
+  .sidebar-cli { transform: translateX(-100%); }
+  .sidebar-cli.abierto { transform: translateX(0); }
+  .scli-cerrar { display: flex; }
+  .cli-principal { margin-left: 0; }
+  .cli-hamburguesa { display: flex; }
+  .cli-tarjetas { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .cli-main { padding: 1rem; gap: 1rem; }
+  .cli-tarjetas { gap: 0.75rem; }
+  .renta-item { flex-direction: column; }
+  .ri-imagen { width: 44px; height: 44px; font-size: 1.1rem; }
+  .ri-fechas { flex-direction: column; gap: 0.5rem; }
+  .ri-top { flex-direction: column; gap: 0.5rem; }
+  .perfil-campos { grid-template-columns: 1fr; }
+  .btn-eliminar-cuenta { margin-left: 0; }
+}
+
+@media (max-width: 480px) {
+  .cli-tarjetas { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .cli-topbar { padding: 0 1rem; }
+  .btn-explorar-top span { display: none; }
+  .cli-topbar-titulo h2 { font-size: 0.95rem; }
+  .perfil-acciones { flex-direction: column; }
+  .btn-eliminar-cuenta { margin-left: 0; width: 100%; text-align: center; }
+}
