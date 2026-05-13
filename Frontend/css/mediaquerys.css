@@ -1,140 +1,166 @@
+/*mediaquerys.css*/
+
 /* MOBILE - Pantallas pequeñas (hasta 480px)*/
 @media (max-width: 480px) {
   header {
-    height: auto;
-    padding: 1rem 1.2rem;
-    justify-content: space-between;
+    height: 70px;
+    padding: 0 1rem;
+    gap: 1rem;
   }
 
-  header > h1 {
-    font-size: 1rem;
+  header h1 {
+    font-size: 1.2rem;
     letter-spacing: 1px;
+    color: white;
   }
 
   .logo {
-    width: 50px;
+    width: 45px;
+    flex-shrink: 0;
   }
 
   .menu {
     display: flex;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    margin-left: auto;
   }
 
   main {
     min-height: auto;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
   }
 
   .form-login {
-    width: 92vw;
-    padding: 1.8rem 1.2rem;
-    border-radius: 16px 16px 0 0;
+    width: 90vw;
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+    border-radius: 12px 12px 0 0;
   }
 
   .out-login {
-    width: 92vw;
-    border-radius: 0 0 16px 16px;
-    padding: 1rem 1.2rem;
+    width: 90vw;
+    max-width: 100%;
+    border-radius: 0 0 12px 12px;
+    padding: 1.2rem 1.5rem;
     flex-direction: column;
-    gap: 0.6rem;
-    align-items: flex-start;
+    gap: 0.8rem;
+    align-items: stretch;
   }
 
   .out-login > a {
-    font-size: 0.82rem;
+    font-size: 0.85rem;
+    text-align: center;
+    width: 100%;
   }
 
   .input-login {
     max-width: 100%;
     width: 100%;
-    height: 48px;
-    font-size: 0.95rem;
+    height: 50px;
+    font-size: 1rem;
     border-radius: 8px;
     padding: 0.8rem 1rem;
-    margin: 0.4rem 0;
+    margin: 0.5rem 0;
   }
 
   .password-field {
     max-width: 100%;
     width: 100%;
-    margin: 0.4rem 0;
+    margin: 0.5rem 0;
   }
 
   .btn-ingresar {
     width: 100%;
-    height: 48px;
-    font-size: 0.9rem;
+    height: 50px;
+    font-size: 0.95rem;
     border-radius: 8px;
-    margin-top: 1.2rem;
+    margin-top: 1.5rem;
   }
 
   form > h2 {
-    font-size: 1.4rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   form > .lock {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
   }
 
   .reset-titulo {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
   }
 
   form > p {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
   }
 
   footer {
     height: auto;
     padding: 1rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 }
 
 /* MOBILE GRANDE / TABLET PEQUEÑA (481px - 767px)*/
 @media (min-width: 481px) and (max-width: 767px) {
   header {
-    height: auto;
-    padding: 1rem 1.5rem;
-    justify-content: space-between;
+    height: 75px;
+    padding: 0 1.5rem;
+    gap: 1rem;
   }
 
-  header > h1 {
-    font-size: 1.2rem;
+  header h1 {
+    font-size: 1.4rem;
     letter-spacing: 1px;
+    color: white;
   }
 
   .logo {
-    width: 60px;
+    width: 50px;
+    flex-shrink: 0;
   }
 
   .menu {
     display: flex;
     font-size: 1.4rem;
+    margin-left: auto;
   }
 
   main {
     min-height: auto;
-    padding: 2.5rem 1rem;
+    padding: 2.5rem 1.5rem;
   }
 
   .form-login {
-    width: 80vw;
-    padding: 2rem 1.5rem;
+    width: 70vw;
+    max-width: 450px;
+    padding: 2.2rem 1.8rem;
     border-radius: 14px 14px 0 0;
   }
 
   .out-login {
-    width: 80vw;
+    width: 70vw;
+    max-width: 450px;
     border-radius: 0 0 14px 14px;
-    padding: 1.2rem 1.5rem;
+    padding: 1.3rem 1.8rem;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: stretch;
+  }
+
+  .out-login > a {
+    font-size: 0.88rem;
+    text-align: center;
+    width: 100%;
   }
 
   .input-login {
     max-width: 100%;
     width: 100%;
-    height: 48px;
+    height: 50px;
     font-size: 1rem;
     border-radius: 8px;
     padding: 0.8rem 1rem;
@@ -148,15 +174,21 @@
   }
 
   .btn-ingresar {
-    width: 60%;
-    height: 48px;
-    font-size: 0.9rem;
+    width: 70%;
+    height: 50px;
+    font-size: 0.95rem;
     border-radius: 8px;
-    margin-top: 1.2rem;
+    margin-top: 1.3rem;
   }
 
   form > h2 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    margin-bottom: 0.9rem;
+  }
+
+  form > .lock {
+    font-size: 3rem;
+    margin-bottom: 0.9rem;
   }
 
   footer {
@@ -168,90 +200,133 @@
 /* TABLET (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   header {
-    height: auto;
-    padding: 1.2rem 2rem;
-    justify-content: space-between;
+    height: 80px;
+    padding: 0 2rem;
+    gap: 1rem;
   }
 
-  header > h1 {
-    font-size: 1.4rem;
+  header h1 {
+    font-size: 1.5rem;
+    color: white;
   }
 
   .logo {
-    width: 70px;
+    width: 55px;
+    flex-shrink: 0;
   }
 
   .menu {
-    display: flex;
+    display: none;
     font-size: 1.5rem;
+    margin-left: auto;
   }
 
   main {
-    padding: 3rem 1rem;
+    padding: 3rem 1.5rem;
+    min-height: calc(100vh - 160px);
   }
 
   .form-login {
-    width: 55vw;
-    padding: 2rem 1.8rem;
+    width: 50vw;
+    max-width: 500px;
+    padding: 2.3rem 2rem;
     border-radius: 14px 14px 0 0;
   }
 
   .out-login {
-    width: 55vw;
+    width: 50vw;
+    max-width: 500px;
     border-radius: 0 0 14px 14px;
-    padding: 1.2rem 1.8rem;
+    padding: 1.3rem 2rem;
   }
 
   .input-login {
     max-width: 100%;
     width: 100%;
-    height: 46px;
+    height: 50px;
     font-size: 1rem;
-    border-radius: 8px;
-    padding: 0.8rem 1rem;
-    margin: 0.5rem 0;
+    border-radius: 10px;
+    padding: 0.8rem 1.1rem;
+    margin: 0.8rem 0;
   }
 
   .password-field {
     max-width: 100%;
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 0.8rem 0;
   }
 
   .btn-ingresar {
-    width: 50%;
-    height: 46px;
-    font-size: 0.9rem;
-    border-radius: 8px;
-    margin-top: 1rem;
+    width: 55%;
+    height: 50px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    margin-top: 1.3rem;
+  }
+
+  form > h2 {
+    font-size: 1.7rem;
+    color: white;
   }
 
   footer {
-    height: auto;
-    padding: 1.2rem;
+    height: 80px;
+    padding: 0;
   }
 }
 
 /* DESKTOP ESTÁNDAR (1025px - 1439px) */
 @media (min-width: 1025px) and (max-width: 1439px) {
+  header {
+    height: 80px;
+    padding: 0 2.5rem;
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+    color: white;
+  }
+
+  .logo {
+    width: 55px;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  main {
+    min-height: calc(100vh - 160px);
+    padding: 3rem 2rem;
+  }
+
   .form-login {
-    width: 35vw;
+    width: 400px;
+    padding: 2.5rem 2.2rem;
   }
 
   .out-login {
-    width: 35vw;
+    width: 400px;
+    padding: 1.5rem 2.2rem;
   }
 
   .input-login {
-    max-width: 100%;
-  }
-
-  .password-field {
-    max-width: 100%;
+    height: 50px;
+    margin: 0.9rem 0;
   }
 
   .btn-ingresar {
-    width: 14vw;
+    width: 50%;
+    height: 50px;
+  }
+
+  form > h2 {
+    font-size: 1.9rem;
+    color: white;
+  }
+
+  footer {
+    height: 80px;
   }
 }
 
