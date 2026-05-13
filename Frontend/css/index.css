@@ -1,9 +1,3 @@
-/* =====================================================
-   INDEX.CSS - SportDeal FET
-   Autor: Cristian Casanova - 2026
-   Catálogo público. Responsive en: indexMediaQuery.css
-   ===================================================== */
-
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&display=swap");
 
 :root {
@@ -37,9 +31,9 @@ body {
   overflow-x: hidden;
 }
 
-/* =====================================================
+/*
    NAVBAR
-   ===================================================== */
+   */
 .navbar {
   width: 100%;
   height: 68px;
@@ -171,9 +165,9 @@ body {
   padding: 0.3rem;
 }
 
-/* =====================================================
+/*
    HERO
-   ===================================================== */
+   */
 .hero {
   background: linear-gradient(135deg, var(--gris-principal) 0%, #1e1e1e 100%);
   padding: 5rem 2rem 4.5rem;
@@ -298,9 +292,7 @@ body {
   background-color: rgba(255,255,255,0.12);
 }
 
-/* =====================================================
-   CÓMO FUNCIONA
-   ===================================================== */
+/*CÓMO FUNCIONA*/
 .como-funciona {
   background-color: var(--blanco-puro);
   padding: 4rem 2rem;
@@ -374,9 +366,9 @@ body {
   flex-shrink: 0;
 }
 
-/* =====================================================
+/*
    CATÁLOGO
-   ===================================================== */
+   */
 .catalogo-seccion {
   padding: 3.5rem 2rem;
 }
@@ -399,7 +391,7 @@ body {
 /* Filtros */
 .filtros-bar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 2rem;
@@ -415,6 +407,38 @@ body {
   display: flex;
   gap: 0.4rem;
   flex-wrap: wrap;
+}
+
+.buscador-catalogo {
+  min-width: 280px;
+  flex: 1 1 320px;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background-color: #f8f9fb;
+}
+
+.buscador-catalogo i {
+  color: var(--texto-gris);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.input-buscador-cat {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--gris-principal);
+  font-size: 0.85rem;
+  font-family: var(--font-secundaria);
+}
+
+.input-buscador-cat::placeholder {
+  color: #94a3b8;
 }
 
 .btn-cat {
@@ -491,8 +515,14 @@ body {
 
 .tp-imagen {
   position: relative;
-  height: 170px;
+  aspect-ratio: 4 / 3;
+  min-height: 190px;
+  padding: 1rem 1rem 0.75rem;
   overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  background: linear-gradient(180deg, rgba(65, 105, 225, 0.05), rgba(49, 49, 49, 0.02));
 }
 
 .tp-img-placeholder {
@@ -507,9 +537,10 @@ body {
 .tp-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   display: block;
+  padding: 0.15rem;
 }
 
 .tp-img-placeholder.azul    { background: linear-gradient(135deg, rgba(65,105,225,0.12), rgba(65,105,225,0.06)); color: var(--detalles-azul); }
@@ -521,8 +552,8 @@ body {
 /* Badge de estado sobre la imagen */
 .tp-badge {
   position: absolute;
-  top: 0.7rem;
-  left: 0.7rem;
+  top: 0.85rem;
+  left: 0.85rem;
   font-size: 0.7rem;
   font-weight: 700;
   padding: 0.22rem 0.6rem;
@@ -537,8 +568,8 @@ body {
 /* Badge de categoría */
 .tp-cat {
   position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
+  top: 0.85rem;
+  right: 0.85rem;
   font-size: 0.68rem;
   font-weight: 600;
   padding: 0.22rem 0.6rem;
@@ -550,11 +581,17 @@ body {
 
 /* Info de la tarjeta */
 .tp-info {
-  padding: 1.1rem;
+  padding: 1rem 1.1rem 1.1rem;
   display: flex;
   flex-direction: column;
   flex: 1;
   gap: 0.5rem;
+}
+
+.tp-precio-dia {
+  font-size: 0.82rem;
+  color: #16a34a;
+  font-weight: 600;
 }
 
 .tp-titulo {
@@ -650,33 +687,7 @@ body {
   transform: none;
 }
 
-/* Paginación catálogo */
-.catalogo-paginacion {
-  display: flex;
-  justify-content: center;
-  gap: 0.4rem;
-  margin-top: 2.5rem;
-}
-
-.btn-pag-pub {
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--borde);
-  background-color: white;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  color: var(--texto-gris);
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: var(--font-secundaria);
-}
-
-.btn-pag-pub:hover  { border-color: var(--detalles-azul); color: var(--detalles-azul); }
-.btn-pag-pub.activo { background-color: var(--detalles-azul); border-color: var(--detalles-azul); color: white; }
-
-/* =====================================================
-   FOOTER PÚBLICO
-   ===================================================== */
+/*FOOTER PÚBLICO*/
 .footer-pub {
   background-color: var(--gris-principal);
   padding: 1.5rem 2rem;

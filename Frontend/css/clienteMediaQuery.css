@@ -1,8 +1,3 @@
-/* =====================================================
-   CLIENTEMEDIAQUERY.CSS - SportDeal FET
-   Autor: Cristian Casanova - 2026
-   ===================================================== */
-
 @media (max-width: 1024px) {
   .sidebar-cli { transform: translateX(-100%); }
   .sidebar-cli.abierto { transform: translateX(0); }

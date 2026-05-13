@@ -1,6 +1,3 @@
-/* estilos compartidos: sidebar, topbar, layout general.
-   Se importa en TODAS las páginas del sistema.*/
-
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap");
 
 /* --- Variables globales --- */
@@ -37,9 +34,7 @@ body {
   background-color: var(--fondo-dash);
 }
 
-/* =====================================================
-   SIDEBAR (compartido en todas las páginas)
-   ===================================================== */
+/* SIDEBAR (compartido en todas las páginas)*/
 .sidebar {
   width: 230px;
   min-width: 230px;
@@ -59,7 +54,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1.1rem 1rem; 
+  padding: 1.1rem 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
 }
@@ -175,9 +170,7 @@ body {
   display: block;
 }
 
-/* =====================================================
-   CONTENIDO PRINCIPAL 
-   ===================================================== */
+/* CONTENIDO PRINCIPAL*/
 .contenido-principal {
   margin-left: 230px;
   flex: 1;
@@ -188,9 +181,7 @@ body {
   overflow-x: hidden;
 }
 
-/* =====================================================
-   TOPBAR 
-   ===================================================== */
+/* TOPBAR */
 .topbar {
   width: 100%;
   height: 60px;
@@ -252,9 +243,7 @@ body {
   flex-shrink: 0;
 }
 
-/* =====================================================
-   PÁGINA PRINCIPAL (área scrolleable)
-   ===================================================== */
+/* PÁGINA PRINCIPAL (área scrolleable)*/
 .page-main {
   flex: 1;
   padding: 1.4rem;
@@ -263,9 +252,7 @@ body {
   gap: 1.2rem;
 }
 
-/* =====================================================
-   CARD GENÉRICA 
-   ===================================================== */
+/* CARD GENÉRICA */
 .card {
   background-color: var(--blanco-puro);
   border-radius: 12px;
@@ -287,9 +274,7 @@ body {
   color: var(--gris-principal);
 }
 
-/* =====================================================
-   TABLA GENÉRICA 
-   ===================================================== */
+/* TABLA GENÉRICA*/
 .tabla-wrapper {
   overflow-x: auto;
   margin: 0 -1.3rem;
@@ -333,9 +318,7 @@ body {
   border-bottom: none;
 }
 
-/* =====================================================
-   BADGES DE ESTADO 
-   ===================================================== */
+/* BADGES DE ESTADO */
 .estado {
   padding: 0.25rem 0.65rem;
   border-radius: 20px;
@@ -372,14 +355,12 @@ body {
   background-color: rgba(65, 105, 225, 0.1);
   color: var(--detalles-azul);
 }
-.estado.empleado {
+.estado.cliente {
   background-color: rgba(249, 115, 22, 0.1);
   color: #ea580c;
 }
 
-/* =====================================================
-   BOTONES 
-   ===================================================== */
+/* BOTONES*/
 .btn-accion {
   display: flex;
   align-items: center;
@@ -446,63 +427,57 @@ body {
   color: white;
 }
 
-/* =====================================================
-   PAGINACIÓN 
-   ===================================================== */
-.tabla-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #f0f2f5;
-}
-
-.tabla-info {
-  font-size: 0.78rem;
-  color: var(--texto-gris);
-}
-
-.paginacion {
-  display: flex;
-  gap: 0.3rem;
-}
-
-.btn-pag {
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--borde);
-  background-color: white;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  color: var(--texto-gris);
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: var(--font-secundaria);
-}
-
-.btn-pag:hover {
-  border-color: var(--detalles-azul);
-  color: var(--detalles-azul);
-}
-.btn-pag.activo {
-  background-color: var(--detalles-azul);
-  border-color: var(--detalles-azul);
-  color: white;
-}
-
-/* =====================================================
-   ICONO EN TABLA 
-   ===================================================== */
+/* ICONO EN TABLA */
 .icono-tabla {
   margin-right: 0.45rem;
   color: var(--detalles-azul);
   font-size: 0.88rem;
 }
 
-/* =====================================================
-   FOOTER 
-   ===================================================== */
+.tabla-imagen-mini {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(65, 105, 225, 0.12), rgba(65, 105, 225, 0.06));
+  color: var(--detalles-azul);
+  flex-shrink: 0;
+}
+
+.tabla-imagen-mini img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tabla-imagen-mini.gris {
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.12), rgba(107, 114, 128, 0.06));
+  color: #9ca3af;
+}
+
+.celda-imagen-tabla {
+  width: 56px;
+}
+
+.celda-implemento-flex {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.celda-implemento-flex strong,
+.celda-implemento-flex span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* FOOTER */
 .dash-footer {
   padding: 0.9rem 1.5rem;
   text-align: center;
@@ -518,9 +493,7 @@ body {
   opacity: 0.8;
 }
 
-/* =====================================================
-   BUSCADOR / FILTROS 
-   ===================================================== */
+/*BUSCADOR / FILTROS */
 .barra-herramientas {
   display: flex;
   align-items: center;

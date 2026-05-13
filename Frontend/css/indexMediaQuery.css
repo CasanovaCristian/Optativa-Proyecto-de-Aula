@@ -1,18 +1,21 @@
-/* =====================================================
-   INDEXMEDIAQUERY.CSS - SportDeal FET
-   Autor: Cristian Casanova - 2026
-   ===================================================== */
-
 /* Tablet */
 @media (max-width: 1024px) {
-  .productos-grid { grid-template-columns: repeat(2, 1fr); }
-  .hero-titulo { font-size: 2.2rem; }
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero-titulo {
+    font-size: 2.2rem;
+  }
 }
 
 /* Mobile grande */
 @media (max-width: 767px) {
-  .navbar { padding: 0 1.2rem; }
-  .navbar-links { display: none; }
+  .navbar {
+    padding: 0 1.2rem;
+  }
+  .navbar-links {
+    display: none;
+  }
   .navbar-links.abierto {
     display: flex;
     flex-direction: column;
@@ -23,41 +26,110 @@
     background-color: var(--gris-principal);
     padding: 1rem 1.5rem;
     gap: 0.5rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 299;
   }
-  .btn-hamburguesa { display: flex; }
-  .btn-nav-login, .btn-nav-registro { font-size: 0.78rem; padding: 0.38rem 0.7rem; }
+  .btn-hamburguesa {
+    display: flex;
+  }
+  .btn-nav-login,
+  .btn-nav-registro {
+    font-size: 0.78rem;
+    padding: 0.38rem 0.7rem;
+  }
 
-  .hero { padding: 3.5rem 1.5rem 3rem; }
-  .hero-titulo { font-size: 1.8rem; }
-  .hero-subtitulo { font-size: 0.88rem; }
-  .hero-stats { gap: 1rem; }
-  .stat-num { font-size: 1.3rem; }
+  .hero {
+    padding: 3.5rem 1.5rem 3rem;
+  }
+  .hero-titulo {
+    font-size: 1.8rem;
+  }
+  .hero-subtitulo {
+    font-size: 0.88rem;
+  }
+  .hero-stats {
+    gap: 1rem;
+  }
+  .stat-num {
+    font-size: 1.3rem;
+  }
 
-  .pasos { flex-direction: column; }
-  .paso-flecha { transform: rotate(90deg); }
+  .pasos {
+    flex-direction: column;
+  }
+  .paso-flecha {
+    transform: rotate(90deg);
+  }
 
-  .filtros-bar { flex-direction: column; align-items: stretch; }
-  .filtros-cats { justify-content: flex-start; }
-  .filtros-opciones { justify-content: flex-start; }
+  .filtros-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .buscador-catalogo {
+    min-width: 0;
+    width: 100%;
+  }
+  .buscador-catalogo {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+  }
+  .filtros-cats {
+    justify-content: flex-start;
+  }
+  .filtros-opciones {
+    justify-content: flex-start;
+  }
 
-  .productos-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
-  .tp-imagen { height: 140px; }
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+  }
+  .tp-imagen {
+    min-height: 160px;
+  }
 
-  .catalogo-seccion { padding: 2.5rem 1.2rem; }
-  .como-funciona { padding: 2.5rem 1.2rem; }
+  .catalogo-seccion {
+    padding: 2.5rem 1.2rem;
+  }
+  .como-funciona {
+    padding: 2.5rem 1.2rem;
+  }
 }
 
 /* Mobile pequeño */
 @media (max-width: 480px) {
-  .productos-grid { grid-template-columns: 1fr; }
-  .tp-imagen { height: 160px; }
-  .hero-titulo { font-size: 1.5rem; }
-  .hero-ctas { flex-direction: column; align-items: center; }
-  .btn-hero-primario, .btn-hero-secundario { width: 100%; text-align: center; }
-  .hero-stats { flex-wrap: wrap; justify-content: center; }
-  .catalogo-encabezado { flex-direction: column; align-items: flex-start; }
-  .btn-nav-registro { display: none; }
-  .footer-contenido { flex-direction: column; text-align: center; }
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+  .tp-imagen {
+    min-height: 180px;
+    padding: 0.85rem 0.85rem 0.65rem;
+  }
+  .hero-titulo {
+    font-size: 1.5rem;
+  }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn-hero-primario,
+  .btn-hero-secundario {
+    width: 100%;
+    text-align: center;
+  }
+  .hero-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .catalogo-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn-nav-registro {
+    display: none;
+  }
+  .footer-contenido {
+    flex-direction: column;
+    text-align: center;
+  }
 }

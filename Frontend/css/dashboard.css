@@ -1,29 +1,25 @@
-/* =====================================================
-   DASHBOARD.CSS - SportDeal FET
-   Autor: Cristian Casanova - 2026
-   Solo estilos base. Responsive en: dashMediaQuery.css
-   ===================================================== */
-
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap");
 
 /* --- Variables --- */
 :root {
   --gris-principal: #313131;
-  --color-blanco:   #f0f2f5;
-  --detalles-azul:  #4169e1;
-  --hover-azul:     #2956dd;
-  --fondo-dash:     #e8eaed;
-  --blanco-puro:    #ffffff;
-  --texto-gris:     #6b7280;
-  --borde:          #e5e7eb;
-  --sombra-card:    0 2px 8px rgba(0, 0, 0, 0.07);
+  --color-blanco: #f0f2f5;
+  --detalles-azul: #4169e1;
+  --hover-azul: #2956dd;
+  --fondo-dash: #e8eaed;
+  --blanco-puro: #ffffff;
+  --texto-gris: #6b7280;
+  --borde: #e5e7eb;
+  --sombra-card: 0 2px 8px rgba(0, 0, 0, 0.07);
 
-  --font-principal:  "Montserrat", sans-serif;
+  --font-principal: "Montserrat", sans-serif;
   --font-secundaria: "Inter", sans-serif;
 }
 
 /* --- Reset --- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -38,9 +34,7 @@ body {
   background-color: var(--fondo-dash);
 }
 
-/* =====================================================
-   SIDEBAR
-   ===================================================== */
+/*SIDEBAR*/
 .sidebar {
   width: 230px;
   min-width: 230px;
@@ -91,7 +85,9 @@ body {
   transition: color 0.2s;
 }
 
-.sidebar-cerrar:hover { color: var(--color-blanco); }
+.sidebar-cerrar:hover {
+  color: var(--color-blanco);
+}
 
 .sidebar-nav {
   flex: 1;
@@ -99,9 +95,13 @@ body {
   overflow-y: auto;
 }
 
-.sidebar-nav ul { list-style: none; }
+.sidebar-nav ul {
+  list-style: none;
+}
 
-.nav-item { margin: 0.1rem 0; }
+.nav-item {
+  margin: 0.1rem 0;
+}
 
 .nav-link {
   display: flex;
@@ -166,11 +166,11 @@ body {
   z-index: 150;
 }
 
-.sidebar-overlay.visible { display: block; }
+.sidebar-overlay.visible {
+  display: block;
+}
 
-/* =====================================================
-   CONTENIDO PRINCIPAL
-   ===================================================== */
+/* CONTENIDO PRINCIPAL*/
 .contenido-principal {
   margin-left: 230px;
   flex: 1;
@@ -181,9 +181,7 @@ body {
   overflow-x: hidden;
 }
 
-/* =====================================================
-   TOPBAR
-   ===================================================== */
+/* TOPBAR*/
 .topbar {
   width: 100%;
   height: 60px;
@@ -245,9 +243,7 @@ body {
   flex-shrink: 0;
 }
 
-/* =====================================================
-   MAIN
-   ===================================================== */
+/* MAIN*/
 .dash-main {
   flex: 1;
   padding: 1.4rem;
@@ -256,9 +252,7 @@ body {
   gap: 1.2rem;
 }
 
-/* =====================================================
-   TARJETAS RESUMEN
-   ===================================================== */
+/* TARJETAS RESUMEN*/
 .seccion-tarjetas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -268,57 +262,95 @@ body {
 .tarjeta {
   background-color: var(--blanco-puro);
   border-radius: 12px;
-  padding: 1.1rem 1.3rem;
+  padding: 1.2rem 1.4rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.1rem;
   box-shadow: var(--sombra-card);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+  border-left: 4px solid transparent;
+  position: relative;
 }
 
 .tarjeta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.tarjeta.azul-card {
+  background-color: rgba(65, 105, 225, 0.05);
+  border: var(--detalles-azul) solid 1px;
+}
+
+.tarjeta.verde-card {
+  background-color: rgba(34, 197, 94, 0.05);
+  border: #22c55e solid 1px;
+}
+
+.tarjeta.naranja-card {
+  background-color: rgba(249, 115, 22, 0.05);
+  border: #f97316 solid 1px;
+}
+
+.tarjeta.rojo-card {
+  background-color: rgba(239, 68, 68, 0.05);
+  border: #ef4444 solid 1px;
 }
 
 .tarjeta-icono {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   flex-shrink: 0;
 }
 
-.tarjeta-icono.azul    { background-color: rgba(65,105,225,0.12); color: var(--detalles-azul); }
-.tarjeta-icono.verde   { background-color: rgba(34,197,94,0.12);  color: #16a34a; }
-.tarjeta-icono.naranja { background-color: rgba(249,115,22,0.12); color: #ea580c; }
-.tarjeta-icono.rojo    { background-color: rgba(239,68,68,0.12);  color: #dc2626; }
+.tarjeta-icono.azul {
+  background-color: rgba(65, 105, 225, 0.15);
+  color: var(--detalles-azul);
+}
+.tarjeta-icono.verde {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+}
+.tarjeta-icono.naranja {
+  background-color: rgba(249, 115, 22, 0.15);
+  color: #ea580c;
+}
+.tarjeta-icono.rojo {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+}
 
 .tarjeta-info {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 0.3rem;
 }
 
 .tarjeta-valor {
   font-family: var(--font-principal);
-  font-size: 1.75rem;
+  font-size: 2.2rem;
+  font-weight: 700;
   color: var(--gris-principal);
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .tarjeta-label {
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   color: var(--texto-gris);
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
-/* =====================================================
-   GRÁFICA + PRÉSTAMOS RÁPIDOS
-   ===================================================== */
+/* GRÁFICA + PRÉSTAMOS RÁPIDOS*/
 .seccion-media {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -347,7 +379,7 @@ body {
 }
 
 .badge-año {
-  background-color: rgba(65,105,225,0.1);
+  background-color: rgba(65, 105, 225, 0.1);
   color: var(--detalles-azul);
   font-size: 0.75rem;
   font-weight: 600;
@@ -386,7 +418,7 @@ body {
 
 .grafica-nota {
   font-size: 0.7rem;
-  color: rgba(240,242,245,0.35);
+  color: rgba(240, 242, 245, 0.35);
   margin-top: 0.4rem;
   text-align: right;
 }
@@ -432,9 +464,15 @@ body {
   flex-shrink: 0;
 }
 
-.mini-avatar.azul    { background-color: var(--detalles-azul); }
-.mini-avatar.verde   { background-color: #22c55e; }
-.mini-avatar.naranja { background-color: #f97316; }
+.mini-avatar.azul {
+  background-color: var(--detalles-azul);
+}
+.mini-avatar.verde {
+  background-color: #22c55e;
+}
+.mini-avatar.naranja {
+  background-color: #f97316;
+}
 
 .p-nombre {
   display: block;
@@ -459,7 +497,7 @@ body {
 
 .p-fecha.vence-pronto {
   color: #dc2626;
-  background-color: rgba(239,68,68,0.08);
+  background-color: rgba(239, 68, 68, 0.08);
   padding: 0.18rem 0.5rem;
   border-radius: 6px;
 }
@@ -469,7 +507,7 @@ body {
   text-align: center;
   padding: 0.55rem;
   border-radius: 8px;
-  background-color: rgba(65,105,225,0.07);
+  background-color: rgba(65, 105, 225, 0.07);
   color: var(--detalles-azul);
   text-decoration: none;
   font-size: 0.8rem;
@@ -477,12 +515,14 @@ body {
   transition: background-color 0.2s;
 }
 
-.btn-ver-todos:hover { background-color: rgba(65,105,225,0.15); }
+.btn-ver-todos:hover {
+  background-color: rgba(65, 105, 225, 0.15);
+}
 
-/* =====================================================
-   TABLA IMPLEMENTOS
-   ===================================================== */
-.tabla-card { overflow: hidden; }
+/* TABLA IMPLEMENTOS*/
+.tabla-card {
+  overflow: hidden;
+}
 
 .btn-accion {
   display: flex;
@@ -496,7 +536,9 @@ body {
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
   font-family: var(--font-secundaria);
 }
 
@@ -541,8 +583,12 @@ body {
   vertical-align: middle;
 }
 
-.tabla-datos tbody tr:hover { background-color: #f8f9fb; }
-.tabla-datos tbody tr:last-child td { border-bottom: none; }
+.tabla-datos tbody tr:hover {
+  background-color: #f8f9fb;
+}
+.tabla-datos tbody tr:last-child td {
+  border-bottom: none;
+}
 
 .icono-tabla {
   margin-right: 0.45rem;
@@ -558,9 +604,18 @@ body {
   white-space: nowrap;
 }
 
-.estado.disponible    { background-color: rgba(34,197,94,0.1);  color: #16a34a; }
-.estado.prestado      { background-color: rgba(249,115,22,0.1); color: #ea580c; }
-.estado.mantenimiento { background-color: rgba(239,68,68,0.1);  color: #dc2626; }
+.estado.disponible {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+.estado.prestado {
+  background-color: rgba(249, 115, 22, 0.1);
+  color: #ea580c;
+}
+.estado.mantenimiento {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
 
 .acciones-celda {
   display: flex;
@@ -580,46 +635,56 @@ body {
   transition: all 0.2s;
 }
 
-.btn-tabla.editar          { background-color: rgba(65,105,225,0.1); color: var(--detalles-azul); }
-.btn-tabla.editar:hover    { background-color: var(--detalles-azul); color: white; }
-.btn-tabla.eliminar        { background-color: rgba(239,68,68,0.1);  color: #ef4444; }
-.btn-tabla.eliminar:hover  { background-color: #ef4444; color: white; }
+.btn-tabla.editar {
+  background-color: rgba(65, 105, 225, 0.1);
+  color: var(--detalles-azul);
+}
+.btn-tabla.editar:hover {
+  background-color: var(--detalles-azul);
+  color: white;
+}
+.btn-tabla.eliminar {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+.btn-tabla.eliminar:hover {
+  background-color: #ef4444;
+  color: white;
+}
 
-.tabla-footer {
+/* ── Imagen miniatura en tablas ── */
+.celda-imagen-tabla {
+  width: 64px;
+  min-width: 56px;
+  padding: 6px !important;
+}
+
+.tabla-imagen-mini {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #f0f2f5;
+  justify-content: center;
+  background: var(--bg-secondary, #f1f5f9);
+  flex-shrink: 0;
 }
 
-.tabla-info {
-  font-size: 0.78rem;
-  color: var(--texto-gris);
+.tabla-imagen-mini img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
-.paginacion { display: flex; gap: 0.3rem; }
-
-.btn-pag {
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--borde);
-  background-color: white;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  color: var(--texto-gris);
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: var(--font-secundaria);
+.tabla-imagen-mini.gris {
+  color: var(--text-secondary, #94a3b8);
+  font-size: 1.2rem;
 }
 
-.btn-pag:hover  { border-color: var(--detalles-azul); color: var(--detalles-azul); }
-.btn-pag.activo { background-color: var(--detalles-azul); border-color: var(--detalles-azul); color: white; }
-
-/* =====================================================
-   FOOTER
-   ===================================================== */
+/*FOOTER*/
 .dash-footer {
   padding: 0.9rem 1.5rem;
   text-align: center;

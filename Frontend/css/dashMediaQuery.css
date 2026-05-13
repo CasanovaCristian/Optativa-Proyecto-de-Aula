@@ -1,8 +1,5 @@
-/* -------------------------------------------------------
-   TABLET (hasta 1024px)
-------------------------------------------------------- */
+/*TABLET (hasta 1024px)*/
 @media (max-width: 1024px) {
-
   .sidebar {
     transform: translateX(-100%);
   }
@@ -36,11 +33,10 @@
   }
 }
 
-/* -------------------------------------------------------
+/* 
    MOBILE GRANDE (hasta 767px)
-------------------------------------------------------- */
+ */
 @media (max-width: 767px) {
-
   .dash-main {
     padding: 1rem;
     gap: 1rem;
@@ -80,11 +76,8 @@
   }
 }
 
-/* -------------------------------------------------------
-   MOBILE PEQUEÑO (hasta 480px)
-------------------------------------------------------- */
+/* MOBILE PEQUEÑO (hasta 480px)*/
 @media (max-width: 480px) {
-
   .dash-main {
     padding: 0.8rem;
     gap: 0.8rem;
@@ -122,11 +115,5 @@
   .tabla-datos td {
     padding: 0.6rem 0.7rem;
     font-size: 0.78rem;
-  }
-
-  .tabla-footer {
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: flex-start;
   }
 }

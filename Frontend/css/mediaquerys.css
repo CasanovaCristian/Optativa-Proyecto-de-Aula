@@ -1,5 +1,4 @@
-/* MOBILE - Pantallas pequeñas (hasta 480px)
-   Ejemplo: iPhone SE, Galaxy A series, etc. */
+/* MOBILE - Pantallas pequeñas (hasta 480px)*/
 @media (max-width: 480px) {
   header {
     height: auto;
@@ -93,8 +92,7 @@
   }
 }
 
-/* MOBILE GRANDE / TABLET PEQUEÑA (481px - 767px)
-   Ejemplo: Galaxy Tab pequeño, iPhone Plus, etc. */
+/* MOBILE GRANDE / TABLET PEQUEÑA (481px - 767px)*/
 @media (min-width: 481px) and (max-width: 767px) {
   header {
     height: auto;
