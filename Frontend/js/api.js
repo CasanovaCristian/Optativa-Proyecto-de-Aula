@@ -1,24 +1,37 @@
 const API_URL = "http://localhost:8080/api";
 
+function normalizarRolUsuario(usuario) {
+  if (!usuario) return usuario;
+  return {
+    ...usuario,
+    rol: usuario.rol === "ADMIN" ? "ADMIN" : "CLIENTE",
+  };
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // SESIÓN — guarda solo el usuario en localStorage (sin tokens)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const sesion = {
-  getUsuario:    () => JSON.parse(localStorage.getItem("usuario") || "null"),
-  guardar:       (usuario) => localStorage.setItem("usuario", JSON.stringify(usuario)),
+  getUsuario:    () => normalizarRolUsuario(JSON.parse(localStorage.getItem("usuario") || "null")),
+  guardar:       (usuario) => localStorage.setItem("usuario", JSON.stringify(normalizarRolUsuario(usuario))),
   limpiar:       () => localStorage.removeItem("usuario"),
   estaLogueado:  () => !!localStorage.getItem("usuario"),
   esAdmin:       () => JSON.parse(localStorage.getItem("usuario") || "null")?.rol === "ADMIN",
-  esEmpleado:    () => ["EMPLEADO", "CLIENTE"].includes(JSON.parse(localStorage.getItem("usuario") || "null")?.rol),
-  esCliente:     () => ["EMPLEADO", "CLIENTE"].includes(JSON.parse(localStorage.getItem("usuario") || "null")?.rol),
+  esCliente:     () => normalizarRolUsuario(JSON.parse(localStorage.getItem("usuario") || "null"))?.rol === "CLIENTE",
 };
 
 const carritoAPI = {
   clave: "carrito",
   obtener: () => JSON.parse(localStorage.getItem("carrito") || "[]"),
-  guardar: (items) => localStorage.setItem("carrito", JSON.stringify(items)),
-  limpiar: () => localStorage.removeItem("carrito"),
+  guardar: (items) => {
+    localStorage.setItem("carrito", JSON.stringify(items));
+    actualizarContadorCarrito();
+  },
+  limpiar: () => {
+    localStorage.removeItem("carrito");
+    actualizarContadorCarrito();
+  },
   agregar: (item) => {
     const actual = carritoAPI.obtener();
     const existente = actual.find((x) => String(x.id) === String(item.id));
@@ -37,6 +50,40 @@ const carritoAPI = {
   },
 };
 
+function obtenerCantidadCarrito() {
+  return carritoAPI.obtener().reduce((acc, item) => acc + Number(item.cantidad || 1), 0);
+}
+
+function actualizarContadorCarrito() {
+  const cantidad = obtenerCantidadCarrito();
+  const nodos = document.querySelectorAll(
+    ".carrito-count, .scli-badge, .carrito-badge-top, .carrito-badge-nav"
+  );
+
+  nodos.forEach((nodo) => {
+    if (!nodo) return;
+    if (nodo.classList.contains("carrito-count")) {
+      nodo.textContent = `${cantidad} implemento${cantidad === 1 ? "" : "s"}`;
+      nodo.style.display = cantidad > 0 ? "inline-flex" : "inline-flex";
+      return;
+    }
+    nodo.textContent = cantidad;
+    nodo.style.display = cantidad > 0 ? "inline-flex" : "inline-flex";
+  });
+
+  document.dispatchEvent(new CustomEvent("carrito:actualizado", { detail: { cantidad } }));
+}
+
+window.addEventListener("storage", (event) => {
+  if (event.key === "carrito") actualizarContadorCarrito();
+});
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", actualizarContadorCarrito);
+} else {
+  actualizarContadorCarrito();
+}
+
 function requerirAuth() {
   if (!sesion.estaLogueado()) window.location.href = "login.html";
 }
@@ -46,9 +93,9 @@ function requerirAdmin() {
   if (!sesion.esAdmin()) window.location.href = "403.html";
 }
 
-function requerirEmpleado() {
+function requerirCliente() {
   requerirAuth();
-  if (!sesion.esEmpleado()) window.location.href = "403.html";
+  if (!sesion.esCliente()) window.location.href = "403.html";
 }
 
 function conectarLogout(selector = ".btn-salir, .scli-salir") {
@@ -169,17 +216,19 @@ const authAPI = {
       method: "POST",
       body: { email, password }
     });
-    sesion.guardar(usuario);
-    return usuario;
+    const normalizado = normalizarRolUsuario(usuario);
+    sesion.guardar(normalizado);
+    return normalizado;
   },
 
-  async register(nombre, email, password, rol = "EMPLEADO") {
+  async register(nombre, email, password, rol = "CLIENTE") {
     const usuario = await apiRequest("/usuarios/registro", {
       method: "POST",
       body: { nombre, email, password, rol }
     });
-    sesion.guardar(usuario);
-    return usuario;
+    const normalizado = normalizarRolUsuario(usuario);
+    sesion.guardar(normalizado);
+    return normalizado;
   },
 
   async logout() {
@@ -242,4 +291,6 @@ Object.assign(window, {
   implementosAPI,
   prestamosAPI,
   ui,
+  requerirCliente,
+  actualizarContadorCarrito,
 });

@@ -1,11 +1,16 @@
 import { crearModal } from "./ui-utils.js";
 
+function obtenerImagenImplemento(impl) {
+  return impl?.imagenes?.[0] || impl?.imagenUrl || impl?.imagenBase64 || impl?.imagen || "";
+}
+
 export async function initImplementos() {
   const tarjetaValores = document.querySelectorAll(".impl-tarjetas .ti-valor");
   const buscador = document.querySelector(".buscador input");
   const filtros = document.querySelectorAll(".select-filtro");
   const btnAgregar = document.querySelector(".btn-accion");
   const tbody = document.querySelector(".tabla-datos tbody");
+
   let implementos = [];
 
   const iconoPorCategoria = (cat) => {
@@ -28,21 +33,28 @@ export async function initImplementos() {
     });
     if (tbody) {
       tbody.innerHTML =
-        '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-secondary)">Cargando...</td></tr>';
+        '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--text-secondary)">Cargando...</td></tr>';
     }
   };
 
   const render = (lista) => {
     if (!tbody) return;
+
     tbody.innerHTML = !lista.length
-      ? `<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-secondary)">No se encontraron implementos.</td></tr>`
+      ? `<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--text-secondary)">No se encontraron implementos.</td></tr>`
       : "";
 
     lista.forEach((impl, index) => {
+      const imagen = obtenerImagenImplemento(impl);
       const fila = document.createElement("tr");
       fila.innerHTML = `
         <td>${String(index + 1).padStart(3, "0")}</td>
-        <td><i class="fa-solid ${iconoPorCategoria(impl.categoria)} icono-tabla"></i>${impl.nombre}</td>
+        <td class="celda-imagen-tabla">
+          ${imagen
+            ? `<div class="tabla-imagen-mini"><img src="${imagen}" alt="${impl.nombre}" loading="lazy"></div>`
+            : `<div class="tabla-imagen-mini gris"><i class="fa-solid ${iconoPorCategoria(impl.categoria)}"></i></div>`}
+        </td>
+        <td><div class="celda-implemento-flex"><span>${impl.nombre}</span></div></td>
         <td>${impl.categoria}</td>
         <td>${impl.cantidadTotal}</td>
         <td>${impl.cantidadDisponible}</td>
@@ -87,16 +99,18 @@ export async function initImplementos() {
 
   buscador?.addEventListener("input", (e) => {
     const txt = e.target.value.trim().toLowerCase();
-    render(
-      implementos.filter(
-        (i) => i.nombre.toLowerCase().includes(txt) || i.categoria.toLowerCase().includes(txt)
-      )
+    const filtrado = implementos.filter(
+      (i) =>
+        i.nombre.toLowerCase().includes(txt) ||
+        i.categoria.toLowerCase().includes(txt),
     );
+    render(filtrado);
   });
 
   filtros[0]?.addEventListener("change", (e) => {
     const cat = e.target.value;
-    render(cat ? implementos.filter((i) => i.categoria === cat) : implementos);
+    const filtrado = cat ? implementos.filter((i) => i.categoria === cat) : implementos;
+    render(filtrado);
   });
 
   filtros[1]?.addEventListener("change", (e) => {
@@ -106,7 +120,8 @@ export async function initImplementos() {
       Mantenimiento: "MANTENIMIENTO",
     };
     const estado = mapa[e.target.value] || null;
-    render(estado ? implementos.filter((i) => i.estado === estado) : implementos);
+    const filtrado = estado ? implementos.filter((i) => i.estado === estado) : implementos;
+    render(filtrado);
   });
 
   tbody?.addEventListener("click", async (e) => {
@@ -141,41 +156,34 @@ export function abrirModalImplemento(impl, onGuardado) {
   const titulo = esEdicion ? "Editar implemento" : "Agregar implemento";
 
   const html = `
-    <div style="display:grid; gap:1rem;">
-      <div>
-        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Nombre *</label>
-        <input id="m-nombre" type="text" value="${impl?.nombre || ""}" placeholder="Ej: Balón de fútbol"
-          style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
-                 background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
+    <div class="form-container">
+      <div class="form-group">
+        <label class="form-label required">Nombre</label>
+        <input id="m-nombre" class="form-input" type="text" value="${impl?.nombre || ""}" placeholder="Ej: Balón de fútbol">
       </div>
-      <div>
-        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Categoría *</label>
-        <select id="m-categoria" style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
-                background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
+      <div class="form-group">
+        <label class="form-label required">Categoría</label>
+        <select id="m-categoria" class="form-select">
           ${["Fútbol", "Baloncesto", "Voleibol", "Tenis", "Atletismo", "Gimnasio", "Natación", "Ciclismo"]
             .map((c) => `<option value="${c}" ${impl?.categoria === c ? "selected" : ""}>${c}</option>`)
             .join("")}
         </select>
       </div>
-      <div>
-        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Cantidad total *</label>
-        <input id="m-cantidad" type="number" min="1" value="${impl?.cantidadTotal || ""}" placeholder="Ej: 10"
-          style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
-                 background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
+      <div class="form-group">
+        <label class="form-label required">Cantidad total</label>
+        <input id="m-cantidad" class="form-input" type="number" min="1" value="${impl?.cantidadTotal || ""}" placeholder="Ej: 10">
       </div>
-      <div>
-        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Condición</label>
-        <select id="m-condicion" style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
-                background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
+      <div class="form-group">
+        <label class="form-label">Condición</label>
+        <select id="m-condicion" class="form-select">
           ${["Excelente", "Buena", "Regular"]
             .map((c) => `<option value="${c}" ${impl?.condicion === c ? "selected" : ""}>${c}</option>`)
             .join("")}
         </select>
       </div>
-      <div>
-        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Estado</label>
-        <select id="m-estado" style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
-                background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
+      <div class="form-group">
+        <label class="form-label">Estado</label>
+        <select id="m-estado" class="form-select">
           ${[
             ["DISPONIBLE", "Disponible"],
             ["EN_PRESTAMO", "En Préstamo"],
@@ -185,30 +193,26 @@ export function abrirModalImplemento(impl, onGuardado) {
             .join("")}
         </select>
       </div>
-      <div>
-        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Observaciones</label>
-        <textarea id="m-obs" rows="2" placeholder="Opcional..."
-          style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
-                 background:var(--bg-input,#111827); color:var(--text-primary,#fff); resize:vertical; box-sizing:border-box;">${impl?.observaciones || ""}</textarea>
+      <div class="form-group">
+        <label class="form-label">Observaciones</label>
+        <textarea id="m-obs" class="form-textarea" placeholder="Opcional...">${impl?.observaciones || ""}</textarea>
       </div>
-      <div>
-        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Precio por día</label>
-        <input id="m-precio-dia" type="number" min="0" step="0.01" value="${impl?.precioDia ?? ""}" placeholder="Ej: 8000"
-          style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
-                 background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Precio por día</label>
+          <input id="m-precio-dia" class="form-input" type="number" min="0" step="0.01" value="${impl?.precioDia ?? ""}" placeholder="Ej: 8000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Precio por hora</label>
+          <input id="m-precio-hora" class="form-input" type="number" min="0" step="0.01" value="${impl?.precioHora ?? ""}" placeholder="Ej: 1500">
+        </div>
       </div>
-      <div>
-        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Precio por hora</label>
-        <input id="m-precio-hora" type="number" min="0" step="0.01" value="${impl?.precioHora ?? ""}" placeholder="Ej: 1500"
-          style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
-                 background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
+      <div class="form-group">
+        <label class="form-label">Imagen (archivo)</label>
+        <input id="m-imagen-file" class="form-input" type="file" accept="image/*">
+        <span class="form-helper">Si subes una imagen se enviará codificada en base64.</span>
       </div>
-      <div>
-        <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Imagen (archivo)</label>
-        <input id="m-imagen-file" type="file" accept="image/*" style="width:100%;">
-        <small style="color:var(--text-secondary,#aaa);">Si subes una imagen se enviará codificada en base64.</small>
-      </div>
-      <p id="m-error" style="color:#ef4444; font-size:.85rem; margin:0; display:none;"></p>
+      <p id="m-error" class="form-error"></p>
     </div>
   `;
 
@@ -226,8 +230,10 @@ export function abrirModalImplemento(impl, onGuardado) {
 
     if (!nombre || !cantidad || cantidad < 1) {
       errorEl.textContent = "Nombre y cantidad son obligatorios.";
-      errorEl.style.display = "block";
+      errorEl.classList.add("visible");
       return;
+    } else {
+      errorEl.classList.remove("visible");
     }
 
     try {
@@ -269,7 +275,7 @@ export function abrirModalImplemento(impl, onGuardado) {
       await onGuardado();
     } catch (error) {
       errorEl.textContent = error.message;
-      errorEl.style.display = "block";
+      errorEl.classList.add("visible");
     }
   });
 }

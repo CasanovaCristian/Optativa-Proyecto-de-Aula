@@ -1,6 +1,7 @@
 const btnHamburguesa = document.getElementById("btnHamburguesa");
 const navLinks = document.getElementById("navLinks");
 const btnsCat = document.querySelectorAll(".btn-cat");
+const buscadorCatalogo = document.getElementById("buscadorCatalogo");
 const filtroDisp = document.getElementById("filtroDisponibilidad");
 const filtroPrecio = document.getElementById("filtroPrecio");
 const productosGrid = document.getElementById("productosGrid");
@@ -69,12 +70,14 @@ function actualizarNavPublica() {
 function aplicarFiltros() {
   const catActiva = document.querySelector(".btn-cat.activo")?.dataset?.cat || "todos";
   const estado    = filtroDisp?.value || "";
+  const termino   = buscadorCatalogo?.value.trim().toLowerCase() || "";
   let tarjetas    = Array.from(document.querySelectorAll(".tarjeta-producto"));
 
   tarjetas.forEach((t) => {
     const matchCat    = catActiva === "todos" || t.dataset.cat === catActiva;
     const matchEstado = !estado || t.dataset.estado === estado;
-    t.style.display   = matchCat && matchEstado ? "flex" : "none";
+    const matchTexto  = !termino || (t.dataset.search || "").includes(termino);
+    t.style.display   = matchCat && matchEstado && matchTexto ? "flex" : "none";
   });
 
   if (catalogoVacio) {
@@ -112,6 +115,8 @@ filtroDisp?.addEventListener("change", () => {
   aplicarFiltros();
 });
 
+buscadorCatalogo?.addEventListener("input", aplicarFiltros);
+
 filtroPrecio?.addEventListener("change", aplicarFiltros);
 
 async function initCatalogo() {
@@ -148,6 +153,10 @@ async function initCatalogo() {
     articulo.dataset.cat        = categoriaSlug;
     articulo.dataset.estado     = data;
     articulo.dataset.disponible = impl.cantidadDisponible;
+    articulo.dataset.search     = [impl.nombre, impl.categoria, impl.observaciones, impl.estado]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
 
     const precioDiaFmt = typeof impl.precioDia === "number" && impl.precioDia > 0
       ? new Intl.NumberFormat('es-CO').format(impl.precioDia)

@@ -44,6 +44,9 @@ function actualizarItem(id, cambios) {
 }
 
 function calcularDuracion(item) {
+  if (item.tipoPeriodo === "hora" && Number(item.horasRenta) > 0) {
+    return { unidad: "hora", cantidad: Math.max(1, Math.floor(Number(item.horasRenta))) };
+  }
   if (!item.fechaInicio || !item.fechaFin) return null;
   const msInicio = new Date(item.fechaInicio).getTime();
   const msFin = new Date(item.fechaFin).getTime();
@@ -82,6 +85,7 @@ async function cargarImplementoDesdeQuerySiHaceFalta() {
     precioHora: Number(impl.precioHora) || 0,
     imagen: impl.imagenes?.[0] || impl.imagenUrl || impl.imagenBase64 || impl.imagen || "",
     observaciones: impl.observaciones || "",
+    horasRenta: Number(impl.horasRenta) || 1,
   });
 
   history.replaceState({}, document.title, "carrito.html");
@@ -117,6 +121,7 @@ function renderCarrito() {
     const fechaInicioVal = item.fechaInicio || "";
     const fechaFinVal = item.fechaFin || "";
     const tipoPeriodoVal = item.tipoPeriodo || "dia";
+    const horasVal = Math.max(1, Number(item.horasRenta || 1));
     const imagen = item.imagen
       ? `<div class="item-imagen"><img src="${item.imagen}" alt="${item.nombre}" /></div>`
       : `<div class="item-imagen azul"><i class="fa-solid fa-basketball"></i></div>`;
@@ -139,9 +144,13 @@ function renderCarrito() {
               <input type="date" class="input-fecha-item" data-id="${item.id}" data-field="fechaInicio" value="${fechaInicioVal}" />
             </div>
             <span class="fecha-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-            <div class="item-fecha-campo">
+            <div class="item-fecha-campo ${tipoPeriodoVal === "hora" ? "" : ""}" ${tipoPeriodoVal === "hora" ? 'style="display:none;"' : ""}>
               <label>Fin</label>
               <input type="date" class="input-fecha-item" data-id="${item.id}" data-field="fechaFin" value="${fechaFinVal}" />
+            </div>
+            <div class="item-fecha-campo" ${tipoPeriodoVal === "hora" ? "" : 'style="display:none;"'}>
+              <label>Horas</label>
+              <input type="number" min="1" step="1" class="input-horas-item" data-id="${item.id}" data-field="horasRenta" value="${horasVal}" style="height:34px;border:1px solid var(--borde);border-radius:7px;padding:0 0.6rem;font-size:0.78rem;color:var(--gris-principal);outline:none;background-color:#f8f9fb;font-family:var(--font-secundaria);" />
             </div>
             <div class="item-tipo">
               <label>Tipo</label>
@@ -208,6 +217,21 @@ function renderCarrito() {
     });
   });
 
+  lista.querySelectorAll(".input-horas-item").forEach((input) => {
+    const id = input.dataset.id;
+    input.addEventListener("change", () => {
+      let v = parseInt(input.value, 10);
+      if (Number.isNaN(v) || v < 1) v = 1;
+      input.value = v;
+      actualizarItem(id, { horasRenta: v });
+      renderCarrito();
+    });
+    input.addEventListener("input", () => {
+      const raw = input.value.replace(/[^0-9]/g, "") || "1";
+      input.value = raw;
+    });
+  });
+
   lista.querySelectorAll(".input-cantidad-item").forEach((input) => {
     const id = input.dataset.id;
     input.addEventListener("change", () => {
@@ -256,9 +280,21 @@ async function initCarrito() {
         return;
       }
 
-      const sinFechas = items.filter((item) => !item.fechaInicio || !item.fechaFin);
-      if (sinFechas.length) {
-        await ui.alert("Faltan fechas", "Selecciona fechas de renta antes de continuar.", "warning");
+      const itemsInvalidos = items.filter((item) => {
+        const inicio = item.fechaInicio && !Number.isNaN(new Date(`${item.fechaInicio}T00:00:00`).getTime());
+        if (!inicio) return true;
+
+        if (item.tipoPeriodo === "hora") {
+          return !(Number(item.horasRenta) > 0);
+        }
+
+        const fin = item.fechaFin && !Number.isNaN(new Date(`${item.fechaFin}T23:59:59`).getTime());
+        if (!fin) return true;
+
+        return new Date(`${item.fechaFin}T23:59:59`) <= new Date(`${item.fechaInicio}T00:00:00`);
+      });
+      if (itemsInvalidos.length) {
+        await ui.alert("Datos incompletos", "Revisa las fechas u horas de los items antes de continuar.", "warning");
         return;
       }
 
@@ -270,22 +306,33 @@ async function initCarrito() {
         for (const item of items) {
           const cantidad = Math.max(1, Number(item.cantidad || 1));
           const fechaInicio = item.fechaInicio ? new Date(`${item.fechaInicio}T00:00:00`) : null;
-          const fechaFin = item.fechaFin ? new Date(`${item.fechaFin}T23:59:59`) : null;
+          const horas = Math.max(1, Number(item.horasRenta || 1));
 
-          if (!fechaInicio || Number.isNaN(fechaInicio.getTime()) || !fechaFin || Number.isNaN(fechaFin.getTime())) {
+          if (!fechaInicio || Number.isNaN(fechaInicio.getTime())) {
             throw new Error("Hay fechas inválidas en uno de los items del carrito.");
           }
 
-          if (fechaFin <= fechaInicio) {
-            throw new Error("La fecha de fin debe ser posterior a la fecha de inicio.");
+          if (item.tipoPeriodo === "dia") {
+            const fechaFin = item.fechaFin ? new Date(`${item.fechaFin}T23:59:59`) : null;
+            if (!fechaFin || Number.isNaN(fechaFin.getTime())) {
+              throw new Error("Hay fechas inválidas en uno de los items del carrito.");
+            }
+            if (fechaFin <= fechaInicio) {
+              throw new Error("La fecha de fin debe ser posterior a la fecha de inicio.");
+            }
           }
+
+          const fechaDevolucionEsperada =
+            item.tipoPeriodo === "hora"
+              ? new Date(fechaInicio.getTime() + horas * 60 * 60 * 1000)
+              : new Date(`${item.fechaFin}T23:59:59`);
 
           // El backend crea un préstamo por unidad y descuenta el stock allí mismo.
           for (let i = 0; i < cantidad; i += 1) {
             const payload = {
               usuarioId: usuario?.id,
               implementoId: item.id,
-              fechaDevolucionEsperada: fechaFin.toISOString(),
+              fechaDevolucionEsperada: fechaDevolucionEsperada.toISOString(),
               observaciones: item.observaciones || null,
             };
             console.log("Payload enviado a /prestamos:", payload);

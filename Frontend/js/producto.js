@@ -16,44 +16,70 @@ let tipoPeriodo   = "dia";
 let precioDiaVal  = 0;
 let precioHoraVal = 0;
 let implementoActual = null;
+let horasRentaVal = 1;
 
 btnsPeriodo.forEach((btn) => {
   btn.addEventListener("click", () => {
     btnsPeriodo.forEach((b) => b.classList.remove("activo"));
     btn.classList.add("activo");
     tipoPeriodo = btn.dataset.tipo;
+    actualizarModoPeriodo();
     calcularTotal();
   });
 });
 
 const fechaInicio   = document.getElementById("fechaInicio");
 const fechaFin      = document.getElementById("fechaFin");
+const horasRenta    = document.getElementById("horasRenta");
+const campoFechaFin = document.getElementById("campoFechaFin");
+const campoHoras    = document.getElementById("campoHoras");
 const resumenPrecio = document.getElementById("resumenPrecio");
+
+function actualizarModoPeriodo() {
+  const esHora = tipoPeriodo === "hora";
+  if (campoFechaFin) campoFechaFin.style.display = esHora ? "none" : "flex";
+  if (campoHoras) campoHoras.style.display = esHora ? "flex" : "none";
+  if (!esHora && horasRenta) horasRenta.value = horasRenta.value || "1";
+}
+
+actualizarModoPeriodo();
 
 function calcularTotal() {
   const inicio = fechaInicio?.value;
   const fin    = fechaFin?.value;
-
-  if (!inicio || !fin) {
-    if (resumenPrecio) resumenPrecio.innerHTML = '<i class="fa-solid fa-calculator"></i> Selecciona las fechas para ver el total';
-    return;
-  }
-
-  const msInicio = new Date(inicio).getTime();
-  const msFin    = new Date(fin).getTime();
-
-  if (msFin <= msInicio) {
-    if (resumenPrecio) resumenPrecio.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> La fecha fin debe ser posterior a la de inicio';
-    return;
-  }
+  const horasIngresadas = Number(horasRenta?.value || 0);
 
   if (tipoPeriodo === "dia") {
+    if (!inicio || !fin) {
+      if (resumenPrecio) resumenPrecio.innerHTML = '<i class="fa-solid fa-calculator"></i> Selecciona las fechas para ver el total';
+      return;
+    }
+
+    const msInicio = new Date(inicio).getTime();
+    const msFin    = new Date(fin).getTime();
+
+    if (msFin <= msInicio) {
+      if (resumenPrecio) resumenPrecio.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> La fecha fin debe ser posterior a la de inicio';
+      return;
+    }
+
     const dias  = Math.ceil((msFin - msInicio) / (1000 * 60 * 60 * 24));
     const total = dias * (Number(precioDiaVal) || 0);
     if (resumenPrecio)
       resumenPrecio.innerHTML = `<i class="fa-solid fa-calculator"></i> <strong>${dias} dia${dias > 1 ? "s" : ""}</strong> x $${Number(precioDiaVal || 0).toLocaleString()} = <strong style="color:var(--detalles-azul)">$${total.toLocaleString()} COP</strong>`;
   } else {
-    const horas = Math.ceil((msFin - msInicio) / (1000 * 60 * 60));
+    if (!inicio) {
+      if (resumenPrecio) resumenPrecio.innerHTML = '<i class="fa-solid fa-calculator"></i> Selecciona la fecha de inicio y las horas para ver el total';
+      return;
+    }
+
+    if (!horasIngresadas || horasIngresadas < 1) {
+      if (resumenPrecio) resumenPrecio.innerHTML = '<i class="fa-solid fa-calculator"></i> Indica cuántas horas vas a rentar';
+      return;
+    }
+
+    horasRentaVal = Math.floor(horasIngresadas);
+    const horas = horasRentaVal;
     const total = horas * (Number(precioHoraVal) || 0);
     if (resumenPrecio)
       resumenPrecio.innerHTML = `<i class="fa-solid fa-calculator"></i> <strong>${horas} hora${horas > 1 ? "s" : ""}</strong> x $${Number(precioHoraVal || 0).toLocaleString()} = <strong style="color:var(--detalles-azul)">$${total.toLocaleString()} COP</strong>`;
@@ -62,6 +88,7 @@ function calcularTotal() {
 
 fechaInicio?.addEventListener("change", calcularTotal);
 fechaFin?.addEventListener("change", calcularTotal);
+horasRenta?.addEventListener("input", calcularTotal);
 
 function cargarScript(src, id) {
   return new Promise((resolve, reject) => {
@@ -155,16 +182,28 @@ async function initProducto() {
 
       const inicio = fechaInicio?.value || "";
       const fin = fechaFin?.value || "";
-      if (!inicio || !fin) {
-        await ui.alert("Faltan fechas", "Selecciona fechas de renta antes de continuar.", "warning");
-        return;
-      }
+      const horas = Math.max(1, Math.floor(Number(horasRenta?.value || horasRentaVal || 1)));
 
-      const msInicio = new Date(inicio).getTime();
-      const msFin = new Date(fin).getTime();
-      if (Number.isNaN(msInicio) || Number.isNaN(msFin) || msFin <= msInicio) {
-        await ui.alert("Fechas invalidas", "La fecha fin debe ser posterior a la de inicio.", "warning");
-        return;
+      if (tipoPeriodo === "dia") {
+        if (!inicio || !fin) {
+          await ui.alert("Faltan fechas", "Selecciona fechas de renta antes de continuar.", "warning");
+          return;
+        }
+        const msInicio = new Date(inicio).getTime();
+        const msFin = new Date(fin).getTime();
+        if (Number.isNaN(msInicio) || Number.isNaN(msFin) || msFin <= msInicio) {
+          await ui.alert("Fechas invalidas", "La fecha fin debe ser posterior a la de inicio.", "warning");
+          return;
+        }
+      } else {
+        if (!inicio) {
+          await ui.alert("Falta fecha de inicio", "Selecciona la fecha de inicio antes de continuar.", "warning");
+          return;
+        }
+        if (!Number.isFinite(horas) || horas < 1) {
+          await ui.alert("Horas invalidas", "Indica una cantidad de horas mayor a cero.", "warning");
+          return;
+        }
       }
 
       carritoAPI.agregar({
@@ -178,6 +217,7 @@ async function initProducto() {
         tipoPeriodo: tipoPeriodo || "dia",
         fechaInicio: fechaInicio?.value || "",
         fechaFin: fechaFin?.value || "",
+          horasRenta: tipoPeriodo === "hora" ? horas : null,
       });
 
       await ui.toast("Añadido al carrito", "success");
@@ -275,6 +315,7 @@ async function initProducto() {
     // Precios
     precioDiaVal  = impl.precioDia  || 0;
     precioHoraVal = impl.precioHora || 0;
+    actualizarModoPeriodo();
 
     const fmt      = (v) => new Intl.NumberFormat("es-CO").format(Number(v || 0));
     const precioEls = document.querySelectorAll(".precio-valor");

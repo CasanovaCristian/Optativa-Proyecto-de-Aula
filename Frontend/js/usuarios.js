@@ -14,6 +14,7 @@ export async function initUsuarios() {
       usuariosAPI.obtenerTodos(),
       prestamosAPI.obtenerTodos(),
     ]);
+    usuarios = usuarios.map((u) => ({ ...u, rol: u.rol === "ADMIN" ? "ADMIN" : "CLIENTE" }));
     const estaActivo = (usuario) => usuario.activo !== false;
     [
       usuarios.length,
@@ -48,12 +49,12 @@ export async function initUsuarios() {
             <div class="avatar-tabla ${u.rol === "ADMIN" ? "azul" : "verde"}">${obtenerIniciales(u.nombre)}</div>
             <div>
               <span class="u-nombre">${u.nombre}</span>
-              <span class="u-sub">${u.rol === "ADMIN" ? "Administrador" : "Empleado"}</span>
+              <span class="u-sub">${u.rol === "ADMIN" ? "Administrador" : "Cliente"}</span>
             </div>
           </div>
         </td>
         <td>${u.email}</td>
-        <td><span class="estado ${u.rol === "ADMIN" ? "admin" : "empleado"}">${u.rol === "ADMIN" ? "Admin" : "Empleado"}</span></td>
+        <td><span class="estado ${u.rol === "ADMIN" ? "admin" : "cliente"}">${u.rol === "ADMIN" ? "Admin" : "Cliente"}</span></td>
         <td>${conteo.get(u.id) || "—"}</td>
         <td>${formatearFecha(u.fechaRegistro)}</td>
         <td><span class="estado ${(u.activo !== false) ? "disponible" : "mantenimiento"}">${(u.activo !== false) ? "Activo" : "Inactivo"}</span></td>
@@ -92,8 +93,8 @@ export async function initUsuarios() {
     const rol =
       e.target.value === "Administrador"
         ? "ADMIN"
-        : e.target.value === "Empleado"
-          ? "EMPLEADO"
+        : e.target.value === "Cliente"
+          ? "CLIENTE"
           : null;
     render(rol ? usuarios.filter((u) => u.rol === rol) : usuarios);
   });
@@ -161,7 +162,7 @@ export function abrirModalUsuario(usuario, onGuardado) {
         <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Rol</label>
         <select id="mu-rol" style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
                 background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
-          <option value="EMPLEADO" ${usuario?.rol === "EMPLEADO" ? "selected" : ""}>Empleado</option>
+          <option value="CLIENTE" ${usuario?.rol === "CLIENTE" ? "selected" : ""}>Cliente</option>
           <option value="ADMIN"    ${usuario?.rol === "ADMIN" ? "selected" : ""}>Admin</option>
         </select>
       </div>

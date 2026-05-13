@@ -59,7 +59,7 @@ async function initCliente() {
   }
 
   if (!window.sesion) return;
-  requerirEmpleado();
+  requerirCliente();
   conectarLogout();
 
   const usuario = sesion.getUsuario();

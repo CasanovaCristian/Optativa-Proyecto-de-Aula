@@ -12,7 +12,9 @@ function cargarScript(src, id) {
     if (existente) {
       if (window.sesion) return resolve();
       existente.addEventListener("load", () => resolve());
-      existente.addEventListener("error", () => reject(new Error(`No se pudo cargar ${src}`)));
+      existente.addEventListener("error", () =>
+        reject(new Error(`No se pudo cargar ${src}`)),
+      );
       return;
     }
     const script = document.createElement("script");
@@ -38,8 +40,20 @@ function mapearEstadoPrestamo(estado) {
   return { clase: "vencido", texto: "VENCIDO" };
 }
 
+function obtenerImagenImplemento(impl) {
+  return (
+    impl?.imagenes?.[0] ||
+    impl?.imagenUrl ||
+    impl?.imagenBase64 ||
+    impl?.imagen ||
+    ""
+  );
+}
+
 async function initDashboard() {
-  const tarjetaValores = document.querySelectorAll(".seccion-tarjetas .tarjeta-valor");
+  const tarjetaValores = document.querySelectorAll(
+    ".seccion-tarjetas .tarjeta-valor",
+  );
   tarjetaValores.forEach((el) => {
     el.textContent = "Cargando...";
   });
@@ -48,7 +62,7 @@ async function initDashboard() {
   const tbody = document.querySelector(".tabla-card .tabla-datos tbody");
   if (tbody) {
     tbody.innerHTML =
-      "<tr><td colspan=\"7\" style=\"text-align:center;padding:2rem;color:var(--text-secondary)\">Cargando...</td></tr>";
+      '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--text-secondary)">Cargando...</td></tr>';
   }
 
   const [implementos, usuarios, prestamos] = await Promise.all([
@@ -68,10 +82,12 @@ async function initDashboard() {
     );
   }).length;
 
-  const prestamosActivos = prestamos.filter((p) => p.estado === "ACTIVO").length;
+  const prestamosActivos = prestamos.filter(
+    (p) => p.estado === "ACTIVO",
+  ).length;
   const disponiblesTotal = implementos.reduce(
     (acc, impl) => acc + Number(impl.cantidadDisponible || 0),
-    0
+    0,
   );
 
   [
@@ -95,12 +111,13 @@ function renderTablaImplementosDashboard(implementos) {
   if (!tbody) return;
   if (!implementos.length) {
     tbody.innerHTML =
-      "<tr><td colspan=\"7\" style=\"text-align:center;padding:2rem;color:var(--text-secondary)\">No hay implementos para mostrar.</td></tr>";
+      '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--text-secondary)">No hay implementos para mostrar.</td></tr>';
     return;
   }
 
   tbody.innerHTML = "";
   implementos.slice(0, 8).forEach((impl, index) => {
+    const imagen = obtenerImagenImplemento(impl);
     const fila = document.createElement("tr");
     const cls =
       impl.estado === "DISPONIBLE"
@@ -110,13 +127,20 @@ function renderTablaImplementosDashboard(implementos) {
           : "prestado";
     fila.innerHTML = `
       <td>${String(index + 1).padStart(3, "0")}</td>
-      <td><i class="fa-solid fa-box icono-tabla"></i> ${impl.nombre}</td>
+      <td class="celda-imagen-tabla">
+        ${
+          imagen
+            ? `<div class="tabla-imagen-mini"><img src="${imagen}" alt="${impl.nombre}" loading="lazy"></div>`
+            : `<div class="tabla-imagen-mini gris"><i class="fa-solid fa-box"></i></div>`
+        }
+      </td>
+      <td><div class="celda-implemento-flex"><span>${impl.nombre}</span></div></td>
       <td>${impl.categoria}</td>
       <td>${impl.cantidadTotal}</td>
       <td>${impl.cantidadDisponible}</td>
       <td><span class="estado ${cls}">${impl.estado.replace("_", " ")}</span></td>
     `;
-    tbody.appendChild(fila);
+    tbody.appendChild(fila);  
   });
 }
 
@@ -126,18 +150,29 @@ function renderTablaPrestamosDashboard(prestamos) {
 
   if (!prestamos.length) {
     tbody.innerHTML =
-      "<tr><td colspan=\"6\" style=\"text-align:center;padding:2rem;color:var(--text-secondary)\">No hay préstamos para mostrar.</td></tr>";
+      '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text-secondary)">No hay préstamos para mostrar.</td></tr>';
     return;
   }
 
   const lista = prestamos
     .slice()
-    .sort((a, b) => new Date(b.fechaPrestamo || b.fechaCreado || 0) - new Date(a.fechaPrestamo || a.fechaCreado || 0))
+    .sort(
+      (a, b) =>
+        new Date(b.fechaPrestamo || b.fechaCreado || 0) -
+        new Date(a.fechaPrestamo || a.fechaCreado || 0),
+    )
     .slice(0, 10);
 
   tbody.innerHTML = "";
   lista.forEach((p, index) => {
     const estado = mapearEstadoPrestamo(p.estado);
+    const imagen =
+      p.implementoImagen ||
+      p.imagen ||
+      p.implementoImagenUrl ||
+      p.implementoImagenBase64 ||
+      p.implemento?.imagen ||
+      "";
     const fila = document.createElement("tr");
     fila.innerHTML = `
       <td>#P${String(p.id).padStart(3, "0")}</td>
@@ -148,8 +183,14 @@ function renderTablaPrestamosDashboard(prestamos) {
         </div>
       </td>
       <td>
-        <div class="usuario-celda">
-          <div class="mini-av azul"><i class="fa-solid fa-basketball"></i></div>
+        ${
+          imagen
+            ? `<div class="tabla-imagen-mini"><img src="${imagen}" alt="${p.implementoNombre}" loading="lazy"></div>`
+            : `<div class="tabla-imagen-mini gris"><i class="fa-solid fa-basketball"></i></div>`
+        }
+      </td>
+      <td>
+        <div class="celda-implemento-flex">
           <span>${p.implementoNombre}</span>
         </div>
       </td>

@@ -1,5 +1,15 @@
 import { formatearFecha, obtenerIniciales } from "./ui-utils.js";
 
+function obtenerImagenImplemento(impl) {
+  return (
+    impl?.imagenes?.[0] ||
+    impl?.imagenUrl ||
+    impl?.imagenBase64 ||
+    impl?.imagen ||
+    ""
+  );
+}
+
 export function renderPrestamosActivos(prestamos) {
   const lista = document.querySelector(".lista-prestamos-rapidos");
   if (!lista) return;
@@ -37,9 +47,16 @@ export async function initPrestamos() {
   const buscador = document.querySelector(".buscador input");
   const filtros = document.querySelectorAll(".select-filtro");
   let prestamos = [];
+  let implementosCargados = [];
 
   const cargar = async () => {
-    prestamos = await prestamosAPI.obtenerTodos();
+    const [data, implementos] = await Promise.all([
+      prestamosAPI.obtenerTodos(),
+      implementosAPI.obtenerTodos(),
+    ]);
+    prestamos = data;
+    implementosCargados = implementos;
+
     [
       prestamos.length,
       prestamos.filter((p) => p.estado === "ACTIVO").length,
@@ -48,18 +65,25 @@ export async function initPrestamos() {
     ].forEach((val, i) => {
       if (tarjetaValores[i]) tarjetaValores[i].textContent = val;
     });
-    render(prestamos);
+
+    render(prestamos, implementosCargados);
   };
 
-  const render = (lista) => {
+  const render = (lista, implementos = []) => {
     if (!tbody) return;
     tbody.innerHTML = !lista.length
-      ? `<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text-secondary)">No se encontraron préstamos.</td></tr>`
+      ? `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--text-secondary)">No se encontraron préstamos.</td></tr>`
       : "";
 
     lista.forEach((p) => {
       const cls =
         p.estado === "ACTIVO" ? "activo-badge" : p.estado === "DEVUELTO" ? "devuelto" : "vencido";
+
+      const implEncontrado = implementos.find(
+        (i) => i.id === p.implementoId || i.nombre === p.implementoNombre
+      );
+      const imagen = obtenerImagenImplemento(implEncontrado);
+
       const fila = document.createElement("tr");
       fila.innerHTML = `
         <td>#P${String(p.id).padStart(3, "0")}</td>
@@ -69,7 +93,12 @@ export async function initPrestamos() {
             <span>${p.usuarioNombre}</span>
           </div>
         </td>
-        <td><i class="fa-solid fa-basketball icono-tabla"></i>${p.implementoNombre}</td>
+        <td>
+          ${imagen
+            ? `<div class="tabla-imagen-mini"><img src="${imagen}" alt="${p.implementoNombre}" loading="lazy"></div>`
+            : `<div class="tabla-imagen-mini gris"><i class="fa-solid fa-basketball"></i></div>`}
+        </td>
+        <td><div class="celda-implemento-flex"><span>${p.implementoNombre}</span></div></td>
         <td>${formatearFecha(p.fechaPrestamo)}</td>
         <td>${formatearFecha(p.fechaDevolucionReal || p.fechaDevolucionEsperada)}</td>
         <td><span class="estado ${cls}">${p.estado}</span></td>
@@ -91,7 +120,7 @@ export async function initPrestamos() {
     });
     if (tbody) {
       tbody.innerHTML =
-        '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text-secondary)">Cargando...</td></tr>';
+        '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--text-secondary)">Cargando...</td></tr>';
     }
   };
 
@@ -105,13 +134,17 @@ export async function initPrestamos() {
         (p) =>
           p.usuarioNombre.toLowerCase().includes(txt) ||
           p.implementoNombre.toLowerCase().includes(txt)
-      )
+      ),
+      implementosCargados
     );
   });
 
   filtros[0]?.addEventListener("change", (e) => {
     const estado = e.target.value ? e.target.value.toUpperCase() : null;
-    render(estado ? prestamos.filter((p) => p.estado === estado) : prestamos);
+    render(
+      estado ? prestamos.filter((p) => p.estado === estado) : prestamos,
+      implementosCargados
+    );
   });
 
   tbody?.addEventListener("click", async (e) => {
