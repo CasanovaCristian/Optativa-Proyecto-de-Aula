@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Catálogo de productos de SportDeal FET"
+    />
+    <meta name="author" content="Cristian Casanova - 2026" />
+    <link rel="icon" href="img/logo.png" type="image/png" sizes="any" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/indexMediaQuery.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <title>Productos | SportDeal FET</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-marca">
+        <img src="img/logo.png" alt="Logo SportDeal" class="navbar-logo" />
+        <span class="navbar-nombre">SportDeal</span>
+      </div>
+
+      <div class="navbar-links" id="navLinks">
+        <a href="index.html" class="nav-pub">Inicio</a>
+        <a href="productos.html" class="nav-pub activo">Productos</a>
+        <a href="index.html#como-funciona" class="nav-pub">¿Cómo funciona?</a>
+      </div>
+
+      <div class="navbar-acciones">
+        <a href="carrito.html" class="btn-carrito" title="Carrito">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="carrito-badge carrito-badge-nav">0</span>
+        </a>
+        <a href="login.html" class="btn-nav-login">Iniciar Sesión</a>
+        <a href="register.html" class="btn-nav-registro">Crear Cuenta</a>
+        <button class="btn-hamburguesa" id="btnHamburguesa">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-contenido">
+        <span class="hero-badge">Catálogo completo</span>
+        <h1 class="hero-titulo">
+          Explora todos los <span>productos disponibles</span>
+        </h1>
+        <p class="hero-subtitulo">
+          Filtra por categoría, disponibilidad o precio y revisa el implemento ideal antes de rentarlo.
+        </p>
+        <div class="hero-ctas">
+          <a href="#catalogo" class="btn-hero-primario">Explorar catálogo</a>
+          <a href="carrito.html" class="btn-hero-secundario">Ir al carrito</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalogo-seccion" id="catalogo">
+      <div class="seccion-contenido">
+        <div class="catalogo-encabezado">
+          <div>
+            <h2 class="seccion-titulo">Catálogo de Implementos</h2>
+            <p class="seccion-sub">Filtra y encuentra lo que necesitas</p>
+          </div>
+          <span class="total-productos">0 implementos disponibles</span>
+        </div>
+
+        <div class="filtros-bar" id="categorias">
+          <div class="buscador-catalogo">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              type="search"
+              id="buscadorCatalogo"
+              class="input-buscador-cat"
+              placeholder="Buscar implementos, categorías o descripciones"
+              aria-label="Buscar implementos"
+            />
+          </div>
+          <div class="filtros-cats">
+            <button class="btn-cat activo" data-cat="todos">Todos</button>
+            <button class="btn-cat" data-cat="futbol">
+              <i class="fa-solid fa-futbol"></i> Fútbol
+            </button>
+            <button class="btn-cat" data-cat="baloncesto">
+              <i class="fa-solid fa-basketball"></i> Baloncesto
+            </button>
+            <button class="btn-cat" data-cat="voleibol">
+              <i class="fa-solid fa-volleyball"></i> Voleibol
+            </button>
+            <button class="btn-cat" data-cat="tenis">
+              <i class="fa-solid fa-baseball"></i> Tenis
+            </button>
+            <button class="btn-cat" data-cat="atletismo">
+              <i class="fa-solid fa-person-running"></i> Atletismo
+            </button>
+            <button class="btn-cat" data-cat="gimnasio">
+              <i class="fa-solid fa-dumbbell"></i> Gimnasio
+            </button>
+            <button class="btn-cat" data-cat="natacion">
+              <i class="fa-solid fa-person-swimming"></i> Natación
+            </button>
+          </div>
+          <div class="filtros-opciones">
+            <select class="select-pub" id="filtroDisponibilidad">
+              <option value="">Disponibilidad</option>
+              <option value="disponible">Disponible</option>
+              <option value="prestado">En Renta</option>
+              <option value="mantenimiento">Mantenimiento</option>
+            </select>
+            <select class="select-pub" id="filtroPrecio">
+              <option value="">Precio</option>
+              <option value="asc">Menor precio</option>
+              <option value="desc">Mayor precio</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="productos-grid" id="productosGrid"></div>
+        <p class="estado-vacio" id="catalogoVacio" style="display: none;">
+          No hay implementos disponibles.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer-pub">
+      <div class="footer-contenido">
+        <div class="footer-marca">
+          <img src="img/logo.png" alt="Logo" class="footer-logo" />
+          <span>SportDeal FET</span>
+        </div>
+        <p class="footer-copy">
+          Cristian Casanova &copy; 2026 - FET. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>

@@ -27,13 +27,14 @@
         <span class="navbar-nombre">SportDeal</span>
       </div>
       <div class="navbar-links" id="navLinks">
-        <a href="index.html" class="nav-pub">Catálogo</a>
-        <a href="index.html#categorias" class="nav-pub">Categorías</a>
+        <a href="index.html" class="nav-pub">Inicio</a>
+        <a href="productos.html" class="nav-pub">Productos</a>
         <a href="index.html#como-funciona" class="nav-pub">¿Cómo funciona?</a>
       </div>
       <div class="navbar-acciones">
         <a href="carrito.html" class="btn-carrito" title="Carrito">
           <i class="fa-solid fa-cart-shopping"></i>
+          <span class="carrito-badge carrito-badge-nav">0</span>
         </a>
         <a href="login.html" class="btn-nav-login">Iniciar Sesión</a>
         <a href="register.html" class="btn-nav-registro">Crear Cuenta</a>
@@ -116,9 +117,13 @@
                 <label>Fecha inicio</label>
                 <input type="date" class="input-fecha" id="fechaInicio" />
               </div>
-              <div class="fecha-campo">
+              <div class="fecha-campo" id="campoFechaFin">
                 <label>Fecha fin</label>
                 <input type="date" class="input-fecha" id="fechaFin" />
+              </div>
+              <div class="fecha-campo" id="campoHoras" style="display:none;">
+                <label>Horas de renta</label>
+                <input type="number" class="input-fecha" id="horasRenta" min="1" step="1" value="1" />
               </div>
             </div>
             <div class="resumen-precio" id="resumenPrecio">

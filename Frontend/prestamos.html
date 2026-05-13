@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/prestamos.css" />
     <link rel="stylesheet" href="css/prestamosMediaQuery.css" />
+    <link rel="stylesheet" href="css/form-styles.css" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"
       crossorigin="anonymous"
@@ -31,6 +32,11 @@
       </div>
       <nav class="sidebar-nav">
         <ul>
+          <li class="nav-item">
+            <a href="index.html" class="nav-link"
+              ><i class="fa-solid fa-house"></i><span>Home</span></a
+            >
+          </li>
           <li class="nav-item">
             <a href="dashboard.html" class="nav-link"
               ><i class="fa-solid fa-chart-line"></i><span>Dashboard</span></a
@@ -84,7 +90,7 @@
 
       <div class="page-main">
         <!-- TARJETAS -->
-        <div class="prest-tarjetas">
+        <div class="impl-tarjetas prest-tarjetas">
           <div class="tarjeta-impl">
             <div class="ti-icono azul">
               <i class="fa-solid fa-clipboard-list"></i>
@@ -125,16 +131,8 @@
 
         <!-- TABLA -->
         <div class="card">
-          <div class="card-header">
-            <h3>Registro de Préstamos</h3>
-            <button class="btn-accion">
-              <i class="fa-solid fa-plus"></i> Nuevo Préstamo
-            </button>
-          </div>
-
           <div class="barra-herramientas" style="margin-bottom: 1rem">
-            <div class="buscador">
-              <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="buscador">              
               <input
                 type="text"
                 placeholder="Buscar por usuario o implemento..."
@@ -162,6 +160,7 @@
                 <tr>
                   <th>ID</th>
                   <th>Usuario</th>
+                  <th>Imagen</th>
                   <th>Implemento</th>
                   <th>Fecha Préstamo</th>
                   <th>Fecha Devolución</th>
@@ -171,16 +170,6 @@
               </thead>
               <tbody></tbody>
             </table>
-          </div>
-
-          <div class="tabla-footer">
-            <span class="tabla-info">Mostrando 0 préstamos</span>
-            <div class="paginacion">
-              <button class="btn-pag activo">1</button>
-              <button class="btn-pag">2</button>
-              <button class="btn-pag">3</button>
-              <button class="btn-pag">›</button>
-            </div>
           </div>
         </div>
       </div>

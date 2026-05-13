@@ -33,13 +33,14 @@
 
       <div class="navbar-links" id="navLinks">
         <a href="index.html" class="nav-pub activo">Inicio</a>
+        <a href="productos.html" class="nav-pub">Productos</a>
         <a href="#como-funciona" class="nav-pub">¿Cómo funciona?</a>
-        <a href="#categorias" class="nav-pub">Categorías</a>
       </div>
 
       <div class="navbar-acciones">
         <a href="carrito.html" class="btn-carrito" title="Carrito">
           <i class="fa-solid fa-cart-shopping"></i>
+          <span class="carrito-badge carrito-badge-nav">0</span>
         </a>
         <a href="login.html" class="btn-nav-login">Iniciar Sesión</a>
         <a href="register.html" class="btn-nav-registro">Crear Cuenta</a>
@@ -62,11 +63,10 @@
           por el tiempo que los uses.
         </p>
         <div class="hero-ctas">
-          <a href="#catalogo" class="btn-hero-primario">Ver Catálogo</a>
+          <a href="productos.html" class="btn-hero-primario">Ver Productos</a>
           <a href="#como-funciona" class="btn-hero-secundario"
             >¿Cómo funciona?</a
           >
-        </div>
         </div>
       </div>
     </section>
@@ -108,68 +108,6 @@
             </p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ===== CATÁLOGO ===== -->
-    <section class="catalogo-seccion" id="catalogo">
-      <div class="seccion-contenido">
-        <div class="catalogo-encabezado">
-          <div>
-            <h2 class="seccion-titulo">Catálogo de Implementos</h2>
-            <p class="seccion-sub">Filtra y encuentra lo que necesitas</p>
-          </div>
-          <span class="total-productos">0 implementos disponibles</span>
-        </div>
-
-        <!-- FILTROS -->
-        <div class="filtros-bar" id="categorias">
-          <div class="filtros-cats">
-            <button class="btn-cat activo" data-cat="todos">Todos</button>
-            <button class="btn-cat" data-cat="futbol">
-              <i class="fa-solid fa-futbol"></i> Fútbol
-            </button>
-            <button class="btn-cat" data-cat="baloncesto">
-              <i class="fa-solid fa-basketball"></i> Baloncesto
-            </button>
-            <button class="btn-cat" data-cat="voleibol">
-              <i class="fa-solid fa-volleyball"></i> Voleibol
-            </button>
-            <button class="btn-cat" data-cat="tenis">
-              <i class="fa-solid fa-baseball"></i> Tenis
-            </button>
-            <button class="btn-cat" data-cat="atletismo">
-              <i class="fa-solid fa-person-running"></i> Atletismo
-            </button>
-            <button class="btn-cat" data-cat="gimnasio">
-              <i class="fa-solid fa-dumbbell"></i> Gimnasio
-            </button>
-            <button class="btn-cat" data-cat="natacion">
-              <i class="fa-solid fa-person-swimming"></i> Natación
-            </button>
-          </div>
-          <div class="filtros-opciones">
-            <select class="select-pub" id="filtroDisponibilidad">
-              <option value="">Disponibilidad</option>
-              <option value="disponible">Disponible</option>
-              <option value="prestado">En Renta</option>
-              <option value="mantenimiento">Mantenimiento</option>
-            </select>
-            <select class="select-pub" id="filtroPrecio">
-              <option value="">Precio</option>
-              <option value="asc">Menor precio</option>
-              <option value="desc">Mayor precio</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- GRID DE PRODUCTOS -->
-        <div class="productos-grid" id="productosGrid"></div>
-        <p class="estado-vacio" id="catalogoVacio" style="display: none;">
-          No hay implementos disponibles.
-        </p>
-        <!-- fin grid -->
-
       </div>
     </section>
 

@@ -121,7 +121,7 @@
         }
 
         try {
-          const response = await usuariosAPI.registro(nombre, email, password, "EMPLEADO");
+          const response = await usuariosAPI.registro(nombre, email, password, "CLIENTE");
           if (response.id) {
             window.location.href = "cliente-dashboard.html";
           } else {
