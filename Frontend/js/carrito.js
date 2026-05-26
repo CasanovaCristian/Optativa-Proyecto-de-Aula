@@ -43,6 +43,7 @@ function actualizarItem(id, cambios) {
   carritoAPI.guardar(items);
 }
 
+// [CARRITO - CALCULAR DURACIÓN RENTA] — calcula días u horas según el tipoPeriodo del item
 function calcularDuracion(item) {
   if (item.tipoPeriodo === "hora" && Number(item.horasRenta) > 0) {
     return { unidad: "hora", cantidad: Math.max(1, Math.floor(Number(item.horasRenta))) };
@@ -57,6 +58,7 @@ function calcularDuracion(item) {
   return { unidad: "dia", cantidad: Math.ceil((msFin - msInicio) / (1000 * 60 * 60 * 24)) };
 }
 
+// [CARRITO - CALCULAR SUBTOTAL ITEM] — precio × duración × cantidad para un item del carrito
 function calcularSubtotalItem(item) {
   const duracion = calcularDuracion(item);
   const precioBase = Number(item.tipoPeriodo === "hora" ? item.precioHora : item.precioDia) || 0;
@@ -64,7 +66,11 @@ function calcularSubtotalItem(item) {
   return precioBase * factor * Number(item.cantidad || 1);
 }
 
+// [CARRITO - AGREGAR DESDE URL] — si la URL tiene ?id=X&added=1, agrega ese implemento al carrito automáticamente
 async function cargarImplementoDesdeQuerySiHaceFalta() {
+  // Protección adicional: si es ADMIN, no permitir agregar
+  if (sesion?.esAdmin?.()) return;
+
   const itemsActuales = carritoAPI.obtener();
   if (itemsActuales.length) return;
 
@@ -92,6 +98,7 @@ async function cargarImplementoDesdeQuerySiHaceFalta() {
   await ui.toast("Añadido al carrito", "success");
 }
 
+// [CARRITO - RENDERIZAR VISTA] — pinta todos los items del carrito y calcula subtotal, descuento y total
 function renderCarrito() {
   const items = carritoAPI.obtener();
   let necesitaGuardar = false;
@@ -249,12 +256,19 @@ function renderCarrito() {
   });
 }
 
+// [INICIALIZACIÓN - CARRITO] — punto de entrada de carrito.html; verifica sesión, conecta eventos del checkout
 async function initCarrito() {
   await cargarScript("js/api.js", "api");
   if (!window.sesion) return;
 
   if (!sesion.estaLogueado()) {
     window.location.href = "login.html";
+    return;
+  }
+
+  // Redirigir a ADMINs a su dashboard (no pueden acceder al carrito)
+  if (sesion.esAdmin()) {
+    window.location.href = "dashboard.html";
     return;
   }
 
@@ -272,6 +286,7 @@ async function initCarrito() {
   const btnCheckout = document.querySelector(".btn-checkout");
   if (btnCheckout) {
     btnCheckout.setAttribute("href", "#");
+    // [CARRITO - PROCESAR CHECKOUT] — valida fechas, crea un préstamo por cada item y limpia el carrito
     btnCheckout.addEventListener("click", async (e) => {
       e.preventDefault();
       const items = carritoAPI.obtener();

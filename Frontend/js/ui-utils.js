@@ -11,6 +11,7 @@ export function cerrarSidebar() {
   overlay?.classList.remove("visible");
 }
 
+// [UI - SIDEBAR ADMIN] — conecta el menú lateral del panel admin (abrir, cerrar, overlay)
 export function initSidebar() {
   const btnAbrir = document.getElementById("btnAbrirSidebar");
   const btnCerrar = document.getElementById("btnCerrarSidebar");
@@ -27,6 +28,7 @@ export function initSidebar() {
   );
 }
 
+// [UI - OBTENER INICIALES] — extrae las iniciales del nombre para mostrarlas en avatares
 export function obtenerIniciales(nombre) {
   if (!nombre) return "??";
   const partes = nombre.trim().split(/\s+/).filter(Boolean);
@@ -34,6 +36,7 @@ export function obtenerIniciales(nombre) {
   return `${partes[0][0]}${partes[1][0]}`.toUpperCase();
 }
 
+// [UI - FORMATEAR FECHA] — convierte una fecha ISO a formato legible en español (ej: 12 may. 2025)
 export function formatearFecha(fechaIso) {
   if (!fechaIso) return "-";
   const fecha = new Date(fechaIso);
@@ -45,6 +48,7 @@ export function formatearFecha(fechaIso) {
   });
 }
 
+// [UI - MODAL GENÉRICO] — construye y muestra un modal con título, cuerpo HTML y botones Cancelar/Guardar
 export function crearModal(id, titulo, contenidoHTML, onConfirm) {
   document.getElementById(id)?.remove();
 

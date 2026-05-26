@@ -4,6 +4,7 @@ function obtenerImagenImplemento(impl) {
   return impl?.imagenes?.[0] || impl?.imagenUrl || impl?.imagenBase64 || impl?.imagen || "";
 }
 
+// [IMPLEMENTOS - INICIALIZAR MÓDULO ADMIN] — punto de entrada del módulo de inventario en el panel admin
 export async function initImplementos() {
   const tarjetaValores = document.querySelectorAll(".impl-tarjetas .ti-valor");
   const buscador = document.querySelector(".buscador input");
@@ -21,7 +22,7 @@ export async function initImplementos() {
       Tenis: "fa-table-tennis-paddle-ball",
       Natacion: "fa-person-swimming",
     };
-    return mapa[(cat || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "")] || "fa-box";
+    return mapa[(cat || "").normalize("NFD").replace(/[̀-ͯ]/g, "")] || "fa-box";
   };
 
   const estadoClase = (e) =>
@@ -37,6 +38,7 @@ export async function initImplementos() {
     }
   };
 
+  // [IMPLEMENTOS - RENDERIZAR TABLA] — pinta la tabla con imagen, nombre, categoría, stock, condición y estado
   const render = (lista) => {
     if (!tbody) return;
 
@@ -70,6 +72,7 @@ export async function initImplementos() {
     });
   };
 
+  // [IMPLEMENTOS - ACTUALIZAR TARJETAS RESUMEN] — calcula totales, disponibles, en préstamo y en mantenimiento
   const actualizarTarjetas = () => {
     const totalUnidades = implementos.reduce((acc, i) => acc + Number(i.cantidadTotal || 0), 0);
     const disponibles = implementos.reduce((acc, i) => acc + Number(i.cantidadDisponible || 0), 0);
@@ -88,6 +91,7 @@ export async function initImplementos() {
     });
   };
 
+  // [IMPLEMENTOS - CARGAR DATOS DEL SERVIDOR] — trae todos los implementos del backend y actualiza la vista
   const cargar = async () => {
     implementos = await implementosAPI.obtenerTodos();
     actualizarTarjetas();
@@ -151,6 +155,7 @@ export async function initImplementos() {
   btnAgregar?.addEventListener("click", () => abrirModalImplemento(null, cargar));
 }
 
+// [IMPLEMENTOS - MODAL CREAR/EDITAR] — abre el formulario modal para crear un implemento nuevo o editar uno existente
 export function abrirModalImplemento(impl, onGuardado) {
   const esEdicion = !!impl;
   const titulo = esEdicion ? "Editar implemento" : "Agregar implemento";

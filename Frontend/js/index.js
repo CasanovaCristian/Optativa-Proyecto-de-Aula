@@ -36,7 +36,7 @@ function normalizarCategoria(texto) {
   return (texto || "")
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/\s+/g, "");
 }
 
@@ -46,9 +46,11 @@ function mapEstado(estado) {
   return                               { badge: "Mantenimiento", clase: "mantenimiento", data: "mantenimiento" };
 }
 
+// [NAVEGACIÓN - ACTUALIZAR NAVBAR PÚBLICA] — cambia los botones de la barra según si hay sesión activa o no
 function actualizarNavPublica() {
   const btnLogin    = document.querySelector(".btn-nav-login");
   const btnRegistro = document.querySelector(".btn-nav-registro");
+  const btnCarrito  = document.querySelector(".btn-carrito");
   if (!btnLogin || !btnRegistro) return;
 
   if (sesion?.estaLogueado?.()) {
@@ -59,14 +61,29 @@ function actualizarNavPublica() {
     btnRegistro.textContent = "Cerrar sesion";
     btnRegistro.href = "#";
     btnRegistro.addEventListener("click", (e) => { e.preventDefault(); authAPI.logout(); });
+
+    // Ocultar carrito para ADMINs
+    if (btnCarrito) {
+      if (usuario?.rol === "ADMIN") {
+        btnCarrito.style.display = "none";
+      } else {
+        btnCarrito.style.display = "";
+      }
+    }
   } else {
     btnLogin.textContent    = "Iniciar Sesion";
     btnLogin.href           = "login.html";
     btnRegistro.textContent = "Crear Cuenta";
     btnRegistro.href        = "register.html";
+
+    // Mostrar carrito para usuarios no logueados
+    if (btnCarrito) {
+      btnCarrito.style.display = "";
+    }
   }
 }
 
+// [CATÁLOGO - FILTRAR PRODUCTOS] — filtra las tarjetas visibles por categoría, estado y texto de búsqueda
 function aplicarFiltros() {
   const catActiva = document.querySelector(".btn-cat.activo")?.dataset?.cat || "todos";
   const estado    = filtroDisp?.value || "";
@@ -119,6 +136,7 @@ buscadorCatalogo?.addEventListener("input", aplicarFiltros);
 
 filtroPrecio?.addEventListener("change", aplicarFiltros);
 
+// [CATÁLOGO - CARGAR PRODUCTOS] — trae todos los implementos del backend y los pinta como tarjetas en la página pública
 async function initCatalogo() {
   if (!productosGrid) return;
 
@@ -165,8 +183,9 @@ async function initCatalogo() {
     const imagenSrc = impl.imagenes?.[0] || impl.imagenUrl || impl.imagenBase64 || impl.imagen || "";
 
     const disponible  = impl.estado === "DISPONIBLE";
-    // Si está logueado va al detalle; si no, al login
-    const accionHref  = sesion.estaLogueado() ? `producto.html?id=${impl.id}` : "login.html";
+    const esAdmin     = sesion?.esAdmin?.() || false;
+    // Si es ADMIN, mostrar mensaje; si está logueado va al detalle; si no, al login
+    const accionHref  = esAdmin ? "#" : (sesion.estaLogueado() ? `producto.html?id=${impl.id}` : "login.html");
 
     articulo.innerHTML = `
       <div class="tp-imagen">
@@ -186,9 +205,11 @@ async function initCatalogo() {
         </div>
         <div class="tp-acciones">
           <a href="producto.html?id=${impl.id}" class="btn-ver-detalle">Ver detalle</a>
-          ${disponible
-            ? `<a href="${accionHref}" class="btn-rentar">Rentar <i class="fa-solid fa-arrow-right"></i></a>`
-            : `<button class="btn-rentar deshabilitado" disabled>No disponible</button>`}
+          ${esAdmin
+            ? `<button class="btn-rentar deshabilitado" disabled title="Los administradores no pueden rentar">Solo para clientes</button>`
+            : (disponible
+              ? `<a href="${accionHref}" class="btn-rentar">Rentar <i class="fa-solid fa-arrow-right"></i></a>`
+              : `<button class="btn-rentar deshabilitado" disabled>No disponible</button>`)}
         </div>
       </div>
     `;
@@ -199,6 +220,7 @@ async function initCatalogo() {
   aplicarFiltros();
 }
 
+// [INICIALIZACIÓN - PÁGINA PÚBLICA] — punto de entrada de index.html; carga sesión y el catálogo
 async function initPaginaPublica() {
   await cargarScript("js/api.js", "api");
   actualizarNavPublica();

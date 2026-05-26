@@ -8,10 +8,7 @@ function normalizarRolUsuario(usuario) {
   };
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SESIÓN — guarda solo el usuario en localStorage (sin tokens)
-// ─────────────────────────────────────────────────────────────────────────────
-
+// [GESTIÓN DE SESIÓN] — guarda el usuario en localStorage; helpers de rol y login
 const sesion = {
   getUsuario:    () => normalizarRolUsuario(JSON.parse(localStorage.getItem("usuario") || "null")),
   guardar:       (usuario) => localStorage.setItem("usuario", JSON.stringify(normalizarRolUsuario(usuario))),
@@ -21,6 +18,7 @@ const sesion = {
   esCliente:     () => normalizarRolUsuario(JSON.parse(localStorage.getItem("usuario") || "null"))?.rol === "CLIENTE",
 };
 
+// [CARRITO - API LOCAL] — operaciones sobre el carrito almacenado en localStorage
 const carritoAPI = {
   clave: "carrito",
   obtener: () => JSON.parse(localStorage.getItem("carrito") || "[]"),
@@ -54,6 +52,7 @@ function obtenerCantidadCarrito() {
   return carritoAPI.obtener().reduce((acc, item) => acc + Number(item.cantidad || 1), 0);
 }
 
+// [CARRITO - ACTUALIZAR CONTADOR] — actualiza el número del badge del carrito en la navbar
 function actualizarContadorCarrito() {
   const cantidad = obtenerCantidadCarrito();
   const nodos = document.querySelectorAll(
@@ -84,20 +83,24 @@ if (document.readyState === "loading") {
   actualizarContadorCarrito();
 }
 
+// [AUTENTICACIÓN - VERIFICAR SESIÓN] — si no hay sesión activa, redirige a login.html
 function requerirAuth() {
   if (!sesion.estaLogueado()) window.location.href = "login.html";
 }
 
+// [AUTENTICACIÓN - VERIFICAR ROL ADMIN] — si el usuario no es ADMIN, redirige a 403.html
 function requerirAdmin() {
   requerirAuth();
   if (!sesion.esAdmin()) window.location.href = "403.html";
 }
 
+// [AUTENTICACIÓN - VERIFICAR ROL CLIENTE] — si el usuario no es CLIENTE, redirige a 403.html
 function requerirCliente() {
   requerirAuth();
   if (!sesion.esCliente()) window.location.href = "403.html";
 }
 
+// [CERRAR SESIÓN - BOTÓN LOGOUT] — conecta todos los botones .btn-salir con la función de logout
 function conectarLogout(selector = ".btn-salir, .scli-salir") {
   document.querySelectorAll(selector).forEach((btn) => {
     btn.addEventListener("click", async (e) => {
@@ -107,6 +110,7 @@ function conectarLogout(selector = ".btn-salir, .scli-salir") {
   });
 }
 
+// [API - PETICIÓN HTTP BASE] — función central para todas las llamadas REST al backend
 async function apiRequest(path, options = {}) {
   const {
     method = "GET",
@@ -135,6 +139,7 @@ async function apiRequest(path, options = {}) {
   return data;
 }
 
+// [MANEJO DE ERRORES HTTP] — convierte códigos de estado HTTP en mensajes legibles
 function obtenerMensajeError(status) {
   switch (status) {
     case 400: return "Solicitud inválida. Revisa los datos enviados.";
@@ -147,10 +152,7 @@ function obtenerMensajeError(status) {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// UI — SweetAlert2 (carga dinámica)
-// ─────────────────────────────────────────────────────────────────────────────
-
+// [UI - CARGAR SWEETALERT2] — carga la librería de alertas dinámicamente si no está disponible
 let _swalPromise = null;
 
 function cargarSweetAlert() {
@@ -174,6 +176,7 @@ function cargarSweetAlert() {
 }
 
 const ui = {
+  // [UI - TOAST NOTIFICACIÓN] — muestra una notificación pequeña en la esquina superior derecha
   async toast(mensaje, tipo = "success") {
     try {
       await cargarSweetAlert();
@@ -185,6 +188,7 @@ const ui = {
     } catch { alert(mensaje); }
   },
 
+  // [UI - ALERTA MODAL] — muestra un cuadro de alerta con ícono, título y mensaje
   async alert(titulo, mensaje = "", tipo = "info") {
     try {
       await cargarSweetAlert();
@@ -192,6 +196,7 @@ const ui = {
     } catch { alert(`${titulo}\n${mensaje}`); }
   },
 
+  // [UI - CONFIRMACIÓN MODAL] — muestra un cuadro Sí/No; devuelve true si el usuario confirma
   async confirm(titulo, mensaje = "", opciones = {}) {
     const { confirmText = "Sí, continuar", cancelText = "Cancelar", tipo = "warning" } = opciones;
     try {
@@ -206,10 +211,9 @@ const ui = {
   }
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// AUTH API
-// ─────────────────────────────────────────────────────────────────────────────
-
+// [AUTENTICACIÓN - INICIAR SESIÓN] — llama a POST /api/usuarios/login y guarda la sesión
+// [AUTENTICACIÓN - REGISTRAR USUARIO] — llama a POST /api/usuarios/registro y guarda la sesión
+// [AUTENTICACIÓN - CERRAR SESIÓN] — limpia localStorage y redirige a login.html
 const authAPI = {
   async login(email, password) {
     const usuario = await apiRequest("/usuarios/login", {
@@ -237,10 +241,7 @@ const authAPI = {
   }
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// USUARIOS API
-// ─────────────────────────────────────────────────────────────────────────────
-
+// [USUARIOS - API REST] — métodos: login, registro, crear, obtenerTodos, obtenerPorId, actualizar, eliminar, obtenerPorRol
 const usuariosAPI = {
   login:          (email, password)  => authAPI.login(email, password),
   registro:       (n, e, p, r)       => authAPI.register(n, e, p, r),
@@ -253,10 +254,7 @@ const usuariosAPI = {
   obtenerActivos: ()                 => apiRequest("/usuarios/activos/listar"),
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// IMPLEMENTOS API
-// ─────────────────────────────────────────────────────────────────────────────
-
+// [IMPLEMENTOS - API REST] — métodos: obtenerTodos, obtenerPorId, crear, actualizar, eliminar, buscar, obtenerPorCategoria
 const implementosAPI = {
   obtenerTodos:       ()          => apiRequest("/implementos"),
   obtenerPorId:       (id)        => apiRequest(`/implementos/${id}`),
@@ -268,10 +266,7 @@ const implementosAPI = {
   buscar:             (nombre)    => apiRequest(`/implementos/buscar/${nombre}`),
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// PRÉSTAMOS API
-// ─────────────────────────────────────────────────────────────────────────────
-
+// [PRÉSTAMOS - API REST] — métodos: obtenerTodos, crear, registrarDevolucion, eliminar, obtenerPorUsuario, obtenerPorImplemento
 const prestamosAPI = {
   obtenerTodos:        ()           => apiRequest("/prestamos"),
   obtenerPorId:        (id)         => apiRequest(`/prestamos/${id}`),

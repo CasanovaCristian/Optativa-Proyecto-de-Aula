@@ -1,5 +1,6 @@
 import { crearModal, formatearFecha, obtenerIniciales } from "./ui-utils.js";
 
+// [USUARIOS - INICIALIZAR MÓDULO ADMIN] — punto de entrada del módulo de usuarios en el panel admin
 export async function initUsuarios() {
   const tbody = document.querySelector(".tabla-datos tbody");
   const tarjetaValores = document.querySelectorAll(".user-tarjetas .ti-valor");
@@ -9,6 +10,7 @@ export async function initUsuarios() {
   let usuarios = [];
   let prestamos = [];
 
+  // [USUARIOS - CARGAR DATOS DEL SERVIDOR] — trae todos los usuarios y préstamos del backend en paralelo
   const cargar = async () => {
     [usuarios, prestamos] = await Promise.all([
       usuariosAPI.obtenerTodos(),
@@ -33,6 +35,7 @@ export async function initUsuarios() {
     return mapa;
   };
 
+  // [USUARIOS - RENDERIZAR TABLA] — pinta la tabla con nombre, email, rol, estado activo y cantidad de préstamos
   const render = (lista) => {
     if (!tbody) return;
     const conteo = prestamosPorUsuario();
@@ -130,6 +133,7 @@ export async function initUsuarios() {
   btnAgregar?.addEventListener("click", () => abrirModalUsuario(null, cargar));
 }
 
+// [USUARIOS - MODAL CREAR/EDITAR] — abre el formulario modal para crear un usuario nuevo o editar uno existente
 export function abrirModalUsuario(usuario, onGuardado) {
   const esEdicion = !!usuario;
   const titulo = esEdicion ? "Editar usuario" : "Agregar usuario";

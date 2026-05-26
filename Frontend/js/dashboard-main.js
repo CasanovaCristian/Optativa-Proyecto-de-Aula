@@ -50,6 +50,7 @@ function obtenerImagenImplemento(impl) {
   );
 }
 
+// [DASHBOARD - CARGAR MÉTRICAS] — carga implementos, usuarios y préstamos; llena las tarjetas de resumen del dashboard
 async function initDashboard() {
   const tarjetaValores = document.querySelectorAll(
     ".seccion-tarjetas .tarjeta-valor",
@@ -106,6 +107,7 @@ async function initDashboard() {
   renderTablaPrestamosDashboard(prestamos);
 }
 
+// [DASHBOARD - TABLA IMPLEMENTOS] — muestra los primeros 8 implementos en la tabla resumen del dashboard
 function renderTablaImplementosDashboard(implementos) {
   const tbody = document.querySelector(".tabla-card .tabla-datos tbody");
   if (!tbody) return;
@@ -140,10 +142,11 @@ function renderTablaImplementosDashboard(implementos) {
       <td>${impl.cantidadDisponible}</td>
       <td><span class="estado ${cls}">${impl.estado.replace("_", " ")}</span></td>
     `;
-    tbody.appendChild(fila);  
+    tbody.appendChild(fila);
   });
 }
 
+// [DASHBOARD - TABLA PRÉSTAMOS RECIENTES] — muestra los 10 préstamos más recientes ordenados por fecha
 function renderTablaPrestamosDashboard(prestamos) {
   const tbody = document.querySelector(".tabla-prestamos-dashboard tbody");
   if (!tbody) return;
@@ -202,6 +205,7 @@ function renderTablaPrestamosDashboard(prestamos) {
   });
 }
 
+// [DASHBOARD - INICIALIZAR PANEL ADMIN] — punto de entrada del área admin; verifica rol, conecta logout y despacha a cada módulo según la página
 export async function iniciarAdmin() {
   initSidebar();
   try {

@@ -10,6 +10,7 @@ function obtenerImagenImplemento(impl) {
   );
 }
 
+// [PRÉSTAMOS - RENDERIZAR ACTIVOS EN DASHBOARD] — muestra los 6 préstamos activos más próximos a vencer
 export function renderPrestamosActivos(prestamos) {
   const lista = document.querySelector(".lista-prestamos-rapidos");
   if (!lista) return;
@@ -41,6 +42,7 @@ export function renderPrestamosActivos(prestamos) {
   });
 }
 
+// [PRÉSTAMOS - INICIALIZAR MÓDULO ADMIN] — punto de entrada del módulo de préstamos en el panel admin
 export async function initPrestamos() {
   const tbody = document.querySelector(".tabla-datos tbody");
   const tarjetaValores = document.querySelectorAll(".prest-tarjetas .ti-valor");
@@ -49,6 +51,7 @@ export async function initPrestamos() {
   let prestamos = [];
   let implementosCargados = [];
 
+  // [PRÉSTAMOS - CARGAR DATOS DEL SERVIDOR] — trae préstamos e implementos del backend en paralelo
   const cargar = async () => {
     const [data, implementos] = await Promise.all([
       prestamosAPI.obtenerTodos(),
@@ -69,6 +72,7 @@ export async function initPrestamos() {
     render(prestamos, implementosCargados);
   };
 
+  // [PRÉSTAMOS - RENDERIZAR TABLA] — pinta la tabla con usuario, implemento, fechas, estado y acciones
   const render = (lista, implementos = []) => {
     if (!tbody) return;
     tbody.innerHTML = !lista.length
@@ -163,6 +167,7 @@ export async function initPrestamos() {
       return;
     }
 
+    // [PRÉSTAMOS - REGISTRAR DEVOLUCIÓN] — marca el préstamo como devuelto y actualiza el stock del implemento
     if (action === "devolver") {
       const ok = await ui.confirm(
         "Registrar devolución",

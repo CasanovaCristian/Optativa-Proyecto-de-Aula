@@ -35,6 +35,7 @@ const campoFechaFin = document.getElementById("campoFechaFin");
 const campoHoras    = document.getElementById("campoHoras");
 const resumenPrecio = document.getElementById("resumenPrecio");
 
+// [PRODUCTO - CAMBIAR MODO PERIODO] — muestra el campo de fecha fin o el de horas según el tipo seleccionado
 function actualizarModoPeriodo() {
   const esHora = tipoPeriodo === "hora";
   if (campoFechaFin) campoFechaFin.style.display = esHora ? "none" : "flex";
@@ -44,6 +45,7 @@ function actualizarModoPeriodo() {
 
 actualizarModoPeriodo();
 
+// [PRODUCTO - CALCULAR TOTAL RENTA] — muestra el precio estimado en tiempo real según fechas u horas ingresadas
 function calcularTotal() {
   const inicio = fechaInicio?.value;
   const fin    = fechaFin?.value;
@@ -118,6 +120,7 @@ function mapEstado(estado) {
 function actualizarNavPublica() {
   const btnLogin    = document.querySelector(".btn-nav-login");
   const btnRegistro = document.querySelector(".btn-nav-registro");
+  const btnCarrito  = document.querySelector(".btn-carrito");
   if (!btnLogin || !btnRegistro) return;
 
   if (sesion?.estaLogueado?.()) {
@@ -128,14 +131,29 @@ function actualizarNavPublica() {
     btnRegistro.textContent = "Cerrar sesion";
     btnRegistro.href        = "#";
     btnRegistro.addEventListener("click", (e) => { e.preventDefault(); authAPI.logout(); });
+
+    // Ocultar carrito para ADMINs
+    if (btnCarrito) {
+      if (usuario?.rol === "ADMIN") {
+        btnCarrito.style.display = "none";
+      } else {
+        btnCarrito.style.display = "";
+      }
+    }
   } else {
     btnLogin.textContent    = "Iniciar Sesion";
     btnLogin.href           = "login.html";
     btnRegistro.textContent = "Crear Cuenta";
     btnRegistro.href        = "register.html";
+
+    // Mostrar carrito para usuarios no logueados
+    if (btnCarrito) {
+      btnCarrito.style.display = "";
+    }
   }
 }
 
+// [PRODUCTO - CARGAR DETALLE] — carga los datos del implemento desde ?id=X en la URL y los pinta en la página
 async function initProducto() {
   try {
     await cargarScript("js/api.js", "api");
@@ -155,11 +173,29 @@ async function initProducto() {
 
   if (btnRentar) {
     btnRentar.setAttribute("href", "#");
+
+    // Verificar si es ADMIN y deshabilitar botón
+    if (sesion.estaLogueado() && sesion.esAdmin()) {
+      btnRentar.style.opacity = "0.5";
+      btnRentar.style.cursor = "not-allowed";
+      btnRentar.style.pointerEvents = "none";
+      if (aviso) {
+        aviso.style.display = "block";
+        aviso.innerHTML = '<i class="fa-solid fa-circle-info"></i> Como administrador, no puedes rentar implementos. Solo los clientes pueden acceder al carrito.';
+      }
+    }
+
     btnRentar.addEventListener("click", async (e) => {
       e.preventDefault();
 
       if (!sesion.estaLogueado()) {
         window.location.href = "login.html";
+        return;
+      }
+
+      // Verificación adicional: si es ADMIN, no permitir agregar
+      if (sesion.esAdmin()) {
+        await ui.alert("Acceso denegado", "Los administradores no pueden rentar implementos. Esta funcionalidad es solo para clientes.", "error");
         return;
       }
 
@@ -206,6 +242,7 @@ async function initProducto() {
         }
       }
 
+      // [CARRITO - AGREGAR IMPLEMENTO] — empaqueta el implemento con fechas y precios y lo pasa al carritoAPI
       carritoAPI.agregar({
         id: implementoActual.id,
         nombre: implementoActual.nombre,
@@ -226,7 +263,16 @@ async function initProducto() {
   }
 
   if (sesion.estaLogueado()) {
-    if (aviso) aviso.style.display = "none";
+    if (sesion.esAdmin()) {
+      // Si es ADMIN, mostrar aviso de restricción
+      if (aviso) {
+        aviso.style.display = "block";
+        aviso.innerHTML = '<i class="fa-solid fa-circle-info"></i> Como administrador, no puedes rentar implementos. Solo los clientes pueden acceder al carrito.';
+      }
+    } else {
+      // Si es CLIENTE, ocultar el aviso de inicio de sesión
+      if (aviso) aviso.style.display = "none";
+    }
   }
 
   if (!id) return;
@@ -239,7 +285,7 @@ async function initProducto() {
 
     const { badge, clase } = mapEstado(impl.estado);
     const categoria        = impl.categoria || "Implemento";
-    const catNorm          = categoria.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const catNorm          = categoria.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
     const categoriaIcono   = catNorm === "futbol" ? "fa-futbol" : "fa-basketball";
 
     document.title = `${impl.nombre} | SportDeal FET`;
@@ -277,7 +323,7 @@ async function initProducto() {
       barra.style.width = `${mapa[impl.condicion] || 60}%`;
     }
 
-    //Galería 
+    //Galería
     const galGrande = document.querySelector(".galeria-img-grande");
     const galMini   = document.querySelector(".galeria-miniaturas");
 

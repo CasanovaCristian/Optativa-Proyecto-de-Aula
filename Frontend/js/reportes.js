@@ -19,6 +19,7 @@ function obtenerImagenImplemento(implemento) {
   return `data:image/jpeg;base64,${raw}`;
 }
 
+// [REPORTES - INICIALIZAR MÓDULO ESTADÍSTICAS] — calcula y muestra préstamos del año, del mes, implemento más prestado y promedio de días
 export async function initReportes() {
   const tarjetas = document.querySelectorAll(".rep-tarjetas .ti-valor");
   const listaTop = document.querySelector(".lista-top");
