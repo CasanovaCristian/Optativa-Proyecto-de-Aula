@@ -156,7 +156,7 @@ export function abrirModalUsuario(usuario, onGuardado) {
       </div>
       <div>
         <label style="color:var(--text-secondary,#aaa); font-size:.85rem; display:block; margin-bottom:.4rem;">Contraseña *</label>
-        <input id="mu-password" type="password" placeholder="Mínimo 6 caracteres"
+        <input id="mu-password" type="password" placeholder="Mínimo 8 caracteres, una mayúscula, un número y un catacter especial"
           style="width:100%; padding:.6rem .8rem; border-radius:8px; border:1px solid var(--border,#333);
                  background:var(--bg-input,#111827); color:var(--text-primary,#fff); box-sizing:border-box;">
       </div>
